@@ -1,0 +1,135 @@
+@use "../Topbar/Topbar.scss";
+@use "../../variables";
+
+.searchbar {
+  @extend .topbar;
+  height: 13vh;
+  border-bottom: none;
+  .searchbar__inner {
+    @extend .topbar__inner;
+
+    .searchbar__left {
+      margin-left: 1rem;
+    }
+
+    .searchbar__middle {
+      border-radius: 5px;
+      padding: 5px;
+      height: 5vh;
+      display: flex;
+      align-items: center;
+
+      input {
+        outline: none;
+        border: none;
+        width: 350px;
+        height: 4vh;
+
+        &:focus {
+          &::-webkit-input-placeholder {
+            transition: opacity 0.45s ease;
+            opacity: 0;
+          }
+          &::-moz-placeholder {
+            transition: opacity 0.45s ease;
+            opacity: 0;
+          }
+          &:-ms-placeholder {
+            transition: opacity 0.45s ease;
+            opacity: 0;
+          }
+        }
+      }
+      button {
+        height: 3vh;
+        background-color: white;
+        border: none;
+        :nth-child(1) {
+          font-size: 20px;
+          cursor: pointer;
+
+          &:hover {
+            color: darken($color: variables.$gray, $amount: 20%);
+          }
+        }
+      }
+    }
+
+    .searchbar__right {
+      display: flex;
+      margin-right: 1rem;
+      gap: 2rem;
+
+      span {
+        font-size: 28px;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.show {
+  transition: all 0.3s linear;
+
+  display: block !important;
+}
+.dropdown {
+  display: none;
+  color: white;
+  background: black;
+  position: absolute;
+  transform: translateX(-50%);
+  z-index: 3;
+  padding: 0.5rem;
+  border-radius: 5px;
+  transition: all 0.3s linear;
+  border: 1px solid black;
+  font-size: 0.8rem;
+
+  &:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid black;
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+.cart {
+  &:before {
+    font-size: 0.8rem;
+    content: attr(count);
+    color: white;
+    position: absolute;
+    top: -4px;
+    right: -15px;
+    border-radius: 50px;
+    background-color: black;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.out_focus {
+  border: 1px solid variables.$gray;
+}
+
+.in_focus {
+  border: 1px solid darken($color: variables.$gray, $amount: 20%);
+  transition: 0.35s ease;
+}
+
+@media screen and (max-width: 1025px) {
+  .searchbar {
+    display: flex;
+  }
+}

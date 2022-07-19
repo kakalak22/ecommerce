@@ -1,0 +1,48 @@
+@use "../Topbar/Topbar.scss";
+
+.navbar {
+  @extend .topbar;
+  height: 7vh;
+  background-color: black;
+  font-weight: 600;
+  .navbar__inner {
+    @extend .topbar__inner;
+    color: white;
+    ul {
+      display: flex;
+      gap: 4rem;
+      list-style-type: none;
+
+      li {
+        display: inline-block;
+        cursor: pointer;
+        div {
+          display: flex;
+          gap: 0.3rem;
+          padding: 10px;
+          span {
+            display: flex;
+            align-items: flex-end;
+          }
+        }
+        &::after {
+          content: "";
+          width: 0px;
+          height: 2px;
+          display: block;
+          background: white;
+          transition: 500ms;
+        }
+        &:hover::after {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1025px) {
+  .navbar {
+    display: flex;
+  }
+}

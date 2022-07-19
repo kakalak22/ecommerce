@@ -1,0 +1,63 @@
+@use "../Topbar/Topbar.scss";
+@use "../../variables";
+
+.submenu {
+  @extend .topbar;
+  position: absolute;
+  background-color: white;
+  visibility: hidden;
+  height: 50vh;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0;
+  .submenu__inner {
+    max-width: 1200px;
+    width: 100%;
+    .submenu__grid {
+      height: 100%;
+      display: grid;
+      grid-template-columns: auto auto auto auto auto auto;
+      grid-gap: 10px;
+      padding: 10px;
+      div {
+        text-align: center;
+        padding: 10px 0;
+        font-size: 15px;
+        ul {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+          list-style-type: none;
+          align-items: flex-start;
+
+          li {
+            padding: 8px;
+            cursor: pointer;
+            width: 100%;
+            text-align: start;
+            &:hover {
+              background-color: lighten($color: variables.$gray, $amount: 15%);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.active {
+  visibility: visible !important;
+  opacity: 1;
+  animation: fade-in 1s;
+  z-index: 2;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

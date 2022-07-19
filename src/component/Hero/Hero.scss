@@ -1,0 +1,105 @@
+@use "../Topbar/Topbar.scss";
+@use "../../variables";
+
+.hero {
+  @extend .topbar;
+  height: 70vh;
+  background: rgba(208, 198, 198, 0.1) !important;
+}
+.hero__inner {
+  @extend .topbar__inner;
+  display: flex !important;
+  gap: 10rem;
+  justify-content: center;
+  height: 60vh;
+
+  .hero__left {
+    width: 50%;
+    margin-left: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    h1 {
+      transition: ease 700ms;
+      font-size: 50px;
+      font-weight: 500;
+    }
+  }
+  .btn {
+    font-size: 20px;
+    font-weight: 500;
+    border-radius: 70px;
+    padding: 10px;
+    width: 120px;
+    cursor: pointer;
+
+    &:hover {
+      color: white;
+      background-color: black;
+      transform: scale(1.1);
+      transition: ease-out 500ms;
+      font-weight: 600;
+    }
+  }
+
+  .hero__right {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 1rem;
+    img {
+      width: 100%;
+      max-width: 500px;
+      height: 100%;
+      max-height: 500px;
+    }
+  }
+}
+
+/*custom slicker css*/
+
+.slick-slider {
+  display: flex !important;
+  justify-content: center;
+  background: rgb(0, 0, 0, 0.1) !important;
+}
+
+.slick-list {
+  max-width: 1200px;
+  width: 100%;
+}
+
+.slick-slide {
+  z-index: -1;
+}
+
+.slick-active {
+  z-index: 1;
+}
+
+.slick-prev {
+  left: 20px !important;
+  @extend .slick-next;
+}
+
+.slick-next {
+  right: 60px !important;
+  color: darken($color: variables.$gray, $amount: 40%) !important;
+  background: lighten($color: variables.$gray, $amount: 25%) !important;
+  transform: scale(1.5) !important;
+  padding: 5px !important;
+  border-radius: 100%;
+
+  &:hover {
+    transition: ease-out 500ms all;
+    transform: scale(1.8) !important;
+    color: lighten($color: variables.$gray, $amount: 15%) !important;
+    background: darken($color: variables.$gray, $amount: 40%) !important;
+  }
+}
+
+.slick-dots li button:before {
+  margin-top: 1rem;
+  font-size: 15px !important;
+}
