@@ -1,0 +1,68 @@
+@use "../Topbar/Topbar.scss";
+@use "../../variables.scss";
+.collection {
+  @extend .topbar;
+  font-family: variables.$font;
+  height: 30vh;
+  margin-top: 10rem;
+  flex-direction: column;
+  align-items: center;
+  border-bottom: none;
+
+  h1 {
+    font-size: 40px;
+  }
+  .collection__inner {
+    max-width: 1200px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    .item__wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 2rem;
+      width: 220px;
+      height: 264px;
+      cursor: pointer;
+      .item {
+        max-width: 200px;
+        width: 100%;
+        max-height: 200px;
+        height: 100%;
+        border-radius: 100%;
+        background-color: lighten($color: variables.$gray, $amount: 15%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .item__image {
+          width: 170px;
+        }
+        &:hover {
+          transform: scale(1.05);
+          transition: ease-out 200ms;
+          .item__image {
+            transform: scale(0.9);
+            transition: ease-in 200ms;
+          }
+        }
+      }
+
+      p {
+        font-size: 20px;
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1115px) {
+  .collection {
+    height: 80vh;
+    .collection__inner {
+      grid-template-columns: auto auto;
+      justify-items: center;
+    }
+  }
+}

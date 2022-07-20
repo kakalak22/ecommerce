@@ -4,6 +4,8 @@ import Searchbar from './component/Searchbar/Searchbar';
 import Topbar from './component/Topbar/Topbar';
 import Hero from './component/Hero/Hero';
 import Cards from './component/Cards/Cards';
+import Collection from './component/Collection/Collection';
+import WeekHighlight from './component/Week_highlight/WeekHighlight';
 
 function App() {
   return (
@@ -13,6 +15,8 @@ function App() {
       <Navbar />
       <Hero />
       <Cards />
+      <Collection />
+      <WeekHighlight />
     </div>
   );
 }
