@@ -2,54 +2,68 @@
 @use "../../variables";
 
 .searchbar {
-  @extend .topbar;
-  height: 11vh;
+  @extend .layout;
+  height: 100px;
   border-bottom: none;
   .searchbar__inner {
-    @extend .topbar__inner;
+    @extend .layout__inner;
 
     .searchbar__left {
-      margin-left: 1rem;
+      margin-left: 2rem;
+      & > :nth-child(1) {
+        cursor: pointer;
+        display: none;
+
+        &:hover {
+          transform: scale(1.6);
+          transition: all 500ms ease;
+        }
+      }
     }
 
     .searchbar__middle {
-      border-radius: 5px;
-      padding: 5px;
-      height: 3vh;
-      display: flex;
-      align-items: center;
-
-      input {
-        outline: none;
-        border: none;
-        width: 350px;
+      img {
+        display: none;
+      }
+      .searchbar__middle__form {
+        border-radius: 5px;
+        padding: 5px;
         height: 3vh;
+        display: flex;
+        align-items: center;
 
-        &:focus {
-          &::-webkit-input-placeholder {
-            transition: opacity 0.45s ease;
-            opacity: 0;
-          }
-          &::-moz-placeholder {
-            transition: opacity 0.45s ease;
-            opacity: 0;
-          }
-          &:-ms-placeholder {
-            transition: opacity 0.45s ease;
-            opacity: 0;
+        input {
+          outline: none;
+          border: none;
+          width: 350px;
+          height: 3vh;
+
+          &:focus {
+            &::-webkit-input-placeholder {
+              transition: opacity 0.45s ease;
+              opacity: 0;
+            }
+            &::-moz-placeholder {
+              transition: opacity 0.45s ease;
+              opacity: 0;
+            }
+            &:-ms-placeholder {
+              transition: opacity 0.45s ease;
+              opacity: 0;
+            }
           }
         }
-      }
-      button {
-        height: 3vh;
-        background-color: white;
-        border: none;
-        :nth-child(1) {
-          font-size: 20px;
-          cursor: pointer;
+        button {
+          height: 3vh;
+          background-color: white;
+          border: none;
+          :nth-child(1) {
+            font-size: 20px;
+            cursor: pointer;
 
-          &:hover {
-            color: darken($color: variables.$gray, $amount: 20%);
+            &:hover {
+              color: darken($color: variables.$gray, $amount: 20%);
+            }
           }
         }
       }
@@ -57,8 +71,13 @@
 
     .searchbar__right {
       display: flex;
-      margin-right: 1rem;
+      margin-right: 3rem;
       gap: 2rem;
+
+      & > :nth-child(2) {
+        display: none;
+        // visibility: hidden;
+      }
 
       span {
         font-size: 28px;
@@ -129,8 +148,45 @@
   transition: 0.35s ease;
 }
 
-@media screen and (max-width: 1025px) {
+@media screen and (max-width: 1024px) {
   .searchbar {
     display: flex;
+    height: 60px;
+    .searchbar__inner {
+      .searchbar__left {
+        & > :nth-child(1) {
+          display: block;
+          transform: scale(1.4);
+        }
+
+        img {
+          display: none;
+        }
+      }
+      .searchbar__middle {
+        img {
+          display: block;
+          transform: scale(0.7);
+        }
+        .searchbar__middle__form {
+          display: none;
+        }
+      }
+
+      .searchbar__right {
+        & > :nth-child(2) {
+          display: block;
+        }
+        & > :nth-child(3) {
+          display: none;
+        }
+        & > :nth-child(4) {
+          display: none;
+        }
+        & > :nth-child(5) {
+          display: none;
+        }
+      }
+    }
   }
 }

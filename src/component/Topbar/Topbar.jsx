@@ -10,7 +10,7 @@ import {
 
 const Topbar = () => {
   return (
-    <div className="topbar">
+    <div className="topbar" style={{ borderBottom: "1px solid #ccc8c8" }}>
       <div className="topbar__inner">
         <div className="topbar__left">
           <AiOutlineInstagram />

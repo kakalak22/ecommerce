@@ -1,0 +1,67 @@
+@use "../Topbar/Topbar.scss";
+@use "../../variables.scss";
+
+.policy {
+  @extend .layout;
+  height: 400px;
+  .policy__inner {
+    @extend .layout__inner;
+    .policy__inner__left {
+      width: 30%;
+      text-align: center;
+      & > :nth-child(1) {
+        font-size: 4em;
+      }
+
+      & > :nth-child(2) {
+        font-size: 1.6em;
+      }
+      & > :nth-child(3) {
+        font-size: 1em;
+        color: darken($color: variables.$gray, $amount: 20%);
+        height: 2rem;
+      }
+    }
+
+    .policy__inner__middle {
+      @extend .policy__inner__left;
+    }
+
+    .policy__inner__right {
+      @extend .policy__inner__left;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .policy {
+    height: 300px;
+    .policy__inner {
+      flex-direction: column;
+      justify-content: center;
+      gap: 1rem;
+      .policy__inner__left {
+        width: 90%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+
+        & > :nth-child(1) {
+          font-size: 3em;
+        }
+
+        & > :nth-child(2) {
+          font-size: 1.3em;
+          width: 140px;
+        }
+        & > :nth-child(3) {
+          font-size: 0.9em;
+          color: darken($color: variables.$gray, $amount: 20%);
+          height: 2rem;
+          width: 330px;
+        }
+      }
+    }
+  }
+}

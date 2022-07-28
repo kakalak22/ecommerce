@@ -4,6 +4,7 @@ const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
     const [isSubmenuOpen, setIsSubmenuOpen] = useState(false);
+    const [isSidemenuOpen, setIsSidemenuOpen] = useState(false);
 
     const openSubmenu = () => {
         setIsSubmenuOpen(true);
@@ -13,10 +14,27 @@ export const AppProvider = ({ children }) => {
         setIsSubmenuOpen(false);
     }
 
+    const openSidemenu = () => {
+        const body = document.body;
+        body.style.height = "100vh";
+        body.style.overflowY = "hidden";
+        setIsSidemenuOpen(true);
+    }
+
+    const closeSidemenu = () => {
+        const body = document.body;
+        body.style.height = "";
+        body.style.overflowY = "";
+        setIsSidemenuOpen(false);
+    }
+
     const obj = {
         isSubmenuOpen,
         openSubmenu,
-        closeSubmenu
+        closeSubmenu,
+        isSidemenuOpen,
+        openSidemenu,
+        closeSidemenu,
     }
 
     return <AppContext.Provider value={obj}>{children}</AppContext.Provider>

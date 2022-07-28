@@ -2,11 +2,11 @@
 @use "../../variables";
 
 .submenu {
-  @extend .topbar;
+  @extend .layout;
   position: absolute;
   background-color: white;
   visibility: hidden;
-  height: 50vh;
+  height: 500px;
   flex-direction: column;
   align-items: center;
   opacity: 0;
@@ -45,7 +45,7 @@
   }
 }
 
-.active {
+.submenu__active {
   visibility: visible !important;
   opacity: 1;
   animation: fade-in 1s;

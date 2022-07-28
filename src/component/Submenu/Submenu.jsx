@@ -8,7 +8,7 @@ const Submenu = () => {
   return (
     <div
       onMouseLeave={closeSubmenu}
-      className={isSubmenuOpen ? "submenu active" : "submenu "}
+      className={isSubmenuOpen ? "submenu submenu__active" : "submenu "}
     >
       <div className="submenu__inner">
         <div className="submenu__grid">

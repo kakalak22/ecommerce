@@ -2,25 +2,25 @@
 @use "../../variables";
 
 .hero {
-  @extend .topbar;
-  height: 70vh;
+  @extend .layout;
+  height: 90vh;
   background: rgba(208, 198, 198, 0.1) !important;
 }
 .hero__inner {
-  @extend .topbar__inner;
+  @extend .layout__inner;
   display: flex !important;
   gap: 10rem;
   justify-content: center;
   height: 60vh;
 
   .hero__left {
+    height: 100%;
     width: 50%;
     margin-left: 1rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     h1 {
-      transition: ease 700ms;
       font-size: 50px;
       font-weight: 500;
     }
@@ -44,6 +44,7 @@
 
   .hero__right {
     width: 50%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -62,7 +63,6 @@
 .slick-slider {
   display: flex !important;
   justify-content: center;
-  background: rgb(0, 0, 0, 0.1) !important;
 }
 
 .slick-list {
@@ -79,12 +79,13 @@
 }
 
 .slick-prev {
-  left: 20px !important;
+  left: 30px !important;
   @extend .slick-next;
 }
 
 .slick-next {
-  right: 60px !important;
+  right: 30px !important;
+  z-index: 1;
   color: darken($color: variables.$gray, $amount: 40%) !important;
   background: lighten($color: variables.$gray, $amount: 25%) !important;
   transform: scale(1.5) !important;
@@ -102,4 +103,41 @@
 .slick-dots li button:before {
   margin-top: 1rem;
   font-size: 15px !important;
+}
+
+@media screen and (max-width: 768px) {
+  .hero__inner {
+    flex-direction: column-reverse;
+    height: 70vh;
+    gap: 2rem;
+    align-items: center;
+
+    .hero__left {
+      height: 50%;
+      width: 100%;
+      margin: 1rem;
+      align-items: center;
+      text-align: center;
+    }
+
+    .hero__right {
+      height: 50%;
+      width: 100%;
+      margin: 1rem;
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .hero__inner {
+    height: 80vh;
+    .hero__left {
+      h1 {
+        font-size: 40px;
+      }
+      .btn {
+        transform: scale(0.9);
+      }
+    }
+  }
 }

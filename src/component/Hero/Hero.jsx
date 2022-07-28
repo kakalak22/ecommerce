@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Slider from "react-slick";
 
 import { AiOutlineArrowRight, AiOutlineArrowLeft } from "react-icons/ai";
@@ -47,11 +47,19 @@ const Hero = () => {
     slidesToScroll: 1,
     fade: true,
     centerMode: true,
-    nextArrow: <NextArrow />,
+    nextArrow: <NextArrow style={{ right: "-50px !important" }} />,
     prevArrow: <PrevArrow />,
   };
+
+  useEffect(() => {
+    const nextArrow = document.getElementsByClassName("slick-next");
+    nextArrow[0].style.right = "20px";
+    const prevArrow = document.getElementsByClassName("slick-prev");
+    prevArrow[0].style.left = "20px";
+  }, []);
+
   return (
-    <Slider {...settings}>
+    <Slider {...settings} style={{ background: "rgb(0, 0, 0, 0.1)" }}>
       {parts.map((part, index) => (
         <div className="hero__inner" key={index}>
           <div className="hero__left">

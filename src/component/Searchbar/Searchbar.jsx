@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Searchbar.scss";
 import { BiSearch } from "react-icons/bi";
 import { BsArrowDownUp } from "react-icons/bs";
+import { GiHamburgerMenu } from "react-icons/gi";
 import {
   AiOutlineUser,
   AiOutlineStar,
@@ -9,10 +10,11 @@ import {
 } from "react-icons/ai";
 import Logo from "../../asset/images/logo.png";
 import Dropdown from "./Dropdown";
+import SideBar from "../Sidebar/Sidebar";
 import { useGlobalContext } from "../../Context";
 
 const Searchbar = () => {
-  const { closeSubmenu } = useGlobalContext();
+  const { closeSubmenu, openSidemenu, isSidemenuOpen } = useGlobalContext();
   const [isFocus, setIsFocus] = useState(false);
   const [location, setLocation] = useState({ left: null, top: null });
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -23,6 +25,7 @@ const Searchbar = () => {
   const displaySearchInputOutline = isFocus ? " in_focus" : "out_focus";
 
   const icons = [
+    { icon: <BiSearch />, name: "Search", count: null },
     { icon: <AiOutlineUser />, name: "Account", count: null },
     { icon: <AiOutlineStar />, name: "Wishlist", count: wishListTotal },
     { icon: <BsArrowDownUp />, name: "Compare", count: null },
@@ -38,51 +41,60 @@ const Searchbar = () => {
   };
 
   return (
-    <div className="searchbar" onMouseEnter={closeSubmenu}>
-      <div className="searchbar__inner">
-        <div className="searchbar__left">
-          <img src={Logo} alt="logo" />
-        </div>
-        <form className={`searchbar__middle ${displaySearchInputOutline}`}>
-          <input
-            type="text"
-            placeholder="Search products"
-            onFocus={() => setIsFocus(true)}
-            onBlur={() => setIsFocus(false)}
-          />
-          <button>
-            <BiSearch />
-          </button>
-        </form>
-        <div className="searchbar__right">
-          <Dropdown
-            isDropdownOpen={isDropdownOpen}
-            location={location}
-            name={name}
-          />
+    <React.Fragment>
+      <SideBar />
+      <div className="searchbar" onMouseEnter={closeSubmenu}>
+        <div className="searchbar__inner">
+          <div className="searchbar__left">
+            <GiHamburgerMenu onClick={openSidemenu} />
+            <img src={Logo} alt="logo" />
+          </div>
+          <div className="searchbar__middle">
+            <form
+              className={`searchbar__middle__form ${displaySearchInputOutline}`}
+            >
+              <input
+                type="text"
+                placeholder="Search products"
+                onFocus={() => setIsFocus(true)}
+                onBlur={() => setIsFocus(false)}
+              />
+              <button>
+                <BiSearch />
+              </button>
+            </form>
+            <img src={Logo} alt="logo" />
+          </div>
+          <div className="searchbar__right">
+            <Dropdown
+              isDropdownOpen={isDropdownOpen}
+              location={location}
+              name={name}
+            />
 
-          {icons.map(({ icon, name, count }, index) => {
-            return (
-              <span key={index} onMouseEnter={() => setName(name)}>
-                <div
-                  className={count !== null ? "cart" : ""}
-                  count={count}
-                  style={{
-                    width: "25px",
-                    height: "25px",
-                    position: "relative",
-                  }}
-                  onMouseEnter={(event) => handleSubmenu(event)}
-                  onMouseLeave={() => setIsDropdownOpen(false)}
-                >
-                  {icon}
-                </div>
-              </span>
-            );
-          })}
+            {icons.map(({ icon, name, count }, index) => {
+              return (
+                <span key={index} onMouseEnter={() => setName(name)}>
+                  <div
+                    className={count !== null ? "cart" : ""}
+                    count={count}
+                    style={{
+                      width: "25px",
+                      height: "25px",
+                      position: "relative",
+                    }}
+                    onMouseEnter={(event) => handleSubmenu(event)}
+                    onMouseLeave={() => setIsDropdownOpen(false)}
+                  >
+                    {icon}
+                  </div>
+                </span>
+              );
+            })}
+          </div>
         </div>
       </div>
-    </div>
+    </React.Fragment>
   );
 };
 

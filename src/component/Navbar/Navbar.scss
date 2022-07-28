@@ -1,12 +1,12 @@
 @use "../Topbar/Topbar.scss";
 
 .navbar {
-  @extend .topbar;
-  height: 7vh;
+  @extend .layout;
+  height: 70px;
   background-color: black;
   font-weight: 600;
   .navbar__inner {
-    @extend .topbar__inner;
+    @extend .layout__inner;
     color: white;
     ul {
       display: flex;
@@ -41,8 +41,8 @@
   }
 }
 
-@media screen and (max-width: 1025px) {
+@media screen and (max-width: 1024px) {
   .navbar {
-    display: flex;
+    display: none;
   }
 }

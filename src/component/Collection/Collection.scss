@@ -1,10 +1,9 @@
 @use "../Topbar/Topbar.scss";
 @use "../../variables.scss";
 .collection {
-  @extend .topbar;
+  @extend .layout;
   font-family: variables.$font;
-  height: 30vh;
-  margin-top: 10rem;
+  height: 300px;
   flex-direction: column;
   align-items: center;
   border-bottom: none;
@@ -15,7 +14,6 @@
   .collection__inner {
     max-width: 1200px;
     width: 100%;
-    display: grid;
     grid-template-columns: auto auto auto auto auto;
     .item__wrapper {
       display: flex;
@@ -59,10 +57,9 @@
 
 @media screen and (max-width: 1115px) {
   .collection {
-    height: 80vh;
+    height: 300px;
     .collection__inner {
-      grid-template-columns: auto auto;
-      justify-items: center;
+      height: 300px;
     }
   }
 }
