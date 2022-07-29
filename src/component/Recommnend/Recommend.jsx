@@ -1,6 +1,7 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper";
+import { useSwiper } from "swiper/react";
 
 import { GrNext, GrPrevious } from "react-icons/gr";
 
@@ -65,8 +66,22 @@ const Recommend = () => {
     },
   ];
 
-  const prevRef = useRef(null);
-  const nextRef = useRef(null);
+  const SwiperButtonNext = () => {
+    const swiper = useSwiper();
+    return (
+      <div className="nextArrow" onClick={() => swiper.slideNext()}>
+        <GrNext />
+      </div>
+    );
+  };
+  const SwiperButtonPrev = () => {
+    const swiper = useSwiper();
+    return (
+      <div className="prevArrow" onClick={() => swiper.slidePrev()}>
+        <GrPrevious />
+      </div>
+    );
+  };
 
   return (
     <React.Fragment>
@@ -74,20 +89,13 @@ const Recommend = () => {
       <div className="recommend">
         <div className="recommend__inner">
           <Swiper
-            onInit={(swiper) => {
-              swiper.params.navigation.prevEl = prevRef.current;
-              swiper.params.navigation.nextEl = nextRef.current;
-              swiper.navigation.init();
-              swiper.navigation.update();
-            }}
             modules={[Navigation, Pagination]}
             pagination={true}
-            // navigation={true}
             slidesPerView={4}
             // spaceBetween={65}
             onSlideChange={() => console.log("slide change")}
-            onSwiper={(swiper) => console.log(swiper)}
             // centeredSlides={true}
+            autoplay={true}
             breakpoints={{
               // when window width is >= 320px
               320: {
@@ -114,13 +122,9 @@ const Recommend = () => {
                 <SingleItem key={index} part={part} />
               </SwiperSlide>
             ))}
+            <SwiperButtonPrev />
+            <SwiperButtonNext />
           </Swiper>
-          <div className="prevArrow" ref={prevRef}>
-            <GrPrevious />
-          </div>
-          <div className="nextArrow" ref={nextRef}>
-            <GrNext />
-          </div>
         </div>
       </div>
     </React.Fragment>

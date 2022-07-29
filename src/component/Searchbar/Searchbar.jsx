@@ -12,9 +12,11 @@ import Logo from "../../asset/images/logo.png";
 import Dropdown from "./Dropdown";
 import SideBar from "../Sidebar/Sidebar";
 import { useGlobalContext } from "../../Context";
+import Cart from "../Cart/Cart";
 
 const Searchbar = () => {
-  const { closeSubmenu, openSidemenu, isSidemenuOpen } = useGlobalContext();
+  const { closeSubmenu, openSidemenu, isSidemenuOpen, openCart } =
+    useGlobalContext();
   const [isFocus, setIsFocus] = useState(false);
   const [location, setLocation] = useState({ left: null, top: null });
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -29,7 +31,11 @@ const Searchbar = () => {
     { icon: <AiOutlineUser />, name: "Account", count: null },
     { icon: <AiOutlineStar />, name: "Wishlist", count: wishListTotal },
     { icon: <BsArrowDownUp />, name: "Compare", count: null },
-    { icon: <AiOutlineShoppingCart />, name: "Cart", count: cartTotal },
+    {
+      icon: <AiOutlineShoppingCart onClick={openCart} />,
+      name: "Cart",
+      count: cartTotal,
+    },
   ];
 
   const handleSubmenu = (event) => {
@@ -43,6 +49,7 @@ const Searchbar = () => {
   return (
     <React.Fragment>
       <SideBar />
+      <Cart />
       <div className="searchbar" onMouseEnter={closeSubmenu}>
         <div className="searchbar__inner">
           <div className="searchbar__left">
@@ -73,6 +80,31 @@ const Searchbar = () => {
             />
 
             {icons.map(({ icon, name, count }, index) => {
+              // if (name === "Cart") {
+              //   console.log("helo");
+              //   return (
+              //     <span
+              //       key={index}
+              //       onMouseEnter={() => setName(name)}
+              //       onClick={openCart}
+              //     >
+              //       <div
+              //         className={count !== null ? "cart" : ""}
+              //         count={count}
+              //         style={{
+              //           width: "25px",
+              //           height: "25px",
+              //           position: "relative",
+              //         }}
+              //         onMouseEnter={(event) => handleSubmenu(event)}
+              //         onMouseLeave={() => setIsDropdownOpen(false)}
+              //       >
+              //         {icon}
+              //       </div>
+              //     </span>
+              //   );
+              // }
+
               return (
                 <span key={index} onMouseEnter={() => setName(name)}>
                   <div

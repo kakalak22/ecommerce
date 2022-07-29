@@ -14,7 +14,7 @@
 
     .subscribe {
       width: 40%;
-      margin-left: 1rem;
+      margin-left: 6rem;
 
       .header__container {
         display: flex;
@@ -121,8 +121,8 @@
   }
 
   .footer__copyright {
-    width: 100%;
     max-width: 1200px;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -146,19 +146,25 @@
 
 @media screen and (max-width: 1024px) {
   .footer {
-    height: 450px;
+    height: 700px;
     .footer__inner {
       flex-direction: column;
       justify-content: flex-start;
       align-items: flex-start;
+      align-content: space-around;
       flex-wrap: wrap;
-      height: 350px;
+      height: 600px;
+
+      .contact {
+        margin-top: 0;
+      }
 
       .subscribe {
+        margin-left: 1rem;
         form {
-          width: 250px;
+          width: 250px !important;
           input {
-            width: 170px;
+            width: 170px !important;
           }
         }
       }
@@ -168,20 +174,21 @@
 
 @media screen and (max-width: 768px) {
   .footer {
-    max-height: 900px;
+    max-height: 950px;
     height: 100%;
+    min-height: 450px;
     .footer__inner {
       flex-direction: column;
       justify-content: flex-start;
       align-items: flex-start;
       flex-wrap: nowrap;
-      max-height: 860px;
+      max-height: 900px;
       height: 100%;
 
       .information {
         padding: 0rem;
         margin-top: 0rem;
-        margin-left: 1rem;
+        margin-left: 2rem;
         width: 90%;
         display: flex;
         flex-direction: column;
@@ -241,6 +248,7 @@
 
       .subscribe {
         width: 90%;
+        margin-left: 2rem;
 
         .header__container {
           & > :nth-child(2) {
@@ -254,11 +262,7 @@
           transition: all 0.5s ease;
 
           form {
-            width: 250px;
             margin-top: 2rem;
-            input {
-              width: 170px;
-            }
           }
         }
         .active {
@@ -285,7 +289,7 @@
       .footer__copyright__right {
         display: flex;
         align-items: center;
-        width: 90%;
+        width: 75%;
       }
     }
   }

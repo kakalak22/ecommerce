@@ -5,6 +5,8 @@ const AppContext = createContext();
 export const AppProvider = ({ children }) => {
     const [isSubmenuOpen, setIsSubmenuOpen] = useState(false);
     const [isSidemenuOpen, setIsSidemenuOpen] = useState(false);
+    const [isCartOpen, setIsCartOpen] = useState(false);
+
 
     const openSubmenu = () => {
         setIsSubmenuOpen(true);
@@ -28,6 +30,20 @@ export const AppProvider = ({ children }) => {
         setIsSidemenuOpen(false);
     }
 
+    const openCart = () => {
+        const body = document.body;
+        body.style.height = "100vh";
+        body.style.overflowY = "hidden";
+        setIsCartOpen(true);
+    }
+
+    const closeCart = () => {
+        const body = document.body;
+        body.style.height = "";
+        body.style.overflowY = "";
+        setIsCartOpen(false);
+    }
+
     const obj = {
         isSubmenuOpen,
         openSubmenu,
@@ -35,6 +51,9 @@ export const AppProvider = ({ children }) => {
         isSidemenuOpen,
         openSidemenu,
         closeSidemenu,
+        isCartOpen,
+        openCart,
+        closeCart
     }
 
     return <AppContext.Provider value={obj}>{children}</AppContext.Provider>

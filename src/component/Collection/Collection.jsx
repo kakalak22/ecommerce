@@ -49,25 +49,20 @@ const Collection = () => {
           onSwiper={(swiper) => console.log(swiper)}
           // centeredSlides={true}
           breakpoints={{
-            // when window width is >= 320px
             320: {
               slidesPerView: 1,
             },
-            // when window width is >= 480px
             480: {
               slidesPerView: 2,
             },
             640: {
               slidesPerView: 3,
             },
-            // when window width is >= 766px
             851: {
               slidesPerView: 4,
             },
-            // when window width is >= 1160px
             1160: {
               slidesPerView: 5,
-              // spaceBetween: 65,
             },
           }}
         >
