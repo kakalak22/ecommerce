@@ -9,7 +9,7 @@ import {
   AiOutlineShoppingCart,
 } from "react-icons/ai";
 import Logo from "../../asset/images/logo.png";
-import Dropdown from "./Dropdown";
+import Dropdown from "../Dropdown/Dropdown";
 import SideBar from "../Sidebar/Sidebar";
 import { useGlobalContext } from "../../Context";
 import Cart from "../Cart/Cart";
@@ -77,6 +77,7 @@ const Searchbar = () => {
               isDropdownOpen={isDropdownOpen}
               location={location}
               name={name}
+              nameOfClass={"dropdown"}
             />
 
             {icons.map(({ icon, name, count }, index) => {

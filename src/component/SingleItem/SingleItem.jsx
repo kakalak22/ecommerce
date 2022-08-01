@@ -1,29 +1,60 @@
-import React from "react";
+import React, { useState } from "react";
 import "./SingleItem.scss";
 
-import {
-  AiOutlineStar,
-  AiOutlineShoppingCart,
-  AiOutlineArrowRight,
-  AiOutlineArrowLeft,
-} from "react-icons/ai";
+import { BsArrowDownUp } from "react-icons/bs";
+import { AiOutlineStar, AiOutlineEye } from "react-icons/ai";
+import { useGlobalContext } from "../../Context";
 
 const SingleItem = ({ part }) => {
   const { image1, image2, name, price, discountedPrice } = part;
+  const {
+    openDropdown,
+    closeDropdown,
+    handleLocationChange,
+    handleSideNameChange,
+  } = useGlobalContext();
+
+  const handleSidenameLocation = (event) => {
+    const { left, right, top } = event.target.getBoundingClientRect();
+    const dropDownCenter = left - 45;
+    const subMenuBottom = top + window.pageYOffset;
+    console.log(left, right, top);
+    handleLocationChange(dropDownCenter, subMenuBottom);
+    openDropdown();
+  };
+
   return (
     <div className="item">
       <div className="image__container">
         <div className="button__container">
           <div className="button__top">
             <div className="button__top__inner">
-              <button>
+              <button
+                onMouseEnter={(event) => {
+                  handleSidenameLocation(event);
+                  handleSideNameChange("Wish List");
+                }}
+                onMouseLeave={closeDropdown}
+              >
                 <AiOutlineStar />
               </button>
-              <button>
-                <AiOutlineStar />
+              <button
+                onMouseEnter={(event) => {
+                  handleSidenameLocation(event);
+                  handleSideNameChange("Compare");
+                }}
+                onMouseLeave={closeDropdown}
+              >
+                <BsArrowDownUp />
               </button>
-              <button>
-                <AiOutlineStar />
+              <button
+                onMouseEnter={(event) => {
+                  handleSidenameLocation(event);
+                  handleSideNameChange("Quick View");
+                }}
+                onMouseLeave={closeDropdown}
+              >
+                <AiOutlineEye />
               </button>
             </div>
           </div>

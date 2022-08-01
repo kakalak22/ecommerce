@@ -1,18 +1,22 @@
 import React from "react";
 import { useEffect, useRef } from "react";
-import "./Searchbar.scss";
+import "./Dropdown.scss";
 
-const Dropdown = ({ isDropdownOpen, location, name }) => {
+const Dropdown = ({ isDropdownOpen, location, name, nameOfClass }) => {
   const dropdown = useRef(null);
 
   useEffect(() => {
     dropdown.current.style.left = `${location.left}px`;
     dropdown.current.style.top = `${location.top}px`;
-  }, [isDropdownOpen]);
+    if (location.left === null) {
+      dropdown.current.style.left = "";
+      dropdown.current.style.top = "";
+    }
+  }, [isDropdownOpen, location]);
 
   return (
     <div
-      className={isDropdownOpen ? "dropdown show" : "dropdown"}
+      className={isDropdownOpen ? `${nameOfClass} show` : nameOfClass}
       ref={dropdown}
     >
       {name}

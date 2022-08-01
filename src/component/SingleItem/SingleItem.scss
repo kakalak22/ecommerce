@@ -55,7 +55,7 @@
             &:hover {
               background-color: black;
               color: white;
-              transition: all 300ms ease-in;
+              transition: all 300ms ease-out;
             }
           }
         }
@@ -151,7 +151,7 @@
           .button__top__inner {
             right: 15px;
             visibility: visible;
-            transition: all 300ms ease;
+            transition: all 200ms ease;
           }
         }
         .button__bottom {

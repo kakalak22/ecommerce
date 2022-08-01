@@ -87,39 +87,6 @@
   }
 }
 
-.show {
-  transition: all 0.3s linear;
-
-  display: block !important;
-}
-.dropdown {
-  display: none;
-  color: white;
-  background: black;
-  position: absolute;
-  transform: translateX(-50%);
-  z-index: 3;
-  padding: 0.5rem;
-  border-radius: 5px;
-  transition: all 0.3s linear;
-  border: 1px solid black;
-  font-size: 0.8rem;
-
-  &:before {
-    content: "";
-    display: block;
-    width: 0;
-    height: 0;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-bottom: 5px solid black;
-    position: absolute;
-    top: -5px;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-}
-
 .cart {
   &:before {
     font-size: 0.8rem;
