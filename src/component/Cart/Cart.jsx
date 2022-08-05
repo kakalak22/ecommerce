@@ -1,16 +1,39 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
+import * as services from "../../services/fakeItemsService";
 
 import "./Cart.scss";
 import Pc from "../../asset/images/hero.jpg";
 import { useGlobalContext } from "../../Context";
 
 const Cart = () => {
-  const { isCartOpen, closeCart } = useGlobalContext();
+  const {
+    isCartOpen,
+    closeCart,
+    cart,
+    calculateTotalSub,
+    handleIncreaseQuantity,
+    handleDecreaseQuantity,
+    handleQuantityInputChange,
+    removeItemInCart,
+  } = useGlobalContext();
+  const cartRef = useRef(null);
+  const total = calculateTotalSub();
+
+  const handleCartClose = () => {
+    closeCart();
+    cartRef.current.style.top = `0px`;
+  };
+
+  useEffect(() => {
+    const height = window.pageYOffset;
+    cartRef.current.style.top = `${height}px`;
+  }, [cart]);
 
   return (
-    <div className="cart__container">
+    <div className="cart__container" ref={cartRef}>
       <div
+        onClick={handleCartClose}
         className={isCartOpen ? "cart__left cart__left__active" : "cart__left"}
       ></div>
       <div
@@ -19,107 +42,50 @@ const Cart = () => {
         }
       >
         <h2>Shopping Cart</h2>
-        <AiOutlineClose onClick={closeCart} />
+        <AiOutlineClose onClick={handleCartClose} />
 
         <div className="cart__items">
-          <div className="cart__item">
-            <div className="cart__item__left">
-              <img src={Pc} alt="" />
-            </div>
-            <div className="cart__item__right">
-              <h3>Highend PC</h3>
-              <p>$59</p>
-              <div className="quantity__control">
-                <div className="quatity">
-                  <button>-</button>
-                  <input type="text" />
-                  <button>+</button>
-                </div>
-                <div className="remove">
-                  <p>Remove</p>
+          {cart.map(({ item, quantity }) => (
+            <div className="cart__item" key={item.id}>
+              <div className="cart__item__left">
+                <img src={item.image1} alt="" />
+              </div>
+              <div className="cart__item__right">
+                <h3>{item.name}</h3>
+                <p>{item.discountedPrice}$</p>
+                <div className="quantity__control">
+                  <div className="quatity">
+                    <button onClick={() => handleDecreaseQuantity(item.id)}>
+                      -
+                    </button>
+                    <input
+                      type="text"
+                      onChange={(event) =>
+                        handleQuantityInputChange(event, item.id)
+                      }
+                      value={quantity}
+                    />
+                    <button onClick={() => handleIncreaseQuantity(item.id)}>
+                      +
+                    </button>
+                  </div>
+                  <div
+                    className="remove"
+                    onClick={() => removeItemInCart(item.id)}
+                  >
+                    <p>Remove</p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div className="cart__item">
-            <div className="cart__item__left">
-              <img src={Pc} alt="" />
-            </div>
-            <div className="cart__item__right">
-              <h3>Highend PC</h3>
-              <p>$59</p>
-              <div className="quantity__control">
-                <div className="quatity">
-                  <button>-</button>
-                  <input type="text" />
-                  <button>+</button>
-                </div>
-                <div className="remove">
-                  <p>Remove</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="cart__item">
-            <div className="cart__item__left">
-              <img src={Pc} alt="" />
-            </div>
-            <div className="cart__item__right">
-              <h3>Highend PC</h3>
-              <p>$59</p>
-              <div className="quantity__control">
-                <div className="quatity">
-                  <button>-</button>
-                  <input type="text" />
-                  <button>+</button>
-                </div>
-                <div className="remove">
-                  <p>Remove</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="cart__item">
-            <div className="cart__item__left">
-              <img src={Pc} alt="" />
-            </div>
-            <div className="cart__item__right">
-              <h3>Highend PC</h3>
-              <p>$59</p>
-              <div className="quantity__control">
-                <div className="quatity">
-                  <button>-</button>
-                  <input type="text" />
-                  <button>+</button>
-                </div>
-                <div className="remove">
-                  <p>Remove</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="cart__item">
-            <div className="cart__item__left">
-              <img src={Pc} alt="" />
-            </div>
-            <div className="cart__item__right">
-              <h3>Highend PC</h3>
-              <p>$59</p>
-              <div className="quantity__control">
-                <div className="quatity">
-                  <button>-</button>
-                  <input type="text" />
-                  <button>+</button>
-                </div>
-                <div className="remove">
-                  <p>Remove</p>
-                </div>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
 
         <div className="cart__bottom">
+          <div className="subtotal">
+            <p>Subtotal:</p>
+            <span>{total}$</span>
+          </div>
           <button> Check Out </button>
           <a href="#">View Cart</a>
         </div>

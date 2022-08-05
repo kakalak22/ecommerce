@@ -2,7 +2,7 @@
 
 .item {
   //   background-color: lighten($color: variables.$gray, $amount: 15%);
-  border-radius: 10px;
+  border-radius: 5px;
   max-height: 340px;
   height: 100%;
   max-width: 240px;
@@ -14,8 +14,8 @@
   position: relative;
 
   .image__container {
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     max-width: 240px;
     width: 100%;
     max-height: 240px;
@@ -70,7 +70,7 @@
           left: 60px;
           width: 120px;
           height: 35px;
-          border-radius: 10px;
+          border-radius: 5px;
           visibility: hidden;
           font-size: 0.9em;
           font-weight: 700;
@@ -98,11 +98,12 @@
         width: 100%;
         max-height: 240px;
         height: 100%;
-        border-radius: 10px;
+        border-radius: 5px;
       }
 
       .bottom {
-        border-radius: 10px;
+        transition: opacity 0.6s ease-in-out;
+        border-radius: 5px;
         height: 240px;
         max-width: 240px;
         width: 100%;
@@ -117,7 +118,7 @@
     align-items: center;
     max-height: 100px;
     height: 100%;
-    border-radius: 10px;
+    border-radius: 5px;
     text-align: center;
     .title {
       height: 60px;
@@ -149,16 +150,16 @@
       .button__container {
         .button__top {
           .button__top__inner {
-            right: 15px;
+            transform: translateX(-20px);
             visibility: visible;
-            transition: all 200ms ease;
+            transition: all 100ms ease;
           }
         }
         .button__bottom {
           button {
             visibility: visible;
             transition: all 300ms ease;
-            bottom: 15px;
+            transform: translateY(-20px);
           }
         }
       }
@@ -177,7 +178,7 @@
   }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 768px) {
   .item {
     .image__container {
       .button__container {

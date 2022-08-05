@@ -1,6 +1,8 @@
 @use "../../variables.scss";
 @use "../Topbar/Topbar.scss";
 .cart__container {
+  top: 0;
+  position: absolute;
   width: 100vw;
 
   .cart__right {
@@ -26,7 +28,8 @@
     }
 
     .cart__items {
-      max-height: calc(63vh);
+      // max-height: calc(80vh);
+      height: 60vh;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
@@ -85,6 +88,7 @@
             }
             .remove {
               text-decoration: underline;
+              cursor: pointer;
             }
           }
         }
@@ -92,14 +96,30 @@
     }
 
     .cart__bottom {
-      height: 30vh;
+      height: 40vh;
       background-color: whitesmoke;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
-      gap: 2rem;
+      gap: 1rem;
+
+      .subtotal {
+        max-width: 500px;
+        width: 100%;
+        margin-left: 2rem;
+        font-size: 1.5em;
+        display: flex;
+        align-items: center;
+        gap: 1em;
+
+        p {
+          text-decoration: underline;
+        }
+      }
+
       button {
+        margin-bottom: 0.5rem;
         width: 70%;
         padding: 1em;
         border-radius: 30px;
@@ -121,7 +141,7 @@
     }
   }
   .cart__right__active {
-    right: 0px;
+    transform: translateX(-600px);
   }
   .cart__left {
     opacity: 0;

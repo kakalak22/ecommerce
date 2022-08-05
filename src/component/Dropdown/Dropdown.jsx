@@ -9,7 +9,7 @@ const Dropdown = ({ isDropdownOpen, location, name, nameOfClass }) => {
     dropdown.current.style.left = `${location.left}px`;
     dropdown.current.style.top = `${location.top}px`;
     if (location.left === null) {
-      dropdown.current.style.left = "";
+      dropdown.current.style.left = "-50px";
       dropdown.current.style.top = "";
     }
   }, [isDropdownOpen, location]);

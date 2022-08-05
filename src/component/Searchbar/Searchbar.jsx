@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Searchbar.scss";
 import { BiSearch } from "react-icons/bi";
 import { BsArrowDownUp } from "react-icons/bs";
@@ -12,10 +12,9 @@ import Logo from "../../asset/images/logo.png";
 import Dropdown from "../Dropdown/Dropdown";
 import SideBar from "../Sidebar/Sidebar";
 import { useGlobalContext } from "../../Context";
-import Cart from "../Cart/Cart";
 
 const Searchbar = () => {
-  const { closeSubmenu, openSidemenu, isSidemenuOpen, openCart } =
+  const { closeSubmenu, openSidemenu, isSidemenuOpen, openCart, cart } =
     useGlobalContext();
   const [isFocus, setIsFocus] = useState(false);
   const [location, setLocation] = useState({ left: null, top: null });
@@ -25,6 +24,13 @@ const Searchbar = () => {
   const [wishListTotal, setWishListTotal] = useState(1);
 
   const displaySearchInputOutline = isFocus ? " in_focus" : "out_focus";
+
+  useEffect(() => {
+    const newCartTotal = cart.reduce((current, next) => {
+      return current + next.quantity;
+    }, 0);
+    setCartTotal(newCartTotal);
+  });
 
   const icons = [
     { icon: <BiSearch />, name: "Search", count: null },
@@ -49,7 +55,6 @@ const Searchbar = () => {
   return (
     <React.Fragment>
       <SideBar />
-      <Cart />
       <div className="searchbar" onMouseEnter={closeSubmenu}>
         <div className="searchbar__inner">
           <div className="searchbar__left">

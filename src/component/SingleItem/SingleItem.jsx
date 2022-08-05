@@ -5,18 +5,22 @@ import { BsArrowDownUp } from "react-icons/bs";
 import { AiOutlineStar, AiOutlineEye } from "react-icons/ai";
 import { useGlobalContext } from "../../Context";
 
-const SingleItem = ({ part }) => {
-  const { image1, image2, name, price, discountedPrice } = part;
+const SingleItem = ({ item }) => {
+  const { image1, image2, name, price, discountedPrice, id } = item;
   const {
     openDropdown,
     closeDropdown,
     handleLocationChange,
     handleSideNameChange,
+    openModal,
+    handleSingleItemChange,
+    handleCart,
+    openCart,
   } = useGlobalContext();
 
   const handleSidenameLocation = (event) => {
     const { left, right, top } = event.target.getBoundingClientRect();
-    const dropDownCenter = left - 45;
+    const dropDownCenter = left - 60;
     const subMenuBottom = top + window.pageYOffset;
     console.log(left, right, top);
     handleLocationChange(dropDownCenter, subMenuBottom);
@@ -53,13 +57,24 @@ const SingleItem = ({ part }) => {
                   handleSideNameChange("Quick View");
                 }}
                 onMouseLeave={closeDropdown}
+                onClick={() => {
+                  openModal();
+                  handleSingleItemChange(item);
+                }}
               >
                 <AiOutlineEye />
               </button>
             </div>
           </div>
           <div className="button__bottom">
-            <button>Quick Add</button>
+            <button
+              onClick={() => {
+                handleCart(id, item);
+                openCart();
+              }}
+            >
+              Quick Add
+            </button>
           </div>
         </div>
         <div className="image">
