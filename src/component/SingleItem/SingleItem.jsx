@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./SingleItem.scss";
 
 import { BsArrowDownUp } from "react-icons/bs";
@@ -26,9 +27,9 @@ const SingleItem = ({ item }) => {
     handleLocationChange(dropDownCenter, subMenuBottom);
     openDropdown();
   };
-
+  let navigate = useNavigate();
   return (
-    <div className="item">
+    <div className="item" onClick={() => navigate(`/products/${id}`)}>
       <div className="image__container">
         <div className="button__container">
           <div className="button__top">

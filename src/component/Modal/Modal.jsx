@@ -25,6 +25,7 @@ const Modal = ({ singleItem }) => {
 
   return (
     <div className="modal__container" ref={modal}>
+      1
       <div className="modal">
         <AiOutlineClose onClick={closeModal} />
         <div className="modal__left">

@@ -12,20 +12,16 @@ import Cart from "../component/Cart/Cart";
 import { useGlobalContext } from "../Context";
 
 const Home = () => {
-  const { isModalOpen, singleItem } = useGlobalContext();
-
   return (
     <React.Fragment>
       <Hero />
       <Cards />
       <Collection />
-      {isModalOpen && <Modal singleItem={singleItem} />}
       <WeekHighlight />
       <Discount />
       <Recommend />
       <Section />
       <Policy />
-      <Cart />
     </React.Fragment>
   );
 };

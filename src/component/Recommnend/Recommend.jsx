@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useId } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper";
 import { useSwiper } from "swiper/react";
@@ -14,7 +14,9 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css";
 
-const Recommend = () => {
+const Recommend = (props) => {
+  const { title } = props;
+  const id = useId();
   const [recommendItems, setRecommendItems] = useState([]);
 
   useEffect(() => {
@@ -41,7 +43,7 @@ const Recommend = () => {
 
   return (
     <React.Fragment>
-      <h1 style={{ fontSize: "40px", textAlign: "center" }}>Hot Sale</h1>
+      <h1 style={{ fontSize: "40px", textAlign: "center" }}>{title}</h1>
       <div className="recommend">
         <div className="recommend__inner">
           <Swiper
@@ -66,8 +68,8 @@ const Recommend = () => {
             }}
           >
             {recommendItems.map((item, index) => (
-              <SwiperSlide>
-                <SingleItem key={index} item={item} />
+              <SwiperSlide key={`${id}-${index}`}>
+                <SingleItem item={item} />
               </SwiperSlide>
             ))}
             <SwiperButtonPrev />

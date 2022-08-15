@@ -3,12 +3,12 @@
 @use "../Modal/Modal.scss";
 .item-detail {
   @extend .layout;
-  height: 60vh;
+  height: 600px;
   align-items: center;
   .item-detail__inner {
     @extend .layout__inner;
     display: flex;
-    height: 50vh;
+    height: 500px;
     .inner__left {
       width: 60%;
       height: 500px;
@@ -73,8 +73,21 @@
           font-size: 2em;
         }
 
+        .price {
+          p {
+            span {
+              text-decoration: line-through;
+              font-weight: 400;
+              font-size: 0.8em;
+            }
+            font-weight: 500;
+            font-size: 1.5em;
+          }
+        }
+
         .quantity__control {
           display: flex;
+          align-items: center;
           gap: 2rem;
           .quatity {
             height: 42px;
@@ -113,25 +126,24 @@
               @extend :nth-child(1);
             }
           }
-
-          button {
-            width: 250px;
-            height: 42px;
-            border-radius: 30px;
-            color: black;
-            background-color: white;
-            font-size: 1em;
-            font-weight: 500;
-            text-transform: capitalize;
-            cursor: pointer;
-            border: 1px solid black;
-
-            &:hover {
-              transform: scale(1.1);
-              transition: all 200ms ease;
-              color: white;
-              background-color: black;
-            }
+        }
+        .add-to-cart {
+          max-width: 400px;
+          width: 100%;
+          height: 42px;
+          border-radius: 30px;
+          color: black;
+          background-color: white;
+          font-size: 1em;
+          font-weight: 500;
+          text-transform: capitalize;
+          cursor: pointer;
+          border: 1px solid black;
+          &:hover {
+            transform: scale(1.05);
+            transition: all 200ms ease;
+            color: white;
+            background-color: black;
           }
         }
 
@@ -140,7 +152,8 @@
           font-size: 1em;
           font-weight: 500;
           height: 42px;
-          width: 400px;
+          max-width: 400px;
+          width: 100%;
           background-color: black;
           color: white;
           cursor: pointer;
@@ -149,6 +162,15 @@
             transform: scale(1.05);
             transition: all 200ms ease;
           }
+        }
+      }
+
+      .inner__right__footer {
+        display: flex;
+        gap: 1rem;
+        a {
+          text-decoration: none;
+          color: black;
         }
       }
     }
@@ -190,5 +212,107 @@
       width: 450px;
       height: 450px;
     }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .item-detail {
+    .item-detail__inner {
+      .inner__left {
+        flex-direction: column;
+        gap: 2rem;
+        width: 50%;
+      }
+
+      .inner__right {
+        width: 50%;
+        .content-wrapper {
+          width: 90%;
+          gap: 1rem;
+          h2 {
+            font-size: 1.7em;
+          }
+          .quantity__control {
+            gap: 1rem;
+          }
+          .add-to-cart {
+          }
+          .btn-buy {
+          }
+        }
+      }
+    }
+  }
+
+  .mySwiper {
+    display: none;
+    height: 150px;
+    width: 100%;
+    .swiper-slide {
+      img {
+        width: 100px;
+        height: 100px;
+      }
+    }
+  }
+
+  .mySwiper2 {
+    height: 350px;
+    width: 100%;
+    .swiper-slide {
+      img {
+        width: 350px;
+        height: 350px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .item-detail {
+    height: 850px;
+    .item-detail__inner {
+      height: 850px;
+      flex-direction: column;
+      gap: 0;
+      .inner__left {
+        flex-direction: column;
+        width: 100%;
+        height: 50%;
+      }
+
+      .inner__right {
+        width: 100%;
+        height: 50%;
+        justify-content: center;
+        .content-wrapper {
+          width: 90%;
+          gap: 2rem;
+          align-items: center;
+          margin: 0;
+          h2 {
+            font-size: 1.7em;
+            margin: 0;
+          }
+
+          p {
+            margin: 0;
+          }
+
+          .price {
+            p {
+              span {
+                font-size: 0.8em;
+              }
+              font-size: 1.5em;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .mySwiper2 {
+    margin: 0;
   }
 }

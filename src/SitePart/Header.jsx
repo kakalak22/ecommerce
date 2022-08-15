@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "../component/Navbar/Navbar";
 import Searchbar from "../component/Searchbar/Searchbar";
 import Topbar from "../component/Topbar/Topbar";
+import { Outlet } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -9,6 +10,7 @@ const Header = () => {
       <Topbar />
       <Searchbar />
       <Navbar />
+      <Outlet />
     </React.Fragment>
   );
 };

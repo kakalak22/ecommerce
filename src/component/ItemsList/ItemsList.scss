@@ -1,0 +1,11 @@
+@use "../Topbar/Topbar.scss";
+@use "../../variables.scss";
+
+.itemslist {
+  @extend .layout;
+  .itemslist__inner {
+    @extend .layout__inner;
+    height: 800px;
+    background-color: aliceblue;
+  }
+}

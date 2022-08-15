@@ -18,6 +18,7 @@ const Cart = () => {
     removeItemInCart,
   } = useGlobalContext();
   const cartRef = useRef(null);
+  const cart_right = useRef(null);
   const total = calculateTotalSub();
 
   const handleCartClose = () => {
@@ -30,13 +31,23 @@ const Cart = () => {
     cartRef.current.style.top = `${height}px`;
   }, [cart]);
 
+  useEffect(() => {
+    console.log(cart_right);
+    setTimeout(() => {
+      isCartOpen && cart_right.current.classList.add("cart-animation");
+    }, 50);
+  }, [isCartOpen]);
+
   return (
     <div className="cart__container" ref={cartRef}>
       <div
         onClick={handleCartClose}
-        className={isCartOpen ? "cart__left cart__left__active" : "cart__left"}
+        className={
+          isCartOpen ? "cart__left cart__left__active" : "cart__left cart__"
+        }
       ></div>
       <div
+        ref={cart_right}
         className={
           isCartOpen ? "cart__right cart__right__active" : "cart__right"
         }

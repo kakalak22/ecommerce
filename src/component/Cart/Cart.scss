@@ -6,13 +6,14 @@
   width: 100vw;
 
   .cart__right {
+    display: none;
     position: absolute;
     right: -600px;
     max-width: 500px;
     width: 100%;
     background-color: white;
     z-index: 5;
-    transition: all 400ms ease;
+    transition: all 200ms ease;
 
     h2 {
       margin-top: 1rem;
@@ -141,8 +142,13 @@
     }
   }
   .cart__right__active {
+    display: block;
+  }
+
+  .cart-animation {
     transform: translateX(-600px);
   }
+
   .cart__left {
     opacity: 0;
     width: calc(100vw - 500px);

@@ -25,6 +25,10 @@ export const AppProvider = ({ children }) => {
         }
     }
 
+    const resetQuantity = () => {
+        setItemQuantity(1);
+    }
+
     const handleIncreaseQuantity = (id) => {
         const newCart = [...cart];
         newCart.forEach(item => {
@@ -177,6 +181,7 @@ export const AppProvider = ({ children }) => {
         handleDecreaseQuantity,
         itemQuantity,
         handleQuantityInputChange,
+        resetQuantity,
         removeItemInCart
     }
 
