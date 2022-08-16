@@ -13,6 +13,40 @@ export const AppProvider = ({ children }) => {
     const [sideName, setSideName] = useState("");
     const [cart, setCart] = useState([]);
     const [itemQuantity, setItemQuantity] = useState(1);
+    const [priceRange, setPriceRange] = useState([0, 50]);
+    const [priceRangeErrorMessage, setPriceRangeErrorMessage] = useState("");
+
+    const handlePriceRange = (priceRange) => {
+        setPriceRange(priceRange);
+    }
+
+    const handleInputPriceRangeChange = (event, inputId) => {
+        const newRange = [...priceRange];
+        const min = 0;
+        const max = 1000;
+        setPriceRangeErrorMessage("");
+        inputId === "to" ?
+            newRange[1] = parseInt(event.target.value)
+            : newRange[0] = parseInt(event.target.value);
+        if (newRange[0] < min) {
+            newRange[0] = 0;
+            setPriceRangeErrorMessage("Price cannot lower than 0");
+        }
+
+        if (newRange[0] > newRange[1]) {
+            newRange[0] = newRange[1];
+            setPriceRangeErrorMessage("Price from cannot higher than price to");
+        }
+
+        if (newRange[1] > max) {
+            newRange[1] = max;
+            setPriceRangeErrorMessage("Price cannot higher than max price");
+        }
+
+
+        setPriceRange(newRange);
+    }
+
 
     const handleQuantityInputChange = (event, id) => {
         const newQuantity = parseInt(event.target.value);
@@ -182,7 +216,11 @@ export const AppProvider = ({ children }) => {
         itemQuantity,
         handleQuantityInputChange,
         resetQuantity,
-        removeItemInCart
+        removeItemInCart,
+        priceRange,
+        priceRangeErrorMessage,
+        handlePriceRange,
+        handleInputPriceRangeChange
     }
 
     return <AppContext.Provider value={obj}>{children}</AppContext.Provider>

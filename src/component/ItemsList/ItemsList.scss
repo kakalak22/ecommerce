@@ -6,6 +6,125 @@
   .itemslist__inner {
     @extend .layout__inner;
     height: 800px;
-    background-color: aliceblue;
+    .filter {
+      width: 20%;
+      height: 800px;
+      display: flex;
+      justify-content: center;
+      .filter__inner {
+        width: 90%;
+
+        .category-filter {
+          ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+
+            li {
+              .container {
+                display: flex;
+                align-items: flex-end;
+                position: relative;
+                padding-left: 35px;
+                cursor: pointer;
+                font-size: 16px;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+                height: 25px;
+              }
+
+              /* Hide the browser's default checkbox */
+              .container input {
+                position: absolute;
+                opacity: 0;
+                cursor: pointer;
+                height: 0;
+                width: 0;
+              }
+
+              /* Create a custom checkbox */
+              .checkmark {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 25px;
+                width: 25px;
+                background-color: variables.$gray;
+              }
+
+              /* On mouse-over, add a grey background color */
+              .container:hover input ~ .checkmark {
+                background-color: #eee;
+              }
+
+              /* When the checkbox is checked, add a blue background */
+              .container input:checked ~ .checkmark {
+                background-color: black;
+              }
+
+              /* Create the checkmark/indicator (hidden when not checked) */
+              .checkmark:after {
+                content: "";
+                position: absolute;
+                display: none;
+              }
+
+              /* Show the checkmark when checked */
+              .container input:checked ~ .checkmark:after {
+                display: block;
+              }
+
+              /* Style the checkmark/indicator */
+              .container .checkmark:after {
+                left: 9px;
+                top: 5px;
+                width: 5px;
+                height: 10px;
+                border: solid white;
+                border-width: 0 3px 3px 0;
+                -webkit-transform: rotate(45deg);
+                -ms-transform: rotate(45deg);
+                transform: rotate(45deg);
+              }
+            }
+          }
+        }
+        .price-filter {
+          .price-range-container {
+            display: flex;
+            width: 100%;
+            gap: 0.5rem;
+            span {
+              width: 5%;
+              font-size: 1.5em;
+              text-align: center;
+            }
+            input {
+              width: 40%;
+              outline: none;
+              text-align: center;
+            }
+            input::-webkit-outer-spin-button,
+            input::-webkit-inner-spin-button {
+              -webkit-appearance: none;
+              margin: 0;
+            }
+          }
+
+          & > :nth-child(3) {
+            margin-top: 1rem;
+          }
+        }
+      }
+    }
+    .list {
+      width: 80%;
+      height: 800px;
+      background-color: aquamarine;
+    }
   }
 }
