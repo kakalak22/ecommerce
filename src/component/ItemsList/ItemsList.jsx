@@ -1,10 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useGlobalContext } from "../../Context";
 import "./ItemsList.scss";
 import TwoThumbs from "./TwoThumbs";
+import ReactStars from "react-rating-stars-component";
+import { IoStarOutline, IoStarHalfOutline, IoStar } from "react-icons/io5";
+import SingleItem from "../SingleItem/SingleItem";
+
+import * as services from "../../services/fakeItemsService";
 
 const ItemsList = () => {
   const { priceRange, handleInputPriceRangeChange } = useGlobalContext();
+  const [items, setItems] = useState([]);
+
+  const starConfig = {
+    count: 5,
+    isHalf: "true",
+    size: 25,
+    activeColor: "black",
+    emptyIcon: <IoStarOutline />,
+    halfIcon: <IoStarHalfOutline />,
+    filledIcon: <IoStar />,
+    edit: false,
+  };
+
+  useEffect(() => {
+    const items = services.getItems();
+    setItems(items);
+  }, []);
+
   return (
     <div className="itemslist">
       <div className="itemslist__inner">
@@ -73,10 +96,25 @@ const ItemsList = () => {
             </div>
             <div className="rate-filter">
               <h4>Rating</h4>
+              <ReactStars {...starConfig} value={5} />
+              <ReactStars {...starConfig} value={4} />
+              <ReactStars {...starConfig} value={3} />
+              <ReactStars {...starConfig} value={2} />
+              <ReactStars {...starConfig} value={1} />
+            </div>
+            <div className="button-container">
+              <button>Apply</button>
+              <button>Reset</button>
             </div>
           </div>
         </div>
-        <div className="list"></div>
+        <div className="list">
+          <div className="items-container">
+            {items.map((item, index) => (
+              <SingleItem key={index} item={item} />
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

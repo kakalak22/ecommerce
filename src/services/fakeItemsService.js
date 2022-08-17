@@ -53,6 +53,10 @@ const items = [
     },
     { id: "pc07", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 50 },
     { id: "pc08", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 50 },
+    { id: "pc09", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 50 },
+    { id: "pc10", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 50 },
+    { id: "pc11", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 50 },
+    { id: "pc12", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 50 },
 ];
 
 export function getItems() {

@@ -13,7 +13,8 @@ const WeekHighlight = () => {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    const items = services.getItems();
+    const items = services.getItems().slice(0, 7);
+
     setItems(items);
   }, []);
 
