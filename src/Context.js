@@ -15,6 +15,11 @@ export const AppProvider = ({ children }) => {
     const [itemQuantity, setItemQuantity] = useState(1);
     const [priceRange, setPriceRange] = useState([0, 50]);
     const [priceRangeErrorMessage, setPriceRangeErrorMessage] = useState("");
+    const [paginatedItems, setPaginatedItems] = useState(null);
+
+    const handlePaginatedItems = (items) => {
+        setPaginatedItems(items);
+    }
 
     const handlePriceRange = (priceRange) => {
         setPriceRange(priceRange);
@@ -159,30 +164,24 @@ export const AppProvider = ({ children }) => {
     }
 
     const openSidemenu = () => {
-        const body = document.body;
-        body.style.height = "100vh";
-        body.style.overflowY = "hidden";
         setIsSidemenuOpen(true);
     }
 
     const closeSidemenu = () => {
-        const body = document.body;
-        body.style.height = "";
-        body.style.overflowY = "";
         setIsSidemenuOpen(false);
     }
 
     const openCart = () => {
-        const body = document.body;
-        body.style.height = "100vh";
-        body.style.overflowY = "hidden";
+        // const body = document.body;
+        // body.style.height = "100vh";
+        // body.style.overflowY = "hidden";
         setIsCartOpen(true);
     }
 
     const closeCart = () => {
-        const body = document.body;
-        body.style.height = "";
-        body.style.overflowY = "";
+        // const body = document.body;
+        // body.style.height = "";
+        // body.style.overflowY = "";
         setIsCartOpen(false);
     }
 
@@ -220,7 +219,9 @@ export const AppProvider = ({ children }) => {
         priceRange,
         priceRangeErrorMessage,
         handlePriceRange,
-        handleInputPriceRangeChange
+        handleInputPriceRangeChange,
+        paginatedItems,
+        handlePaginatedItems
     }
 
     return <AppContext.Provider value={obj}>{children}</AppContext.Provider>

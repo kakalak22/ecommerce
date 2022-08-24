@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import "./WeekHighlight.scss";
 import Dropdown from "../Dropdown/Dropdown";
-import * as services from "../../services/fakeItemsService";
-
-import { BsArrowDownUp } from "react-icons/bs";
-import { AiOutlineStar, AiOutlineShoppingCart } from "react-icons/ai";
 import SingleItem from "../SingleItem/SingleItem";
 import { useGlobalContext } from "../../Context";
+
+import * as services from "../../services/fakeItemsService";
+
+import "./WeekHighlight.scss";
 
 const WeekHighlight = () => {
   const { location, isDropdownOpen, sideName } = useGlobalContext();

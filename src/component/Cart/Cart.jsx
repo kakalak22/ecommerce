@@ -23,28 +23,26 @@ const Cart = () => {
 
   const handleCartClose = () => {
     closeCart();
-    cartRef.current.style.top = `0px`;
   };
 
   useEffect(() => {
-    const height = window.pageYOffset;
-    cartRef.current.style.top = `${height}px`;
-  }, [cart]);
-
-  useEffect(() => {
-    console.log(cart_right);
     setTimeout(() => {
       isCartOpen && cart_right.current.classList.add("cart-animation");
     }, 50);
   }, [isCartOpen]);
 
   return (
-    <div className="cart__container" ref={cartRef}>
+    <div
+      className={
+        isCartOpen
+          ? "cart__container cart__container__active"
+          : "cart__container"
+      }
+      ref={cartRef}
+    >
       <div
         onClick={handleCartClose}
-        className={
-          isCartOpen ? "cart__left cart__left__active" : "cart__left cart__"
-        }
+        className={isCartOpen ? "cart__left cart__left__active" : "cart__left"}
       ></div>
       <div
         ref={cart_right}

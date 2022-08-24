@@ -12,6 +12,7 @@ import Logo from "../../asset/images/logo.png";
 import Dropdown from "../Dropdown/Dropdown";
 import SideBar from "../Sidebar/Sidebar";
 import { useGlobalContext } from "../../Context";
+import { useRef } from "react";
 
 const Searchbar = () => {
   const { closeSubmenu, openSidemenu, isSidemenuOpen, openCart, cart } =
@@ -22,8 +23,53 @@ const Searchbar = () => {
   const [name, setName] = useState("");
   const [cartTotal, setCartTotal] = useState(0);
   const [wishListTotal, setWishListTotal] = useState(1);
+  const searchbar = useRef(null);
 
   const displaySearchInputOutline = isFocus ? " in_focus" : "out_focus";
+
+  const [scrollDir, setScrollDir] = useState("scrolling down");
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const threshold = 0;
+    let lastScrollY = window.pageYOffset;
+    let ticking = false;
+
+    const updateScrollDir = () => {
+      const scrollY = window.pageYOffset;
+      setScrollY(scrollY);
+
+      if (Math.abs(scrollY - lastScrollY) < threshold) {
+        ticking = false;
+        return;
+      }
+      setScrollDir(scrollY > lastScrollY ? "scrolling down" : "scrolling up");
+      lastScrollY = scrollY > 0 ? scrollY : 0;
+      ticking = false;
+    };
+
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateScrollDir);
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", onScroll);
+
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [scrollDir]);
+
+  useEffect(() => {
+    if (scrollY < 300) {
+      searchbar.current.classList.remove("sticky");
+      return;
+    }
+    // scrollDir === "scrolling down"
+    //   ? searchbar.current.classList.remove("sticky")
+    //   : searchbar.current.classList.add("sticky");
+    searchbar.current.classList.add("sticky");
+  }, [scrollDir, scrollY]);
 
   useEffect(() => {
     const newCartTotal = cart.reduce((current, next) => {
@@ -55,7 +101,7 @@ const Searchbar = () => {
   return (
     <React.Fragment>
       <SideBar />
-      <div className="searchbar" onMouseEnter={closeSubmenu}>
+      <div className="searchbar" ref={searchbar} onMouseEnter={closeSubmenu}>
         <div className="searchbar__inner">
           <div className="searchbar__left">
             <GiHamburgerMenu onClick={openSidemenu} />

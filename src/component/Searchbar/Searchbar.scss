@@ -1,10 +1,18 @@
 @use "../Topbar/Topbar.scss";
 @use "../../variables";
 
+.sticky {
+  position: fixed;
+  z-index: 4;
+  background-color: white;
+  top: 0;
+  transition: all ease-out 300ms;
+}
+
 .searchbar {
   @extend .layout;
   height: 100px;
-  border-bottom: none;
+  transition: all ease-out 300ms;
   .searchbar__inner {
     @extend .layout__inner;
 

@@ -7,10 +7,15 @@ import { IoStarOutline, IoStarHalfOutline, IoStar } from "react-icons/io5";
 import SingleItem from "../SingleItem/SingleItem";
 
 import * as services from "../../services/fakeItemsService";
+import { HashLoader, PacmanLoader } from "react-spinners";
+import { BsFilterLeft } from "react-icons/bs";
+import Sweetpagination from "sweetpagination";
 
 const ItemsList = () => {
   const { priceRange, handleInputPriceRangeChange } = useGlobalContext();
   const [items, setItems] = useState([]);
+  const [currentPageData, setCurrentPageData] = useState([]);
+  const [isFilter, setIsFilter] = useState(false);
 
   const starConfig = {
     count: 5,
@@ -24,51 +29,67 @@ const ItemsList = () => {
   };
 
   useEffect(() => {
+    // scrollTo(0, 0, {
+    //   ease: "inExpo",
+    //   duration: 800,
+    // });
+    window.scrollTo(0, 0);
+  }, [currentPageData]);
+
+  useEffect(() => {
     const items = services.getItems();
     setItems(items);
   }, []);
 
+  // useEffect(() => {
+  //   setItems(paginatedItems);
+  // }, [paginatedItems]);
+
   return (
     <div className="itemslist">
       <div className="itemslist__inner">
-        <div className="filter">
-          <div className="filter__inner">
+        <div className={isFilter ? "filter filter-active" : "filter"}>
+          <div
+            className={
+              isFilter ? "filter__inner filter__inner-active" : "filter__inner"
+            }
+          >
             <div className="category-filter">
               <h4>Category</h4>
               <ul>
                 <li>
-                  <label class="container">
+                  <label className="container">
                     One
                     <input type="checkbox" />
-                    <span class="checkmark"></span>
+                    <span className="checkmark"></span>
                   </label>
                 </li>
                 <li>
-                  <label class="container">
+                  <label className="container">
                     Two
                     <input type="checkbox" />
-                    <span class="checkmark"></span>
+                    <span className="checkmark"></span>
                   </label>
                 </li>
                 <li>
-                  <label class="container">
+                  <label className="container">
                     Three
                     <input type="checkbox" />
-                    <span class="checkmark"></span>
+                    <span className="checkmark"></span>
                   </label>
                 </li>
                 <li>
-                  <label class="container">
+                  <label className="container">
                     Four
                     <input type="checkbox" />
-                    <span class="checkmark"></span>
+                    <span className="checkmark"></span>
                   </label>
                 </li>
                 <li>
-                  <label class="container">
+                  <label className="container">
                     One
                     <input type="checkbox" />
-                    <span class="checkmark"></span>
+                    <span className="checkmark"></span>
                   </label>
                 </li>
               </ul>
@@ -107,13 +128,39 @@ const ItemsList = () => {
               <button>Reset</button>
             </div>
           </div>
+          <div
+            onClick={() => setIsFilter(false)}
+            className={
+              isFilter ? "filter__right filter__right-active" : "filter__right"
+            }
+          ></div>
         </div>
         <div className="list">
-          <div className="items-container">
-            {items.map((item, index) => (
-              <SingleItem key={index} item={item} />
-            ))}
+          <div
+            className="filter-button-container"
+            onClick={() => setIsFilter(true)}
+          >
+            <BsFilterLeft />
+            <span> Filter</span>
           </div>
+          {currentPageData.length > 0 ? (
+            <div className="items-container">
+              {currentPageData.map((item, index) => (
+                <SingleItem key={index} item={item} />
+              ))}
+            </div>
+          ) : (
+            <div className="loading-container">
+              <HashLoader color="#ccc8c8" />
+            </div>
+          )}
+          <Sweetpagination
+            currentPageData={setCurrentPageData}
+            getData={items}
+            dataPerPage={6}
+            navigation={true}
+            getStyle={"style-custom"}
+          />
         </div>
       </div>
     </div>
