@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Dropdown from "../Dropdown/Dropdown";
 import SingleItem from "../SingleItem/SingleItem";
-import { useGlobalContext } from "../../Context";
+import { useGlobalContext } from "../../store/Context";
 
 import * as services from "../../services/fakeItemsService";
 

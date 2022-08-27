@@ -11,12 +11,14 @@ import {
 import Logo from "../../asset/images/logo.png";
 import Dropdown from "../Dropdown/Dropdown";
 import SideBar from "../Sidebar/Sidebar";
-import { useGlobalContext } from "../../Context";
+import { useGlobalContext } from "../../store/Context";
 import { useRef } from "react";
+import { useStore, actions } from "../../store";
 
 const Searchbar = () => {
-  const { closeSubmenu, openSidemenu, isSidemenuOpen, openCart, cart } =
-    useGlobalContext();
+  const [state, dispatch] = useStore();
+
+  const { cart } = useGlobalContext();
   const [isFocus, setIsFocus] = useState(false);
   const [location, setLocation] = useState({ left: null, top: null });
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -84,7 +86,9 @@ const Searchbar = () => {
     { icon: <AiOutlineStar />, name: "Wishlist", count: wishListTotal },
     { icon: <BsArrowDownUp />, name: "Compare", count: null },
     {
-      icon: <AiOutlineShoppingCart onClick={openCart} />,
+      icon: (
+        <AiOutlineShoppingCart onClick={() => dispatch(actions.openCart())} />
+      ),
       name: "Cart",
       count: cartTotal,
     },
@@ -101,10 +105,14 @@ const Searchbar = () => {
   return (
     <React.Fragment>
       <SideBar />
-      <div className="searchbar" ref={searchbar} onMouseEnter={closeSubmenu}>
+      <div
+        className="searchbar"
+        ref={searchbar}
+        onMouseEnter={() => dispatch(actions.closeSubmenu())}
+      >
         <div className="searchbar__inner">
           <div className="searchbar__left">
-            <GiHamburgerMenu onClick={openSidemenu} />
+            <GiHamburgerMenu onClick={() => dispatch(actions.openSidemenu())} />
             <img src={Logo} alt="logo" />
           </div>
           <div className="searchbar__middle">

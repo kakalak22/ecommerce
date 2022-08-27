@@ -4,10 +4,12 @@ import "./Sidebar.scss";
 import { GrNext, GrPrevious } from "react-icons/gr";
 import { AiOutlineArrowLeft, AiOutlineClose } from "react-icons/ai";
 
-import { useGlobalContext } from "../../Context";
+import { useStore, actions } from "../../store";
 
 const SideBar = () => {
-  const { isSidemenuOpen, closeSidemenu } = useGlobalContext();
+  const [state, dispatch] = useStore();
+  const { isSidemenuOpen } = state;
+
   const [isSubmenuOfLinkOpen, setIsSubmenuOfLinkOpen] = useState(false);
 
   return (
@@ -40,7 +42,7 @@ const SideBar = () => {
           </div>
         </div>
         <div
-          onClick={closeSidemenu}
+          onClick={() => dispatch(actions.closeSidemenu())}
           className={
             isSidemenuOpen
               ? "sidebar__right sidebar__right__active"
@@ -50,7 +52,7 @@ const SideBar = () => {
           {isSidemenuOpen && (
             <AiOutlineClose
               onClick={() => {
-                closeSidemenu();
+                dispatch(actions.closeSidemenu());
                 setIsSubmenuOfLinkOpen(false);
               }}
             />

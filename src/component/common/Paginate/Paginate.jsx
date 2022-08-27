@@ -2,7 +2,7 @@ import ReactPaginate from "react-paginate";
 import React, { useEffect, useState } from "react";
 
 import "./Paginate.scss";
-import { useGlobalContext } from "../../../Context";
+import { useGlobalContext } from "../../../store/Context";
 import * as itemsService from "../../../services/fakeItemsService";
 
 export default function PaginatedItems({ itemsPerPage }) {

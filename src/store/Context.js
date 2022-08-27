@@ -3,16 +3,13 @@ import React, { useState, useContext, createContext } from "react";
 const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
-    const [isSubmenuOpen, setIsSubmenuOpen] = useState(false);
-    const [isSidemenuOpen, setIsSidemenuOpen] = useState(false);
-    const [isCartOpen, setIsCartOpen] = useState(false);
+    const [cart, setCart] = useState([]);
+    const [itemQuantity, setItemQuantity] = useState(1);
     const [location, setLocation] = useState({ left: null, top: null });
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [singleItem, setSingleItem] = useState();
     const [sideName, setSideName] = useState("");
-    const [cart, setCart] = useState([]);
-    const [itemQuantity, setItemQuantity] = useState(1);
     const [priceRange, setPriceRange] = useState([0, 50]);
     const [priceRangeErrorMessage, setPriceRangeErrorMessage] = useState("");
     const [paginatedItems, setPaginatedItems] = useState(null);
@@ -155,35 +152,6 @@ export const AppProvider = ({ children }) => {
         setLocation({ left: null, top: null })
     }
 
-    const openSubmenu = () => {
-        setIsSubmenuOpen(true);
-    }
-
-    const closeSubmenu = () => {
-        setIsSubmenuOpen(false);
-    }
-
-    const openSidemenu = () => {
-        setIsSidemenuOpen(true);
-    }
-
-    const closeSidemenu = () => {
-        setIsSidemenuOpen(false);
-    }
-
-    const openCart = () => {
-        // const body = document.body;
-        // body.style.height = "100vh";
-        // body.style.overflowY = "hidden";
-        setIsCartOpen(true);
-    }
-
-    const closeCart = () => {
-        // const body = document.body;
-        // body.style.height = "";
-        // body.style.overflowY = "";
-        setIsCartOpen(false);
-    }
 
     const obj = {
         sideName,
@@ -193,15 +161,6 @@ export const AppProvider = ({ children }) => {
         isDropdownOpen,
         openDropdown,
         closeDropdown,
-        isSubmenuOpen,
-        openSubmenu,
-        closeSubmenu,
-        isSidemenuOpen,
-        openSidemenu,
-        closeSidemenu,
-        isCartOpen,
-        openCart,
-        closeCart,
         isModalOpen,
         openModal,
         closeModal,

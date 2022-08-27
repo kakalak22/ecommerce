@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useEffect } from "react";
 import { Range, getTrackBackground } from "react-range";
-import { useGlobalContext } from "../../Context";
+import { useGlobalContext } from "../../store/Context";
 
 const STEP = 1;
 const MIN = 0;

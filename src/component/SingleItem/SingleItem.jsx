@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useStore, actions } from "../../store";
+
 import "./SingleItem.scss";
 
 import { BsArrowDownUp } from "react-icons/bs";
 import { AiOutlineStar, AiOutlineEye } from "react-icons/ai";
-import { useGlobalContext } from "../../Context";
+import { useGlobalContext } from "../../store/Context";
 
 const SingleItem = ({ item }) => {
+  const [state, dispatch] = useStore();
+
   const { image1, image2, name, price, discountedPrice, id } = item;
   const {
     openDropdown,
@@ -16,7 +20,6 @@ const SingleItem = ({ item }) => {
     openModal,
     handleSingleItemChange,
     handleCart,
-    openCart,
   } = useGlobalContext();
 
   const handleSidenameLocation = (event) => {
@@ -77,8 +80,8 @@ const SingleItem = ({ item }) => {
       <div className="button__bottom">
         <button
           onClick={() => {
-            handleCart(id, item);
-            openCart();
+            dispatch(actions.handleCartItems(id, item));
+            dispatch(actions.openCart());
           }}
         >
           Quick Add

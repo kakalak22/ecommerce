@@ -4,13 +4,15 @@ import * as services from "../../services/fakeItemsService";
 
 import "./Cart.scss";
 import Pc from "../../asset/images/hero.jpg";
-import { useGlobalContext } from "../../Context";
+import { useGlobalContext } from "../../store/Context";
+import { useStore, actions } from "../../store";
 
 const Cart = () => {
+  const [state, dispatch] = useStore();
+  const { isCartOpen, cart } = state;
+
   const {
-    isCartOpen,
     closeCart,
-    cart,
     calculateTotalSub,
     handleIncreaseQuantity,
     handleDecreaseQuantity,
@@ -22,7 +24,7 @@ const Cart = () => {
   const total = calculateTotalSub();
 
   const handleCartClose = () => {
-    closeCart();
+    dispatch(actions.closeCart());
   };
 
   useEffect(() => {
@@ -64,7 +66,11 @@ const Cart = () => {
                 <p>{item.discountedPrice}$</p>
                 <div className="quantity__control">
                   <div className="quatity">
-                    <button onClick={() => handleDecreaseQuantity(item.id)}>
+                    <button
+                      onClick={() =>
+                        dispatch(actions.decreaseQuantity(item.id))
+                      }
+                    >
                       -
                     </button>
                     <input
@@ -74,7 +80,11 @@ const Cart = () => {
                       }
                       value={quantity}
                     />
-                    <button onClick={() => handleIncreaseQuantity(item.id)}>
+                    <button
+                      onClick={() =>
+                        dispatch(actions.increaseQuantity(item.id))
+                      }
+                    >
                       +
                     </button>
                   </div>

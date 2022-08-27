@@ -1,19 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Navbar.scss";
 
 import { RiArrowUpSLine, RiArrowDownSLine } from "react-icons/ri";
 import Submenu from "../Submenu/Submenu";
-import { useGlobalContext } from "../../Context";
+import { useStore, actions } from "../../store";
 
 const Navbar = () => {
-  const { isSubmenuOpen, openSubmenu, closeSubmenu } = useGlobalContext();
+  const [state, dispatch] = useStore();
+  const { isSubmenuOpen } = state;
+  console.log(isSubmenuOpen);
   return (
     <React.Fragment>
-      <div className="navbar" onMouseEnter={closeSubmenu}>
+      <div
+        className="navbar"
+        onMouseEnter={() => dispatch(actions.closeSubmenu())}
+      >
         <div className="navbar__inner">
           <ul>
             <li>
-              <div onMouseEnter={openSubmenu}>
+              <div onMouseEnter={() => dispatch(actions.openSubmenu())}>
                 <span>Home</span>
                 <span>
                   {isSubmenuOpen ? <RiArrowUpSLine /> : <RiArrowDownSLine />}

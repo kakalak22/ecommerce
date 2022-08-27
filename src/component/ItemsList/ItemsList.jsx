@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useGlobalContext } from "../../Context";
+import { useGlobalContext } from "../../store/Context";
 import "./ItemsList.scss";
 import TwoThumbs from "./TwoThumbs";
 import ReactStars from "react-rating-stars-component";

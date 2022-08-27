@@ -1,22 +1,18 @@
 import React, { useEffect, useRef } from "react";
 import "./Modal.scss";
-import { useGlobalContext } from "../../Context";
+import { useGlobalContext } from "../../store/Context";
+import { useStore, actions } from "../../store";
 
 import { AiOutlineClose } from "react-icons/ai";
 
 const Modal = ({ singleItem }) => {
+  const [state, dispatch] = useStore();
+  const { itemQuantity } = state;
+
   const { image1, image2, name, price, discountedPrice, id } = singleItem;
   const modal = useRef(null);
-  const {
-    isModalOpen,
-    closeModal,
-    handleCart,
-    openCart,
-    handleIncreaseQuantity,
-    handleDecreaseQuantity,
-    itemQuantity,
-    handleQuantityInputChange,
-  } = useGlobalContext();
+  const { isModalOpen, closeModal, handleCart, handleQuantityInputChange } =
+    useGlobalContext();
 
   useEffect(() => {
     const height = window.pageYOffset;
@@ -46,19 +42,33 @@ const Modal = ({ singleItem }) => {
             <a href="#">View Details</a>
             <div className="quantity__control">
               <div className="quatity">
-                <button onClick={() => handleDecreaseQuantity(null)}>-</button>
+                <button
+                  onClick={() => dispatch(actions.decreaseQuantity(null))}
+                >
+                  -
+                </button>
                 <input
                   type="number"
                   onChange={(event) => handleQuantityInputChange(event, null)}
                   value={itemQuantity}
                 />
-                <button onClick={() => handleIncreaseQuantity(null)}>+</button>
+                <button
+                  onClick={() => dispatch(actions.increaseQuantity(null))}
+                >
+                  +
+                </button>
               </div>
               <button
                 onClick={() => {
-                  handleCart(id, singleItem, itemQuantity);
+                  dispatch(
+                    actions.handleCartItems({
+                      id: id,
+                      item: singleItem,
+                      quantity: itemQuantity,
+                    })
+                  );
                   closeModal();
-                  openCart();
+                  dispatch(actions.openCart());
                 }}
               >
                 {" "}

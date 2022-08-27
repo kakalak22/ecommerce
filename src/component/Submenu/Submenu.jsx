@@ -1,13 +1,16 @@
 import React, { useState } from "react";
-import { useGlobalContext } from "../../Context";
+import { act } from "react-dom/test-utils";
+import { useStore, actions } from "../../store";
+
 import "./Submenu.scss";
 
 const Submenu = () => {
-  const { isSubmenuOpen, closeSubmenu } = useGlobalContext();
+  const [state, dispatch] = useStore();
+  const { isSubmenuOpen } = state;
 
   return (
     <div
-      onMouseLeave={closeSubmenu}
+      onMouseLeave={() => dispatch(actions.closeSubmenu())}
       className={isSubmenuOpen ? "submenu submenu__active" : "submenu "}
     >
       <div className="submenu__inner">

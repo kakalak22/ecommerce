@@ -1,9 +1,10 @@
 import React, { useRef, useState, useEffect } from "react";
 import "./ItemDetail.scss";
-import { useGlobalContext } from "../../Context";
+import { useGlobalContext } from "../../store/Context";
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 import { useParams } from "react-router-dom";
 import * as itemsService from "../../services/fakeItemsService";
+import { useStore, actions } from "../../store";
 
 import { GrNext, GrPrevious } from "react-icons/gr";
 
@@ -16,15 +17,11 @@ import "swiper/css/thumbs";
 import { FreeMode, Navigation, Thumbs } from "swiper";
 
 const ItemDetail = () => {
-  const {
-    handleIncreaseQuantity,
-    handleDecreaseQuantity,
-    itemQuantity,
-    handleQuantityInputChange,
-    resetQuantity,
-    handleCart,
-    openCart,
-  } = useGlobalContext();
+  const [state, dispatch] = useStore();
+  const { itemQuantity } = state;
+
+  const { handleQuantityInputChange, resetQuantity, handleCart } =
+    useGlobalContext();
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   let { productId } = useParams();
   const [item, setItem] = useState({});
@@ -118,7 +115,9 @@ const ItemDetail = () => {
               <div className="quantity__control">
                 <p>Quantity</p>
                 <div className="quatity">
-                  <button onClick={() => handleDecreaseQuantity(null)}>
+                  <button
+                    onClick={() => dispatch(actions.decreaseQuantity(null))}
+                  >
                     -
                   </button>
                   <input
@@ -126,7 +125,9 @@ const ItemDetail = () => {
                     onChange={(event) => handleQuantityInputChange(event, null)}
                     value={itemQuantity}
                   />
-                  <button onClick={() => handleIncreaseQuantity(null)}>
+                  <button
+                    onClick={() => dispatch(actions.increaseQuantity(null))}
+                  >
                     +
                   </button>
                 </div>
@@ -134,8 +135,14 @@ const ItemDetail = () => {
               <button
                 className="add-to-cart"
                 onClick={() => {
-                  handleCart(productId, item, itemQuantity);
-                  openCart();
+                  dispatch(
+                    actions.handleCartItems({
+                      id: productId,
+                      item: item,
+                      quantity: itemQuantity,
+                    })
+                  );
+                  dispatch(actions.openCart());
                   resetQuantity();
                 }}
               >

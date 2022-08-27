@@ -4,7 +4,7 @@ import React from 'react';
 import Header from './SitePart/Header';
 import Home from './SitePart/Home';
 import Footer from './component/Footer/Footer';
-import { useGlobalContext } from "./Context";
+import { useGlobalContext } from "./store/Context";
 import { Routes, Route } from 'react-router-dom';
 
 import { useEffect } from 'react';
