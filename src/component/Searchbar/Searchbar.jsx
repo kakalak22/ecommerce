@@ -14,11 +14,12 @@ import SideBar from "../Sidebar/Sidebar";
 import { useGlobalContext } from "../../store/Context";
 import { useRef } from "react";
 import { useStore, actions } from "../../store";
+import { useNavigate } from "react-router-dom";
 
 const Searchbar = () => {
   const [state, dispatch] = useStore();
 
-  const { cart } = useGlobalContext();
+  const { cart } = state;
   const [isFocus, setIsFocus] = useState(false);
   const [location, setLocation] = useState({ left: null, top: null });
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -31,6 +32,7 @@ const Searchbar = () => {
 
   const [scrollDir, setScrollDir] = useState("scrolling down");
   const [scrollY, setScrollY] = useState(0);
+  let navigate = useNavigate();
 
   useEffect(() => {
     const threshold = 0;
@@ -113,7 +115,7 @@ const Searchbar = () => {
         <div className="searchbar__inner">
           <div className="searchbar__left">
             <GiHamburgerMenu onClick={() => dispatch(actions.openSidemenu())} />
-            <img src={Logo} alt="logo" />
+            <img src={Logo} alt="logo" onClick={() => navigate("/")} />
           </div>
           <div className="searchbar__middle">
             <form
@@ -129,7 +131,7 @@ const Searchbar = () => {
                 <BiSearch />
               </button>
             </form>
-            <img src={Logo} alt="logo" />
+            <img src={Logo} alt="logo" onClick={() => navigate("/")} />
           </div>
           <div className="searchbar__right">
             <Dropdown

@@ -12,23 +12,17 @@ const SingleItem = ({ item }) => {
   const [state, dispatch] = useStore();
 
   const { image1, image2, name, price, discountedPrice, id } = item;
-  const {
-    openDropdown,
-    closeDropdown,
-    handleLocationChange,
-    handleSideNameChange,
-    openModal,
-    handleSingleItemChange,
-    handleCart,
-  } = useGlobalContext();
+  const { openDropdown, closeDropdown, handleLocationChange } =
+    useGlobalContext();
 
   const handleSidenameLocation = (event) => {
     const { left, right, top } = event.target.getBoundingClientRect();
     const dropDownCenter = left - 60;
     const subMenuBottom = top + window.pageYOffset;
-    console.log(left, right, top);
-    handleLocationChange(dropDownCenter, subMenuBottom);
-    openDropdown();
+    dispatch(
+      actions.handleLocationChange({ left: dropDownCenter, top: subMenuBottom })
+    );
+    dispatch(actions.openDropdown());
   };
   let navigate = useNavigate();
   return (
@@ -47,30 +41,30 @@ const SingleItem = ({ item }) => {
           <button
             onMouseEnter={(event) => {
               handleSidenameLocation(event);
-              handleSideNameChange("Wish List");
+              dispatch(actions.handleSideNameChange("Wish List"));
             }}
-            onMouseLeave={closeDropdown}
+            onMouseLeave={() => dispatch(actions.closeDropdown())}
           >
             <AiOutlineStar />
           </button>
           <button
             onMouseEnter={(event) => {
               handleSidenameLocation(event);
-              handleSideNameChange("Compare");
+              dispatch(actions.handleSideNameChange("Compare"));
             }}
-            onMouseLeave={closeDropdown}
+            onMouseLeave={() => dispatch(actions.closeDropdown())}
           >
             <BsArrowDownUp />
           </button>
           <button
             onMouseEnter={(event) => {
               handleSidenameLocation(event);
-              handleSideNameChange("Quick View");
+              dispatch(actions.handleSideNameChange("Quick View"));
             }}
-            onMouseLeave={closeDropdown}
+            onMouseLeave={() => dispatch(actions.closeDropdown())}
             onClick={() => {
-              openModal();
-              handleSingleItemChange(item);
+              dispatch(actions.openModal());
+              dispatch(actions.handleSingleItemChange(item));
             }}
           >
             <AiOutlineEye />
@@ -80,7 +74,9 @@ const SingleItem = ({ item }) => {
       <div className="button__bottom">
         <button
           onClick={() => {
-            dispatch(actions.handleCartItems(id, item));
+            dispatch(
+              actions.handleCartItems({ id: id, item: item, quantity: 1 })
+            );
             dispatch(actions.openCart());
           }}
         >

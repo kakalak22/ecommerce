@@ -7,12 +7,10 @@ import { AiOutlineClose } from "react-icons/ai";
 
 const Modal = ({ singleItem }) => {
   const [state, dispatch] = useStore();
-  const { itemQuantity } = state;
+  const { itemQuantity, isModalOpen } = state;
 
   const { image1, image2, name, price, discountedPrice, id } = singleItem;
   const modal = useRef(null);
-  const { isModalOpen, closeModal, handleCart, handleQuantityInputChange } =
-    useGlobalContext();
 
   useEffect(() => {
     const height = window.pageYOffset;
@@ -22,7 +20,7 @@ const Modal = ({ singleItem }) => {
   return (
     <div className="modal__container" ref={modal}>
       <div className="modal">
-        <AiOutlineClose onClick={closeModal} />
+        <AiOutlineClose onClick={() => dispatch(actions.closeModal())} />
         <div className="modal__left">
           <img src={image1} alt="" />
         </div>
@@ -49,7 +47,11 @@ const Modal = ({ singleItem }) => {
                 </button>
                 <input
                   type="number"
-                  onChange={(event) => handleQuantityInputChange(event, null)}
+                  onChange={(event) =>
+                    dispatch(
+                      actions.inputQuantity({ quantity: event.target.value })
+                    )
+                  }
                   value={itemQuantity}
                 />
                 <button
@@ -67,7 +69,7 @@ const Modal = ({ singleItem }) => {
                       quantity: itemQuantity,
                     })
                   );
-                  closeModal();
+                  dispatch(actions.closeModal());
                   dispatch(actions.openCart());
                 }}
               >

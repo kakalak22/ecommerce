@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useEffect } from "react";
 import { Range, getTrackBackground } from "react-range";
+import { actions, useStore } from "../../store";
 import { useGlobalContext } from "../../store/Context";
 
 const STEP = 1;
@@ -9,7 +10,8 @@ const MAX = 1000;
 
 const TwoThumbs = ({ rtl }) => {
   // const [values, setValues] = React.useState([25, 75]);
-  const { handlePriceRange, priceRange } = useGlobalContext();
+  const [state, dispatch] = useStore();
+  const { priceRange } = state;
 
   // useEffect(() => {
   //   handlePriceRange(values);
@@ -30,7 +32,7 @@ const TwoThumbs = ({ rtl }) => {
         max={MAX}
         rtl={rtl}
         onChange={(values) => {
-          handlePriceRange(values);
+          dispatch(actions.handlePriceRange(values));
         }}
         renderTrack={({ props, children }) => (
           <div

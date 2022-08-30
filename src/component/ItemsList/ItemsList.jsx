@@ -10,12 +10,14 @@ import * as services from "../../services/fakeItemsService";
 import { HashLoader, PacmanLoader } from "react-spinners";
 import { BsFilterLeft } from "react-icons/bs";
 import Sweetpagination from "sweetpagination";
+import { actions, useStore } from "../../store";
 
 const ItemsList = () => {
-  const { priceRange, handleInputPriceRangeChange } = useGlobalContext();
   const [items, setItems] = useState([]);
   const [currentPageData, setCurrentPageData] = useState([]);
   const [isFilter, setIsFilter] = useState(false);
+  const [state, dispatch] = useStore();
+  const { priceRange } = state;
 
   const starConfig = {
     count: 5,
@@ -102,7 +104,12 @@ const ItemsList = () => {
                   id="from"
                   value={priceRange[0]}
                   onChange={(event) =>
-                    handleInputPriceRangeChange(event, "from")
+                    dispatch(
+                      actions.handleInputPriceRangeChange({
+                        event: event,
+                        inputId: "from",
+                      })
+                    )
                   }
                 />
                 <span>-</span>
@@ -110,7 +117,14 @@ const ItemsList = () => {
                   type="number"
                   id="to"
                   value={priceRange[1]}
-                  onChange={(event) => handleInputPriceRangeChange(event, "to")}
+                  onChange={(event) =>
+                    dispatch(
+                      actions.handleInputPriceRangeChange({
+                        event: event,
+                        inputId: "to",
+                      })
+                    )
+                  }
                 />
               </div>
               <TwoThumbs />

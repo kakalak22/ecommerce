@@ -8,7 +8,6 @@ import { useStore, actions } from "../../store";
 const Navbar = () => {
   const [state, dispatch] = useStore();
   const { isSubmenuOpen } = state;
-  console.log(isSubmenuOpen);
   return (
     <React.Fragment>
       <div
@@ -20,9 +19,6 @@ const Navbar = () => {
             <li>
               <div onMouseEnter={() => dispatch(actions.openSubmenu())}>
                 <span>Home</span>
-                <span>
-                  {isSubmenuOpen ? <RiArrowUpSLine /> : <RiArrowDownSLine />}
-                </span>
               </div>
             </li>
             <li>
@@ -37,7 +33,7 @@ const Navbar = () => {
               <div>
                 <span>Products</span>
                 <span>
-                  <RiArrowDownSLine />
+                  {isSubmenuOpen ? <RiArrowUpSLine /> : <RiArrowDownSLine />}
                 </span>
               </div>
             </li>

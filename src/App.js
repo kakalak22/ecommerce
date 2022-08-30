@@ -4,7 +4,6 @@ import React from 'react';
 import Header from './SitePart/Header';
 import Home from './SitePart/Home';
 import Footer from './component/Footer/Footer';
-import { useGlobalContext } from "./store/Context";
 import { Routes, Route } from 'react-router-dom';
 
 import { useEffect } from 'react';
@@ -12,9 +11,12 @@ import Modal from './component/Modal/Modal';
 import Cart from './component/Cart/Cart';
 import ItemDetailPage from './SitePart/ItemDetailPage';
 import ItemsPage from './SitePart/ItemsPage';
+import { useStore } from "./store"
+
 
 function App() {
-  const { isModalOpen, singleItem } = useGlobalContext();
+  const [state, dispatch] = useStore();
+  const { isModalOpen, singleItem } = state;
 
   useEffect(() => {
     const body = document.body;

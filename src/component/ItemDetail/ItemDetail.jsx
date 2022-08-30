@@ -122,7 +122,13 @@ const ItemDetail = () => {
                   </button>
                   <input
                     type="number"
-                    onChange={(event) => handleQuantityInputChange(event, null)}
+                    onChange={(event) =>
+                      dispatch(
+                        actions.inputQuantity({
+                          quantity: event.target.value,
+                        })
+                      )
+                    }
                     value={itemQuantity}
                   />
                   <button
@@ -143,7 +149,7 @@ const ItemDetail = () => {
                     })
                   );
                   dispatch(actions.openCart());
-                  resetQuantity();
+                  dispatch(actions.resetQuantity());
                 }}
               >
                 {" "}

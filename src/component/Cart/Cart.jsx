@@ -9,19 +9,13 @@ import { useStore, actions } from "../../store";
 
 const Cart = () => {
   const [state, dispatch] = useStore();
-  const { isCartOpen, cart } = state;
+  const { isCartOpen, cart, total } = state;
 
-  const {
-    closeCart,
-    calculateTotalSub,
-    handleIncreaseQuantity,
-    handleDecreaseQuantity,
-    handleQuantityInputChange,
-    removeItemInCart,
-  } = useGlobalContext();
   const cartRef = useRef(null);
   const cart_right = useRef(null);
-  const total = calculateTotalSub();
+  useEffect(() => {
+    dispatch(actions.cartTotalSub());
+  }, [cart]);
 
   const handleCartClose = () => {
     dispatch(actions.closeCart());
@@ -76,7 +70,12 @@ const Cart = () => {
                     <input
                       type="text"
                       onChange={(event) =>
-                        handleQuantityInputChange(event, item.id)
+                        dispatch(
+                          actions.inputQuantity({
+                            quantity: event.target.value,
+                            id: item.id,
+                          })
+                        )
                       }
                       value={quantity}
                     />
@@ -90,7 +89,7 @@ const Cart = () => {
                   </div>
                   <div
                     className="remove"
-                    onClick={() => removeItemInCart(item.id)}
+                    onClick={() => dispatch(actions.removeCartItem(item.id))}
                   >
                     <p>Remove</p>
                   </div>
