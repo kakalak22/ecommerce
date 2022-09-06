@@ -14,7 +14,7 @@ import SideBar from "../Sidebar/Sidebar";
 import { useGlobalContext } from "../../store/Context";
 import { useRef } from "react";
 import { useStore, actions } from "../../store";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const Searchbar = () => {
   const [state, dispatch] = useStore();
@@ -26,13 +26,18 @@ const Searchbar = () => {
   const [name, setName] = useState("");
   const [cartTotal, setCartTotal] = useState(0);
   const [wishListTotal, setWishListTotal] = useState(1);
+  const [searchInput, setSearchInput] = useState("");
   const searchbar = useRef(null);
 
   const displaySearchInputOutline = isFocus ? " in_focus" : "out_focus";
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const [scrollDir, setScrollDir] = useState("scrolling down");
   const [scrollY, setScrollY] = useState(0);
   let navigate = useNavigate();
+
+  const query = searchParams.get("query") || "";
+  console.log(query);
 
   useEffect(() => {
     const threshold = 0;
@@ -126,8 +131,15 @@ const Searchbar = () => {
                 placeholder="Search products"
                 onFocus={() => setIsFocus(true)}
                 onBlur={() => setIsFocus(false)}
+                value={searchInput}
+                onChange={(event) => setSearchInput(event.target.value)}
               />
-              <button>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  setSearchParams({ query: searchInput });
+                }}
+              >
                 <BiSearch />
               </button>
             </form>

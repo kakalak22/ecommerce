@@ -7,7 +7,6 @@
   align-items: center;
   .item-detail__inner {
     @extend .layout__inner;
-    display: flex;
     height: 500px;
     .inner__left {
       width: 60%;
@@ -235,10 +234,10 @@
           .quantity__control {
             gap: 1rem;
           }
-          .add-to-cart {
-          }
-          .btn-buy {
-          }
+          // .add-to-cart {
+          // }
+          // .btn-buy {
+          // }
         }
       }
     }

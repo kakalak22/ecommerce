@@ -11,30 +11,59 @@ import { HashLoader, PacmanLoader } from "react-spinners";
 import { BsFilterLeft } from "react-icons/bs";
 import Sweetpagination from "sweetpagination";
 import { actions, useStore } from "../../store";
+import { useSearchParams } from "react-router-dom";
 
 const ItemsList = () => {
+  const [search, setSearch] = useSearchParams();
+  const [rating, setRating] = useState();
   const [items, setItems] = useState([]);
   const [currentPageData, setCurrentPageData] = useState([]);
   const [isFilter, setIsFilter] = useState(false);
   const [state, dispatch] = useStore();
   const { priceRange } = state;
+  const category = [
+    { name: "PC", id: "pc" },
+    { name: "Card", id: "card" },
+    { name: "PSU", id: "psu" },
+    { name: "VGA", id: "vga" },
+  ];
 
   const starConfig = {
     count: 5,
-    isHalf: "true",
+    isHalf: false,
     size: 25,
     activeColor: "black",
     emptyIcon: <IoStarOutline />,
     halfIcon: <IoStarHalfOutline />,
     filledIcon: <IoStar />,
-    edit: false,
+    edit: true,
+    onChange: (newValue) => {
+      search.set("rating", newValue);
+    },
+  };
+
+  const handleChecked = (e) => {
+    let category = search.get("category")?.split(",") || [];
+
+    if (e.target.checked) {
+      category.push(e.target.value);
+    } else {
+      category = category.filter((cate) => cate !== e.target.value);
+    }
+
+    if (category.length === 0) {
+      search.delete("category");
+    } else {
+      search.set("category", category.join(","));
+    }
+  };
+
+  const handleSubmit = () => {
+    search.set("price", priceRange.join(","));
+    setSearch(search);
   };
 
   useEffect(() => {
-    // scrollTo(0, 0, {
-    //   ease: "inExpo",
-    //   duration: 800,
-    // });
     window.scrollTo(0, 0);
   }, [currentPageData]);
 
@@ -42,10 +71,6 @@ const ItemsList = () => {
     const items = services.getItems();
     setItems(items);
   }, []);
-
-  // useEffect(() => {
-  //   setItems(paginatedItems);
-  // }, [paginatedItems]);
 
   return (
     <div className="itemslist">
@@ -59,41 +84,19 @@ const ItemsList = () => {
             <div className="category-filter">
               <h4>Category</h4>
               <ul>
-                <li>
-                  <label className="container">
-                    One
-                    <input type="checkbox" />
-                    <span className="checkmark"></span>
-                  </label>
-                </li>
-                <li>
-                  <label className="container">
-                    Two
-                    <input type="checkbox" />
-                    <span className="checkmark"></span>
-                  </label>
-                </li>
-                <li>
-                  <label className="container">
-                    Three
-                    <input type="checkbox" />
-                    <span className="checkmark"></span>
-                  </label>
-                </li>
-                <li>
-                  <label className="container">
-                    Four
-                    <input type="checkbox" />
-                    <span className="checkmark"></span>
-                  </label>
-                </li>
-                <li>
-                  <label className="container">
-                    One
-                    <input type="checkbox" />
-                    <span className="checkmark"></span>
-                  </label>
-                </li>
+                {category.map((cate, index) => (
+                  <li key={index}>
+                    <label className="container">
+                      {cate.name}
+                      <input
+                        type="checkbox"
+                        value={cate.id}
+                        onChange={handleChecked}
+                      />
+                      <span className="checkmark"></span>
+                    </label>
+                  </li>
+                ))}
               </ul>
             </div>
             <div className="price-filter">
@@ -132,13 +135,9 @@ const ItemsList = () => {
             <div className="rate-filter">
               <h4>Rating</h4>
               <ReactStars {...starConfig} value={5} />
-              <ReactStars {...starConfig} value={4} />
-              <ReactStars {...starConfig} value={3} />
-              <ReactStars {...starConfig} value={2} />
-              <ReactStars {...starConfig} value={1} />
             </div>
             <div className="button-container">
-              <button>Apply</button>
+              <button onClick={handleSubmit}>Apply</button>
               <button>Reset</button>
             </div>
           </div>

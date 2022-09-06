@@ -175,6 +175,7 @@
       .items-container {
         display: grid;
         grid-template-columns: auto auto auto;
+        justify-items: center;
         gap: 1rem;
         row-gap: 2rem;
         margin-top: 20px;
@@ -290,6 +291,19 @@
 
       .filter__inner-active {
         transform: translateX(400px);
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .itemslist {
+    height: 1250px;
+    .itemslist__inner {
+      .list {
+        .items-container {
+          grid-template-columns: auto auto;
+        }
       }
     }
   }
