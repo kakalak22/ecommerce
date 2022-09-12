@@ -176,3 +176,22 @@
     }
   }
 }
+
+@media screen and (max-width: 510px) {
+  .item {
+    .item__content {
+      .title {
+        height: 40px;
+        h3 {
+          margin: 10px 0 10px 0;
+          font-size: 14px;
+        }
+      }
+      .price {
+        p {
+          font-size: 13px;
+        }
+      }
+    }
+  }
+}

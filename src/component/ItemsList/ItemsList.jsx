@@ -1,153 +1,76 @@
 import React, { useEffect, useState } from "react";
-import { useGlobalContext } from "../../store/Context";
 import "./ItemsList.scss";
-import TwoThumbs from "./TwoThumbs";
-import ReactStars from "react-rating-stars-component";
-import { IoStarOutline, IoStarHalfOutline, IoStar } from "react-icons/io5";
-import SingleItem from "../SingleItem/SingleItem";
-
+import SingleItem from "../../common/SingleItem/SingleItem";
+import { animateScroll } from "react-scroll";
 import * as services from "../../services/fakeItemsService";
-import { HashLoader, PacmanLoader } from "react-spinners";
+import { HashLoader } from "react-spinners";
 import { BsFilterLeft } from "react-icons/bs";
 import Sweetpagination from "sweetpagination";
-import { actions, useStore } from "../../store";
+import { useStore } from "../../store";
 import { useSearchParams } from "react-router-dom";
+import Filter from "./Filter";
 
 const ItemsList = () => {
-  const [search, setSearch] = useSearchParams();
-  const [rating, setRating] = useState();
+  const [search] = useSearchParams();
   const [items, setItems] = useState([]);
+  const [baseItems, setBaseItems] = useState([]);
   const [currentPageData, setCurrentPageData] = useState([]);
   const [isFilter, setIsFilter] = useState(false);
-  const [state, dispatch] = useStore();
-  const { priceRange } = state;
-  const category = [
-    { name: "PC", id: "pc" },
-    { name: "Card", id: "card" },
-    { name: "PSU", id: "psu" },
-    { name: "VGA", id: "vga" },
-  ];
+  const [isFilterApplied, setIsFilterApplied] = useState(false);
+  const [state] = useStore();
 
-  const starConfig = {
-    count: 5,
-    isHalf: false,
-    size: 25,
-    activeColor: "black",
-    emptyIcon: <IoStarOutline />,
-    halfIcon: <IoStarHalfOutline />,
-    filledIcon: <IoStar />,
-    edit: true,
-    onChange: (newValue) => {
-      search.set("rating", newValue);
-    },
+  const scrollOpt = {
+    duration: 300,
   };
 
-  const handleChecked = (e) => {
-    let category = search.get("category")?.split(",") || [];
-
-    if (e.target.checked) {
-      category.push(e.target.value);
-    } else {
-      category = category.filter((cate) => cate !== e.target.value);
-    }
-
-    if (category.length === 0) {
-      search.delete("category");
-    } else {
-      search.set("category", category.join(","));
-    }
+  const handleIsFilter = () => {
+    setIsFilter(false);
   };
 
-  const handleSubmit = () => {
-    search.set("price", priceRange.join(","));
-    setSearch(search);
+  const handleIsFilterApplied = (status) => {
+    setIsFilterApplied(status);
   };
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // animateScroll.scrollTo(45, scrollOpt);
+    animateScroll.scrollTo(0, scrollOpt);
   }, [currentPageData]);
 
   useEffect(() => {
     const items = services.getItems();
+    setBaseItems(items);
     setItems(items);
   }, []);
+
+  useEffect(() => {
+    const searchQuery = search.get("search") || null;
+    const priceParams = search.get("price")?.split(",") || null;
+    const categoriesParams = search.get("categories")?.split(",") || null;
+    const filteredItems = baseItems.filter((item) => {
+      const priceMatch = priceParams
+        ? item.discountedPrice <= priceParams[1] &&
+          item.discountedPrice >= priceParams[0]
+        : true;
+      const categoryMatch = categoriesParams
+        ? categoriesParams.includes(item.category.id)
+        : true;
+      const itemNameMatch = searchQuery
+        ? item.name.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1
+        : true;
+      return priceMatch && categoryMatch && itemNameMatch;
+    });
+
+    isFilterApplied && setItems(filteredItems);
+  }, [search]);
 
   return (
     <div className="itemslist">
       <div className="itemslist__inner">
-        <div className={isFilter ? "filter filter-active" : "filter"}>
-          <div
-            className={
-              isFilter ? "filter__inner filter__inner-active" : "filter__inner"
-            }
-          >
-            <div className="category-filter">
-              <h4>Category</h4>
-              <ul>
-                {category.map((cate, index) => (
-                  <li key={index}>
-                    <label className="container">
-                      {cate.name}
-                      <input
-                        type="checkbox"
-                        value={cate.id}
-                        onChange={handleChecked}
-                      />
-                      <span className="checkmark"></span>
-                    </label>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="price-filter">
-              <h4>Price Range</h4>
-              <div className="price-range-container">
-                <input
-                  type="number"
-                  id="from"
-                  value={priceRange[0]}
-                  onChange={(event) =>
-                    dispatch(
-                      actions.handleInputPriceRangeChange({
-                        event: event,
-                        inputId: "from",
-                      })
-                    )
-                  }
-                />
-                <span>-</span>
-                <input
-                  type="number"
-                  id="to"
-                  value={priceRange[1]}
-                  onChange={(event) =>
-                    dispatch(
-                      actions.handleInputPriceRangeChange({
-                        event: event,
-                        inputId: "to",
-                      })
-                    )
-                  }
-                />
-              </div>
-              <TwoThumbs />
-            </div>
-            <div className="rate-filter">
-              <h4>Rating</h4>
-              <ReactStars {...starConfig} value={5} />
-            </div>
-            <div className="button-container">
-              <button onClick={handleSubmit}>Apply</button>
-              <button>Reset</button>
-            </div>
-          </div>
-          <div
-            onClick={() => setIsFilter(false)}
-            className={
-              isFilter ? "filter__right filter__right-active" : "filter__right"
-            }
-          ></div>
-        </div>
+        <Filter
+          isFilter={isFilter}
+          onFilter={handleIsFilter}
+          onFilterApplied={handleIsFilterApplied}
+        />
         <div className="list">
           <div
             className="filter-button-container"
@@ -161,6 +84,10 @@ const ItemsList = () => {
               {currentPageData.map((item, index) => (
                 <SingleItem key={index} item={item} />
               ))}
+            </div>
+          ) : isFilterApplied ? (
+            <div style={{ textAlign: "center" }}>
+              <h3>Item Not Found</h3>
             </div>
           ) : (
             <div className="loading-container">

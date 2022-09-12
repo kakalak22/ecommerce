@@ -1,5 +1,5 @@
 import React from "react";
-import Breadcrumbs from "../component/common/Breadcrumbs";
+import Breadcrumbs from "../common/Breadcrumbs";
 import ItemsList from "../component/ItemsList/ItemsList";
 
 const ItemsPage = () => {

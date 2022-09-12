@@ -12,11 +12,12 @@ import Cart from './component/Cart/Cart';
 import ItemDetailPage from './SitePart/ItemDetailPage';
 import ItemsPage from './SitePart/ItemsPage';
 import { useStore } from "./store"
+import Dropdown from './component/Dropdown/Dropdown';
 
 
 function App() {
   const [state, dispatch] = useStore();
-  const { isModalOpen, singleItem } = state;
+  const { isModalOpen, singleItem, location, isDropdownOpen, sideName } = state;
 
   useEffect(() => {
     const body = document.body;
@@ -26,6 +27,12 @@ function App() {
 
   return (
     <React.Fragment>
+      <Dropdown
+        isDropdownOpen={isDropdownOpen}
+        location={location}
+        name={sideName}
+        nameOfClass={"sidename"}
+      />
       <div className="App">
         {isModalOpen && <Modal singleItem={singleItem} />}
         <Cart />

@@ -9,7 +9,9 @@ const items = [
         image1: Vga,
         image2: Pc,
         price: 70,
-        discountedPrice: 50,
+        discountedPrice: 100,
+        category: { id: "cate01", name: "PC" },
+        rating: 4
     },
     {
         id: "pc02",
@@ -17,7 +19,10 @@ const items = [
         image1: Cpu,
         image2: Pc2,
         price: 70,
-        discountedPrice: 50,
+        discountedPrice: 150,
+        category:
+            { id: "cate02", name: "VGA" },
+
     },
     {
         id: "pc03",
@@ -25,7 +30,10 @@ const items = [
         image1: Vga,
         image2: Pc2,
         price: 70,
-        discountedPrice: 50,
+        discountedPrice: 250,
+        category:
+            { id: "cate04", name: "VGA" }
+
     },
     {
         id: "pc04",
@@ -33,7 +41,10 @@ const items = [
         image1: Cpu,
         image2: Pc2,
         price: 70,
-        discountedPrice: 50,
+        discountedPrice: 350,
+        category:
+            { id: "cate03", name: "PSU" },
+
     },
     {
         id: "pc05",
@@ -41,7 +52,10 @@ const items = [
         image1: Vga,
         image2: Pc2,
         price: 70,
-        discountedPrice: 50,
+        discountedPrice: 550,
+        category:
+            { id: "cate02", name: "Card" },
+
     },
     {
         id: "pc06",
@@ -49,31 +63,101 @@ const items = [
         image1: Cpu,
         image2: Pc2,
         price: 70,
-        discountedPrice: 50,
+        discountedPrice: 450,
+        category:
+            { id: "cate05", name: "CPU" }
+
     },
-    { id: "pc07", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 50 },
-    { id: "pc08", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 50 },
-    { id: "pc09", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 50 },
-    { id: "pc10", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 50 },
-    { id: "pc11", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 50 },
-    { id: "pc12", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 50 },
-    { id: "pc12", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 50 },
-    { id: "pc12", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 50 },
-    { id: "pc12", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 50 },
-    { id: "pc12", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 50 },
-    { id: "pc12", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 50 },
-    { id: "pc12", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 50 },
-    { id: "pc12", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 50 },
-    { id: "pc12", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 50 },
-    { id: "pc12", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 50 },
-    { id: "pc12", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 50 },
-    { id: "pc12", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 50 },
-    { id: "pc12", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 50 },
-    { id: "pc12", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 50 },
-    { id: "pc12", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 50 },
-    { id: "pc12", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 50 },
-    { id: "pc12", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 50 },
+    {
+        id: "pc07", name: "PC", image1: Pc, image2: Pc2, price: 170, discountedPrice: 150, category:
+            { id: "cate05", name: "CPU" }
+    },
+    {
+        id: "pc08", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 250, category:
+            { id: "cate05", name: "CPU" }
+    },
+    {
+        id: "pc09", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 550, category:
+            { id: "cate05", name: "CPU" }
+    },
+    {
+        id: "pc10", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 750, category:
+            { id: "cate05", name: "CPU" }
+    },
+    {
+        id: "pc11", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 850, category:
+            { id: "cate05", name: "CPU" }
+    },
+    {
+        id: "pc12", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 550, category:
+            { id: "cate05", name: "CPU" }
+    },
+    {
+        id: "pc12", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 150, category:
+            { id: "cate05", name: "CPU" }
+    },
+    {
+        id: "pc12", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 150, category:
+            { id: "cate05", name: "CPU" }
+    },
+    {
+        id: "pc12", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 650, category:
+            { id: "cate05", name: "CPU" }
+    },
+    {
+        id: "pc12", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 50, category:
+            { id: "cate05", name: "CPU" }
+    },
+    {
+        id: "pc12", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 50, category:
+            { id: "cate05", name: "CPU" }
+    },
+    {
+        id: "pc12", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 50, category:
+            { id: "cate05", name: "CPU" }
+    },
+    {
+        id: "pc12", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 50, category:
+            { id: "cate05", name: "CPU" }
+    },
+    {
+        id: "pc12", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 50, category:
+            { id: "cate05", name: "CPU" }
+    },
+    {
+        id: "pc12", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 50, category:
+            { id: "cate05", name: "CPU" }
+    },
+    {
+        id: "pc12", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 50, category:
+            { id: "cate05", name: "CPU" }
+    },
+    {
+        id: "pc12", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 50, category:
+            { id: "cate05", name: "CPU" }
+    },
+    {
+        id: "pc12", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 50, category:
+            { id: "cate05", name: "CPU" }
+    },
+    {
+        id: "pc12", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 50, category:
+            { id: "cate05", name: "CPU" }
+    },
+    {
+        id: "pc12", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 50, category:
+            { id: "cate05", name: "CPU" }
+    },
+    {
+        id: "pc12", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 50, category:
+            { id: "cate05", name: "CPU" }
+    },
+    {
+        id: "pc12", name: "PC", image1: Pc, image2: Pc2, price: 70, discountedPrice: 50, category:
+            { id: "cate05", name: "CPU" }
+    },
 ];
+
 
 export function getItems() {
     return items;

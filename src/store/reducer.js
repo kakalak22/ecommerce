@@ -36,7 +36,7 @@ const initState = {
     singleItem: undefined,
     sideName: "",
     location: { left: null, top: null },
-    priceRange: [0, 100]
+    priceRange: [0, 1000]
 
 }
 

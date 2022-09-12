@@ -1,10 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
-import * as services from "../../services/fakeItemsService";
 
 import "./Cart.scss";
-import Pc from "../../asset/images/hero.jpg";
-import { useGlobalContext } from "../../store/Context";
 import { useStore, actions } from "../../store";
 
 const Cart = () => {

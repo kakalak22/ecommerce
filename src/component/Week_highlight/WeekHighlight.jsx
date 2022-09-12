@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Dropdown from "../Dropdown/Dropdown";
-import SingleItem from "../SingleItem/SingleItem";
-import { useGlobalContext } from "../../store/Context";
+import SingleItem from "../../common/SingleItem/SingleItem";
 
 import * as services from "../../services/fakeItemsService";
 
@@ -11,7 +9,6 @@ import { useStore } from "../../store";
 const WeekHighlight = () => {
   const [items, setItems] = useState([]);
   const [state, dispatch] = useStore();
-  const { location, isDropdownOpen, sideName } = state;
 
   useEffect(() => {
     const items = services.getItems().slice(0, 8);
@@ -23,12 +20,6 @@ const WeekHighlight = () => {
 
   return (
     <React.Fragment>
-      <Dropdown
-        isDropdownOpen={isDropdownOpen}
-        location={location}
-        name={sideName}
-        nameOfClass={"sidename"}
-      />
       <div className="week__highlight">
         <h1>Weekly Collection</h1>
         <div className="week__highlight__inner">

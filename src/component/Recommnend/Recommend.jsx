@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState, useId } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper";
 import { useSwiper } from "swiper/react";
-import SingleItem from "../SingleItem/SingleItem";
+import SingleItem from "../../common/SingleItem/SingleItem";
 
 import * as services from "../../services/fakeItemsService";
 
@@ -50,20 +50,25 @@ const Recommend = (props) => {
             modules={[Navigation, Pagination]}
             pagination={true}
             slidesPerView={4}
+            slidesPerGroup={4}
             onSlideChange={() => console.log("slide change")}
             autoplay={true}
             breakpoints={{
               320: {
                 slidesPerView: 1,
+                slidesPerGroup: 1,
               },
               480: {
                 slidesPerView: 1,
+                slidesPerGroup: 1,
               },
               766: {
                 slidesPerView: 3,
+                slidesPerGroup: 3,
               },
               1160: {
                 slidesPerView: 4,
+                slidesPerGroup: 4,
               },
             }}
           >

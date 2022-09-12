@@ -1,0 +1,52 @@
+@use "../../../variables.scss";
+
+.searchbar__middle__form {
+  border-radius: 5px;
+  padding: 5px;
+  height: 3vh;
+  display: flex;
+  align-items: center;
+
+  input {
+    outline: none;
+    border: none;
+    width: 350px;
+    height: 3vh;
+
+    &:focus {
+      &::-webkit-input-placeholder {
+        transition: opacity 0.45s ease;
+        opacity: 0;
+      }
+      &::-moz-placeholder {
+        transition: opacity 0.45s ease;
+        opacity: 0;
+      }
+      &:-ms-placeholder {
+        transition: opacity 0.45s ease;
+        opacity: 0;
+      }
+    }
+  }
+  button {
+    height: 3vh;
+    background-color: white;
+    border: none;
+    :nth-child(1) {
+      font-size: 20px;
+      cursor: pointer;
+
+      &:hover {
+        color: darken($color: variables.$gray, $amount: 20%);
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 510px) {
+  .searchbar__middle__form {
+    input {
+      width: 200px;
+    }
+  }
+}

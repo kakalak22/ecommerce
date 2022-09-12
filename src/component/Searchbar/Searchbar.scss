@@ -5,13 +5,13 @@
   position: fixed;
   z-index: 4;
   background-color: white;
-  top: 0;
-  transition: all ease-out 300ms;
+  top: 0px;
+  transition: all ease 500ms;
 }
 
 .searchbar {
   @extend .layout;
-  height: 100px;
+  height: 70px;
   transition: all ease-out 300ms;
   .searchbar__inner {
     @extend .layout__inner;
@@ -32,48 +32,6 @@
     .searchbar__middle {
       img {
         display: none;
-      }
-      .searchbar__middle__form {
-        border-radius: 5px;
-        padding: 5px;
-        height: 3vh;
-        display: flex;
-        align-items: center;
-
-        input {
-          outline: none;
-          border: none;
-          width: 350px;
-          height: 3vh;
-
-          &:focus {
-            &::-webkit-input-placeholder {
-              transition: opacity 0.45s ease;
-              opacity: 0;
-            }
-            &::-moz-placeholder {
-              transition: opacity 0.45s ease;
-              opacity: 0;
-            }
-            &:-ms-placeholder {
-              transition: opacity 0.45s ease;
-              opacity: 0;
-            }
-          }
-        }
-        button {
-          height: 3vh;
-          background-color: white;
-          border: none;
-          :nth-child(1) {
-            font-size: 20px;
-            cursor: pointer;
-
-            &:hover {
-              color: darken($color: variables.$gray, $amount: 20%);
-            }
-          }
-        }
       }
     }
 

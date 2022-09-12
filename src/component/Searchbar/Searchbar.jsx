@@ -11,33 +11,31 @@ import {
 import Logo from "../../asset/images/logo.png";
 import Dropdown from "../Dropdown/Dropdown";
 import SideBar from "../Sidebar/Sidebar";
-import { useGlobalContext } from "../../store/Context";
 import { useRef } from "react";
 import { useStore, actions } from "../../store";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import SearchForm from "./SearchForm/SearchForm";
+import Search from "./Search";
 
 const Searchbar = () => {
   const [state, dispatch] = useStore();
 
   const { cart } = state;
-  const [isFocus, setIsFocus] = useState(false);
   const [location, setLocation] = useState({ left: null, top: null });
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isDropdownSearch, setIsDropdownSearch] = useState(false);
   const [name, setName] = useState("");
   const [cartTotal, setCartTotal] = useState(0);
   const [wishListTotal, setWishListTotal] = useState(1);
-  const [searchInput, setSearchInput] = useState("");
   const searchbar = useRef(null);
-
-  const displaySearchInputOutline = isFocus ? " in_focus" : "out_focus";
-  const [searchParams, setSearchParams] = useSearchParams();
 
   const [scrollDir, setScrollDir] = useState("scrolling down");
   const [scrollY, setScrollY] = useState(0);
   let navigate = useNavigate();
 
-  const query = searchParams.get("query") || "";
-  console.log(query);
+  const handleDropdownSearch = () => {
+    setIsDropdownSearch(false);
+  };
 
   useEffect(() => {
     const threshold = 0;
@@ -70,13 +68,10 @@ const Searchbar = () => {
   }, [scrollDir]);
 
   useEffect(() => {
-    if (scrollY < 300) {
+    if (scrollY < 50) {
       searchbar.current.classList.remove("sticky");
       return;
     }
-    // scrollDir === "scrolling down"
-    //   ? searchbar.current.classList.remove("sticky")
-    //   : searchbar.current.classList.add("sticky");
     searchbar.current.classList.add("sticky");
   }, [scrollDir, scrollY]);
 
@@ -88,7 +83,11 @@ const Searchbar = () => {
   });
 
   const icons = [
-    { icon: <BiSearch />, name: "Search", count: null },
+    {
+      icon: <BiSearch onClick={() => setIsDropdownSearch(!isDropdownSearch)} />,
+      name: "Search",
+      count: null,
+    },
     { icon: <AiOutlineUser />, name: "Account", count: null },
     { icon: <AiOutlineStar />, name: "Wishlist", count: wishListTotal },
     { icon: <BsArrowDownUp />, name: "Compare", count: null },
@@ -111,6 +110,10 @@ const Searchbar = () => {
 
   return (
     <React.Fragment>
+      <Search
+        isOpen={isDropdownSearch}
+        onDropdownSearch={handleDropdownSearch}
+      />
       <SideBar />
       <div
         className="searchbar"
@@ -123,26 +126,7 @@ const Searchbar = () => {
             <img src={Logo} alt="logo" onClick={() => navigate("/")} />
           </div>
           <div className="searchbar__middle">
-            <form
-              className={`searchbar__middle__form ${displaySearchInputOutline}`}
-            >
-              <input
-                type="text"
-                placeholder="Search products"
-                onFocus={() => setIsFocus(true)}
-                onBlur={() => setIsFocus(false)}
-                value={searchInput}
-                onChange={(event) => setSearchInput(event.target.value)}
-              />
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  setSearchParams({ query: searchInput });
-                }}
-              >
-                <BiSearch />
-              </button>
-            </form>
+            <SearchForm />
             <img src={Logo} alt="logo" onClick={() => navigate("/")} />
           </div>
           <div className="searchbar__right">
@@ -154,31 +138,6 @@ const Searchbar = () => {
             />
 
             {icons.map(({ icon, name, count }, index) => {
-              // if (name === "Cart") {
-              //   console.log("helo");
-              //   return (
-              //     <span
-              //       key={index}
-              //       onMouseEnter={() => setName(name)}
-              //       onClick={openCart}
-              //     >
-              //       <div
-              //         className={count !== null ? "cart" : ""}
-              //         count={count}
-              //         style={{
-              //           width: "25px",
-              //           height: "25px",
-              //           position: "relative",
-              //         }}
-              //         onMouseEnter={(event) => handleSubmenu(event)}
-              //         onMouseLeave={() => setIsDropdownOpen(false)}
-              //       >
-              //         {icon}
-              //       </div>
-              //     </span>
-              //   );
-              // }
-
               return (
                 <span key={index} onMouseEnter={() => setName(name)}>
                   <div

@@ -5,7 +5,7 @@ import logger from "./logger";
 
 const Provider = ({ children }) => {
 
-    const [state, dispatch] = useReducer(logger(reducer), initState);
+    const [state, dispatch] = useReducer(reducer, initState);
 
     return (
         <StoreContext.Provider value={[state, dispatch]}>

@@ -21,6 +21,10 @@
         text-decoration: none;
         font-size: 1.5em;
       }
+
+      & > :nth-child(2) {
+        cursor: pointer;
+      }
     }
   }
 
@@ -76,9 +80,9 @@
     color: black;
     cursor: pointer;
   }
-  a {
-    margin-left: 2rem;
-    text-decoration: none;
+  p {
+    margin: 0 2rem;
+    cursor: pointer;
     color: black;
   }
 }

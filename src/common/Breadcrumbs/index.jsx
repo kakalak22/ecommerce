@@ -12,7 +12,7 @@ const Breadcrumbs = () => {
       {breadcrumbs.map(({ breadcrumb }, index) => {
         if (index === breadcrumbs.length - 1) {
           return (
-            <Link key={index} to={breadcrumb.key}>
+            <Link key={index} to={breadcrumb.key} replace={true}>
               {" "}
               {breadcrumb}
             </Link>

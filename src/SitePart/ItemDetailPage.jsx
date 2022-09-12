@@ -5,7 +5,7 @@ import ItemDescription from "../component/ItemDescription/ItemDescription";
 import Recommend from "../component/Recommnend/Recommend";
 import Policy from "../component/Policy/Policy";
 import Modal from "../component/Modal/Modal";
-import Breadcrumbs from "../component/common/Breadcrumbs";
+import Breadcrumbs from "../common/Breadcrumbs";
 
 const ItemDetailPage = () => {
   return (
