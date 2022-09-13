@@ -4,7 +4,12 @@ import "./Sidebar.scss";
 import { GrNext, GrPrevious } from "react-icons/gr";
 import { AiOutlineArrowLeft, AiOutlineClose } from "react-icons/ai";
 import { useStore, actions } from "../../store";
-import { Link, useNavigate } from "react-router-dom";
+import {
+  Link,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 import * as cateServices from "../../services/fakeCategoryService";
 import { useEffect } from "react";
 
@@ -14,6 +19,32 @@ const SideBar = () => {
   const { isSidemenuOpen } = state;
   const [isSubmenuOfLinkOpen, setIsSubmenuOfLinkOpen] = useState(false);
   const navigate = useNavigate();
+  const urlLocation = useLocation();
+  const [search, setSearch] = useSearchParams();
+
+  const handleCategoryView = (cateId) => {
+    if (urlLocation.pathname === "/products") {
+      const searchParamKeys = [];
+      search.forEach((value, key) => {
+        searchParamKeys.push(key);
+      });
+      searchParamKeys.forEach((key) => search.delete(key));
+      dispatch(actions.handlePriceRange([0, 1000]));
+      document
+        .querySelectorAll("input[type=checkbox]")
+        .forEach((el) => (el.checked = false));
+      search.set("categories", cateId);
+      setSearch(search);
+    } else {
+      navigate("/products", {
+        state: {
+          cateId: cateId,
+        },
+      });
+    }
+    dispatch(actions.closeSidemenu());
+    setIsSubmenuOfLinkOpen(false);
+  };
 
   useEffect(() => {
     const newCategories = cateServices.getCategories();
@@ -78,18 +109,7 @@ const SideBar = () => {
         </span>
         {categories.length > 0 &&
           categories.map((cate, index) => (
-            <p
-              key={index}
-              onClick={() => {
-                navigate("/products", {
-                  state: {
-                    cateId: cate.id,
-                  },
-                });
-                dispatch(actions.closeSidemenu());
-                setIsSubmenuOfLinkOpen(false);
-              }}
-            >
+            <p key={index} onClick={() => handleCategoryView(cate.id)}>
               {cate.name}
             </p>
           ))}

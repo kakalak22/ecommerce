@@ -1,6 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
 import "./ItemDetail.scss";
-import { useGlobalContext } from "../../store/Context";
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 import { useParams } from "react-router-dom";
 import * as itemsService from "../../services/fakeItemsService";
@@ -19,9 +18,6 @@ import { FreeMode, Navigation, Thumbs } from "swiper";
 const ItemDetail = () => {
   const [state, dispatch] = useStore();
   const { itemQuantity } = state;
-
-  const { handleQuantityInputChange, resetQuantity, handleCart } =
-    useGlobalContext();
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   let { productId } = useParams();
   const [item, setItem] = useState({});
@@ -71,6 +67,7 @@ const ItemDetail = () => {
               <SwiperSlide>
                 <img src={item.image2} />
               </SwiperSlide>
+
               <SwiperButtonPrev />
               <SwiperButtonNext />
             </Swiper>
@@ -83,9 +80,9 @@ const ItemDetail = () => {
               className="mySwiper"
               direction="vertical"
               breakpoints={{
-                481: {
+                320: {
                   direction: "horizontal",
-                  spaceBetween: 0,
+                  slidesPerView: "3",
                 },
                 768: {
                   direction: "horizontal",

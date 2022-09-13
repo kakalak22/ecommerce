@@ -40,6 +40,10 @@ const items = [
         name: "CPU Intel Core i9-10900K",
         image1: Cpu,
         image2: Pc2,
+        image3: Pc2,
+        image4: Pc2,
+        image5: Pc2,
+        image6: Pc2,
         price: 70,
         discountedPrice: 350,
         category:

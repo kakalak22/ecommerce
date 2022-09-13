@@ -9,6 +9,7 @@ import "slick-carousel/slick/slick-theme.css";
 import HeroImg from "../../asset/images/hero.jpg";
 import Vga from "../../asset/images/vga.png";
 import Cpu from "../../asset/images/Cpu.png";
+import { useNavigate } from "react-router-dom";
 
 const NextArrow = (props) => {
   const { className, style, onClick } = props;
@@ -33,10 +34,12 @@ const PrevArrow = (props) => {
 };
 
 const Hero = () => {
+  let navigate = useNavigate();
+
   const parts = [
-    { name: "Geforce Galax 3070ti", image: Vga },
-    { name: "CPU Intel Core i9-10900K", image: Cpu },
-    { name: "PC", image: HeroImg },
+    { name: "Geforce Galax 3070ti", image: Vga, id: "pc03" },
+    { name: "CPU Intel Core i9-10900K", image: Cpu, id: "pc06" },
+    { name: "PC", image: HeroImg, id: "pc08" },
   ];
 
   const settings = {
@@ -64,7 +67,14 @@ const Hero = () => {
         <div className="hero__inner" key={index}>
           <div className="hero__left">
             <h1>{part.name}</h1>
-            <button className="btn">Explore</button>
+            <button
+              className="btn"
+              onClick={() =>
+                navigate(`/products/${part.id}`, { replace: true })
+              }
+            >
+              Explore
+            </button>
           </div>
           <div className="hero__right">
             <img src={part.image} alt="" />

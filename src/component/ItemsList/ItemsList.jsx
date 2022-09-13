@@ -46,7 +46,25 @@ const ItemsList = () => {
     const searchQuery = search.get("search") || null;
     const priceParams = search.get("price")?.split(",") || null;
     const categoriesParams = search.get("categories")?.split(",") || null;
-    const filteredItems = baseItems.filter((item) => {
+    const sortCondition = search.get("sortBy") || null;
+    const sortedItems =
+      sortCondition !== null
+        ? baseItems.sort((a, b) => {
+            if (sortCondition === "price_asc") {
+              return a.discountedPrice - b.discountedPrice;
+            }
+            if (sortCondition === "price_desc") {
+              return b.discountedPrice - a.discountedPrice;
+            }
+            if (sortCondition === "name_asc") {
+              return a.name.localeCompare(b.name);
+            }
+            if (sortCondition === "name_desc") {
+              return b.name.localeCompare(a.name);
+            }
+          })
+        : [...baseItems];
+    const filteredItems = sortedItems.filter((item) => {
       const priceMatch = priceParams
         ? item.discountedPrice <= priceParams[1] &&
           item.discountedPrice >= priceParams[0]

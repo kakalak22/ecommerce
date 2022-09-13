@@ -18,6 +18,13 @@ const Filter = ({ isFilter, onFilter, onFilterApplied }) => {
 
   const categories = cateServices.getCategories();
 
+  const sortConditions = [
+    { condition: "Price Ascending", id: "price_asc" },
+    { condition: "Price Descending", id: "price_desc" },
+    { condition: "Name Ascending", id: "name_asc" },
+    { condition: "Name Descending", id: "name_desc" },
+  ];
+
   const starConfig = {
     count: 5,
     isHalf: false,
@@ -51,7 +58,7 @@ const Filter = ({ isFilter, onFilter, onFilterApplied }) => {
       .forEach((el) => (el.checked = false));
   };
 
-  const handleChecked = (e) => {
+  const handleCheckboxChecked = (e) => {
     let categories = search.get("categories")?.split(",") || [];
 
     if (e.target.checked) {
@@ -66,6 +73,11 @@ const Filter = ({ isFilter, onFilter, onFilterApplied }) => {
       search.set("categories", categories.join(","));
     }
   };
+
+  const handleSortCondition = (e) => {
+    search.set("sortBy", e.target.value);
+  };
+
   useEffect(() => {
     const searchQuery = location.state?.searchQuery || null;
     const categoryId = location.state?.cateId || null;
@@ -100,7 +112,7 @@ const Filter = ({ isFilter, onFilter, onFilterApplied }) => {
                   <input
                     type="checkbox"
                     value={cate.id}
-                    onChange={handleChecked}
+                    onChange={handleCheckboxChecked}
                   />
                   <span className="checkmark"></span>
                 </label>
@@ -144,6 +156,21 @@ const Filter = ({ isFilter, onFilter, onFilterApplied }) => {
         <div className="rate-filter">
           <h4>Rating</h4>
           <ReactStars {...starConfig} value={5} />
+        </div>
+        <div className="sort-by">
+          <h4>Sort by</h4>
+          {sortConditions.map(({ condition, id }) => (
+            <label key={id} className="radio-container">
+              <input
+                type="radio"
+                name="sort"
+                value={id}
+                onChange={handleSortCondition}
+              />
+              {condition}
+              <span className="radio-checkmark"></span>
+            </label>
+          ))}
         </div>
         <div className="button-container">
           <button

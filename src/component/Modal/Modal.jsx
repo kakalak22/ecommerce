@@ -1,9 +1,34 @@
 import React, { useEffect, useRef } from "react";
-import "./Modal.scss";
-import { useGlobalContext } from "../../store/Context";
 import { useStore, actions } from "../../store";
+import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
+import { FreeMode, Navigation, Thumbs } from "swiper";
+import { GrNext, GrPrevious } from "react-icons/gr";
 
 import { AiOutlineClose } from "react-icons/ai";
+
+import "./Modal.scss";
+import "swiper/css";
+import "swiper/css/free-mode";
+import "swiper/css/navigation";
+import "swiper/css/thumbs";
+import { Link } from "react-router-dom";
+
+const SwiperButtonNext = () => {
+  const swiper = useSwiper();
+  return (
+    <div className="nextArrow" onClick={() => swiper.slideNext()}>
+      <GrNext />
+    </div>
+  );
+};
+const SwiperButtonPrev = () => {
+  const swiper = useSwiper();
+  return (
+    <div className="prevArrow" onClick={() => swiper.slidePrev()}>
+      <GrPrevious />
+    </div>
+  );
+};
 
 const Modal = ({ singleItem }) => {
   const [state, dispatch] = useStore();
@@ -19,10 +44,29 @@ const Modal = ({ singleItem }) => {
 
   return (
     <div className="modal__container" ref={modal}>
+      <div
+        className="modal-background"
+        onClick={() => dispatch(actions.closeModal())}
+      ></div>
       <div className="modal">
         <AiOutlineClose onClick={() => dispatch(actions.closeModal())} />
         <div className="modal__left">
-          <img src={image1} alt="" />
+          <Swiper
+            loop={true}
+            spaceBetween={10}
+            modules={[FreeMode, Navigation, Thumbs]}
+            className="modal-swiper"
+            direction="horizontal"
+          >
+            <SwiperSlide>
+              <img src={image1} />
+            </SwiperSlide>
+            <SwiperSlide>
+              <img src={image2} />
+            </SwiperSlide>
+            <SwiperButtonPrev />
+            <SwiperButtonNext />
+          </Swiper>
         </div>
         <div className="modal__right">
           <div className="modal__right__inner">
@@ -37,7 +81,7 @@ const Modal = ({ singleItem }) => {
               Lorem Ipsum is simply dummy text of the printing and typesetting
               industry.{" "}
             </p>
-            <a href="#">View Details</a>
+            <Link to={`/products/${id}`}>View Details</Link>
             <div className="quantity__control">
               <div className="quatity">
                 <button
