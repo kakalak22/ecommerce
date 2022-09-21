@@ -13,6 +13,7 @@ import ItemDetailPage from './SitePart/ItemDetailPage';
 import ItemsPage from './SitePart/ItemsPage';
 import { useStore } from "./store"
 import Dropdown from './component/Dropdown/Dropdown';
+import Checkout from './component/CheckOut';
 
 
 function App() {
@@ -44,6 +45,9 @@ function App() {
           <Route path='/products' >
             <Route index element={<ItemsPage />} />
             <Route path=":productId" element={<ItemDetailPage />} />
+          </Route>
+          <Route path='/checkout'>
+            <Route index element={<Checkout />} />
           </Route>
         </Routes>
         <Footer />

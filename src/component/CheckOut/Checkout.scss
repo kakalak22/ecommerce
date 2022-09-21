@@ -1,0 +1,21 @@
+@use "../Topbar/Topbar.scss";
+@use "../../variables.scss";
+
+.checkout {
+  height: 800px;
+  @extend .layout;
+  .checkout__inner {
+    @extend .layout__inner;
+    width: 100%;
+
+    .checkout__inner__left {
+      width: 50%;
+      height: 800px;
+      background-color: aliceblue;
+    }
+    .checkout__inner__right {
+      width: 50%;
+      height: 800px;
+    }
+  }
+}
