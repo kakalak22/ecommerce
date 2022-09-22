@@ -24,6 +24,7 @@ const SelectDistrict = ({ name, provinceId }) => {
         });
       });
     setDistricts(districts);
+    helpers.setValue("");
   };
 
   useEffect(() => {
@@ -32,14 +33,18 @@ const SelectDistrict = ({ name, provinceId }) => {
 
   return (
     <div>
-      <label htmlFor={name}>{name}</label>
+      <label htmlFor={name}>District</label>
       <Select
         id={name}
-        placeholder="Select province"
+        name={name}
+        placeholder="Select district"
         options={districts}
         value={field.value}
-        onChange={(value) => helpers.setValue(value)}
+        onChange={(value) => {
+          helpers.setValue(value);
+        }}
         onBlur={() => helpers.setTouched(true)}
+        clearV
       />
       <ErrorMessage name={name} />
     </div>

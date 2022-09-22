@@ -29,7 +29,7 @@ const SelectProvince = ({ name }) => {
 
   return (
     <div>
-      <label htmlFor={name}>{name}</label>
+      <label htmlFor={name}>Province</label>
       <Select
         id={name}
         name={name}

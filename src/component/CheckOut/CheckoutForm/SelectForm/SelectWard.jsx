@@ -24,6 +24,7 @@ const SelectWard = ({ name, districtId }) => {
         });
       });
     setWards(wards);
+    helpers.setValue("");
   };
 
   useEffect(() => {
@@ -32,10 +33,11 @@ const SelectWard = ({ name, districtId }) => {
 
   return (
     <div>
-      <label htmlFor={name}>{name}</label>
+      <label htmlFor={name}>Ward</label>
       <Select
         id={name}
-        placeholder="Select province"
+        name={name}
+        placeholder="Select ward"
         options={wards}
         value={field.value}
         onChange={(value) => helpers.setValue(value)}
