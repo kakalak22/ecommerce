@@ -5,9 +5,11 @@ import SelectDistrict from "./SelectForm/SelectDistrict";
 import SelectWard from "./SelectForm/SelectWard";
 
 import "./Form.scss";
+import { useEffect } from "react";
 
 const MyTextInput = ({ label, ...props }) => {
   const [field, meta] = useField(props);
+  console.log(meta);
   return (
     <React.Fragment>
       <label htmlFor={props.id || props.name}>{label}</label>
@@ -19,10 +21,15 @@ const MyTextInput = ({ label, ...props }) => {
   );
 };
 
-const CheckoutForm = ({ onReset }) => {
+const CheckoutForm = ({ onReset, onFormDataChange }) => {
   const formData = useFormikContext();
   const provinceId = formData.values.province?.id || null;
   const districtId = formData.values.district?.id || null;
+
+  useEffect(() => {
+    onFormDataChange(formData.values);
+  }, [formData.values]);
+
   return (
     <form className="form-container">
       <MyTextInput
@@ -39,7 +46,7 @@ const CheckoutForm = ({ onReset }) => {
       />
       <SelectProvince name="province" />
       <SelectDistrict name="district" provinceId={provinceId} />
-      <SelectWard name="ward" districtId={districtId} />
+      <SelectWard name="ward" districtId={districtId} provinceId={provinceId} />
       <MyTextInput
         label="Detail Address"
         name="address"

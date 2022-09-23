@@ -1,0 +1,10 @@
+.subtotal-container {
+  width: 80%;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid black;
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}

@@ -5,7 +5,7 @@ import ky from "https://unpkg.com/ky/distribution/index.js";
 
 const url = "https://provinces.open-api.vn/api/";
 
-const SelectWard = ({ name, districtId }) => {
+const SelectWard = ({ name, districtId, provinceId }) => {
   const [wards, setWards] = useState([]);
 
   const [field, meta, helpers] = useField(name);
@@ -24,12 +24,15 @@ const SelectWard = ({ name, districtId }) => {
         });
       });
     setWards(wards);
-    helpers.setValue("");
   };
 
   useEffect(() => {
     districtId && fetchWards();
   }, [districtId]);
+
+  useEffect(() => {
+    helpers.setValue("");
+  }, [provinceId]);
 
   return (
     <div>

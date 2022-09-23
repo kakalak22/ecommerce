@@ -1,46 +1,17 @@
 import React from "react";
-import { Formik, useFormik } from "formik";
+import { Formik, useFormik, useFormikContext } from "formik";
 import * as Yup from "yup";
 import isEmailValidator from "validator/lib/isEmail";
-import ky from "https://unpkg.com/ky/distribution/index.js";
 
 import "./Checkout.scss";
 import CheckoutForm from "./CheckoutForm";
 
 import Pc from "../../asset/images/hero.jpg";
 import Vga from "../../asset/images/vga.png";
-import { useEffect } from "react";
+import EnhancedSubtotal from "./CartDetails/SubTotal";
+import { useState } from "react";
 
 const Checkout = () => {
-  const fetchShippingFee = async () => {
-    const body = {
-      pick_province: "Hà Nội",
-      pick_district: "Quận Hai Bà Trưng",
-      province: "Hà nội",
-      district: "Quận Cầu Giấy",
-      address: "P.503 tòa nhà Auu Việt, số 1 Lê Đức Thọ",
-      weight: 1000,
-      value: 3000000,
-      transport: "road",
-      deliver_option: "xteam",
-    };
-    const params = new URLSearchParams(body).toString();
-    const rdata = await ky
-      .get(`https://services.giaohangtietkiem.vn/services/shipment/fee?${params}`, {
-        headers: {
-          "content-type": "aplication/json",
-          "token": "366b52412024EFDc2407D169c36502f1f2899495",
-        },
-
-      })
-      .json();
-    console.log(rdata);
-  };
-
-  useEffect(() => {
-    fetchShippingFee();
-  }, []);
-
   const item = {
     id: "pc01",
     name: "Geforce Galax 3070ti",
@@ -50,6 +21,11 @@ const Checkout = () => {
     discountedPrice: 100,
     category: { id: "cate01", name: "PC" },
     rating: 4,
+  };
+  const [formData, setFormData] = useState([]);
+
+  const handleFormData = (data) => {
+    setFormData(data);
   };
 
   return (
@@ -63,6 +39,7 @@ const Checkout = () => {
               province: null,
               district: null,
               ward: null,
+              address: "",
             }}
             validationSchema={Yup.object({
               name: Yup.string()
@@ -86,7 +63,12 @@ const Checkout = () => {
             })}
             validateOnChange={true}
           >
-            {({ handleReset }) => <CheckoutForm onReset={handleReset} />}
+            {({ handleReset }) => (
+              <CheckoutForm
+                onReset={handleReset}
+                onFormDataChange={handleFormData}
+              />
+            )}
           </Formik>
         </div>
         <div className="checkout__inner__right">
@@ -101,16 +83,7 @@ const Checkout = () => {
               </div>
             </div>
           </div>
-          <div className="subtotal-container">
-            <div>
-              <p>Subtotal</p>
-              <p>$50</p>
-            </div>
-            <div>
-              <p>Shipping fee</p>
-              <p>$50</p>
-            </div>
-          </div>
+          <EnhancedSubtotal formData={formData} />
           <div className="total-container">
             <div>
               <p>Total</p>
