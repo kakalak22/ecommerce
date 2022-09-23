@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import { useField, ErrorMessage } from "formik";
 import ky from "https://unpkg.com/ky/distribution/index.js";
+import "../Form.scss";
 
 const url = "https://provinces.open-api.vn/api/";
 
@@ -46,7 +47,9 @@ const SelectDistrict = ({ name, provinceId }) => {
         onBlur={() => helpers.setTouched(true)}
         clearV
       />
-      <ErrorMessage name={name} />
+      <div className="error" style={{ marginTop: "1rem" }}>
+        <ErrorMessage name={name} />
+      </div>
     </div>
   );
 };

@@ -3,13 +3,15 @@ import { AiOutlineClose } from "react-icons/ai";
 
 import "./Cart.scss";
 import { useStore, actions } from "../../store";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const [state, dispatch] = useStore();
   const { isCartOpen, cart, total } = state;
-
   const cartRef = useRef(null);
   const cart_right = useRef(null);
+  const navigate = useNavigate();
+
   useEffect(() => {
     dispatch(actions.cartTotalSub());
   }, [cart]);
@@ -101,8 +103,15 @@ const Cart = () => {
             <p>Subtotal:</p>
             <span>{total}$</span>
           </div>
-          <button> Check Out </button>
-          <a href="#">View Cart</a>
+          <button
+            onClick={() => {
+              navigate("/checkout");
+              dispatch(actions.closeCart());
+            }}
+          >
+            {" "}
+            Check Out{" "}
+          </button>
         </div>
       </div>
     </div>

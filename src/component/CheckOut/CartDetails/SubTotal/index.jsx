@@ -1,12 +1,11 @@
 import React from "react";
-import { useFormikContext, withFormik } from "formik";
 import ky from "https://unpkg.com/ky/distribution/index.js";
 import { useEffect } from "react";
 import "./SubTotal.scss";
 import { useState } from "react";
 
 const SubTotal = (props) => {
-  const { formData } = props;
+  const { formData, total } = props;
   const { district, province, ward, address } = formData;
   const [deliveryFee, setDeliveryFee] = useState();
   console.log(formData);
@@ -55,7 +54,7 @@ const SubTotal = (props) => {
     <div className="subtotal-container">
       <div>
         <p>Subtotal</p>
-        <p>$50</p>
+        <p>$ {total}</p>
       </div>
       <div>
         <p>Shipping fee</p>
@@ -65,8 +64,4 @@ const SubTotal = (props) => {
   );
 };
 
-const EnhancedSubtotal = withFormik({
-  mapPropsToValues: () => ({}),
-})(SubTotal);
-
-export default EnhancedSubtotal;
+export default SubTotal;

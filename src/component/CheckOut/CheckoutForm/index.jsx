@@ -9,7 +9,6 @@ import { useEffect } from "react";
 
 const MyTextInput = ({ label, ...props }) => {
   const [field, meta] = useField(props);
-  console.log(meta);
   return (
     <React.Fragment>
       <label htmlFor={props.id || props.name}>{label}</label>

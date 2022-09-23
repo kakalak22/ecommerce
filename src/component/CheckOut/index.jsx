@@ -5,24 +5,15 @@ import isEmailValidator from "validator/lib/isEmail";
 
 import "./Checkout.scss";
 import CheckoutForm from "./CheckoutForm";
-
-import Pc from "../../asset/images/hero.jpg";
-import Vga from "../../asset/images/vga.png";
-import EnhancedSubtotal from "./CartDetails/SubTotal";
+import { useStore } from "../../store";
 import { useState } from "react";
+import CartItems from "./CartDetails/CartItems";
+import SubTotal from "./CartDetails/SubTotal";
 
 const Checkout = () => {
-  const item = {
-    id: "pc01",
-    name: "Geforce Galax 3070ti",
-    image1: Vga,
-    image2: Pc,
-    price: 70,
-    discountedPrice: 100,
-    category: { id: "cate01", name: "PC" },
-    rating: 4,
-  };
   const [formData, setFormData] = useState([]);
+  const [state] = useStore();
+  const { cart, total } = state;
 
   const handleFormData = (data) => {
     setFormData(data);
@@ -72,18 +63,8 @@ const Checkout = () => {
           </Formik>
         </div>
         <div className="checkout__inner__right">
-          <div className="items-container">
-            <div className="item-container">
-              <div className="item-container__left">
-                <img src={item.image2} alt="" />
-                <p>{item.name}</p>
-              </div>
-              <div className="item-container__right">
-                <p>${item.price}</p>
-              </div>
-            </div>
-          </div>
-          <EnhancedSubtotal formData={formData} />
+          <CartItems cart={cart} />
+          <SubTotal formData={formData} total={total} />
           <div className="total-container">
             <div>
               <p>Total</p>

@@ -6,14 +6,11 @@ import "./SingleItem.scss";
 
 import { BsArrowDownUp } from "react-icons/bs";
 import { AiOutlineStar, AiOutlineEye } from "react-icons/ai";
-import { useGlobalContext } from "../../store/Context";
 
 const SingleItem = ({ item }) => {
   const [state, dispatch] = useStore();
 
   const { image1, image2, name, price, discountedPrice, id } = item;
-  const { openDropdown, closeDropdown, handleLocationChange } =
-    useGlobalContext();
 
   const handleSidenameLocation = (event) => {
     const { left, right, top } = event.target.getBoundingClientRect();
