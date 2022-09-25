@@ -32,7 +32,7 @@ const SubTotal = (props) => {
     const params = new URLSearchParams(body).toString();
     const rdata = await ky
       .get(
-        `https://services.giaohangtietkiem.vn/services/shipment/fee?${params}`,
+        `https://powerful-brook-06222.herokuapp.com/https://services.giaohangtietkiem.vn/services/shipment/fee?${params}`,
         {
           headers: {
             "content-type": "aplication/json",
