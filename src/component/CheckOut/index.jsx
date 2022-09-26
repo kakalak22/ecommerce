@@ -4,16 +4,33 @@ import * as Yup from "yup";
 import isEmailValidator from "validator/lib/isEmail";
 
 import "./Checkout.scss";
-import CheckoutForm from "./CheckoutForm";
+import CheckoutForm from "./CheckoutForm/CheckoutForm";
 import { useStore } from "../../store";
 import { useState } from "react";
-import CartItems from "./CartDetails/CartItems";
-import SubTotal from "./CartDetails/SubTotal";
+import SubTotal from "./CartDetails/SubTotal/SubTotal";
+import CartItems from "./CartDetails/CartItems/CartItems.";
+import { useEffect } from "react";
+import { numberWithDot } from "../../utils/numberWithDot";
 
 const Checkout = () => {
   const [formData, setFormData] = useState([]);
   const [state] = useStore();
   const { cart, total } = state;
+  const [deliveryFee, setDeliveryFee] = useState();
+  const [totalPriceWithDeliFee, setTotalPriceWithDeliFee] = useState();
+
+  useEffect(() => {
+    console.log(deliveryFee);
+    if (deliveryFee && total) {
+      setTotalPriceWithDeliFee(deliveryFee + total);
+      return;
+    }
+    setTotalPriceWithDeliFee(total);
+  }, [deliveryFee, total]);
+
+  const handleDeliveryFee = (value) => {
+    setDeliveryFee(value);
+  };
 
   const handleFormData = (data) => {
     setFormData(data);
@@ -64,11 +81,18 @@ const Checkout = () => {
         </div>
         <div className="checkout__inner__right">
           <CartItems cart={cart} />
-          <SubTotal formData={formData} total={total} />
+          <SubTotal
+            formData={formData}
+            total={total}
+            onDeliveryFeeChange={handleDeliveryFee}
+          />
           <div className="total-container">
             <div>
               <p>Total</p>
-              <p>555</p>
+              <p>
+                {totalPriceWithDeliFee && numberWithDot(totalPriceWithDeliFee)}{" "}
+                $
+              </p>
             </div>
           </div>
         </div>

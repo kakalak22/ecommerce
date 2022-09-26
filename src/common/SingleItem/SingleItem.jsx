@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useStore, actions } from "../../store";
+import { numberWithDot } from "../../utils/numberWithDot";
 
 import "./SingleItem.scss";
 
@@ -82,12 +83,17 @@ const SingleItem = ({ item }) => {
       </div>
       <div className="item__content">
         <div className="title">
-          <h3>{name}</h3>
+          <h3>{name.substring(0, 48).concat("...")}</h3>
         </div>
         <div className="price">
-          <p>
-            <span>{price}$</span> {discountedPrice}$
-          </p>
+          {price === discountedPrice ? (
+            <p>{numberWithDot(discountedPrice)}đ</p>
+          ) : (
+            <p>
+              <span>{numberWithDot(price)}đ</span>{" "}
+              {numberWithDot(discountedPrice)}đ
+            </p>
+          )}
         </div>
       </div>
     </div>

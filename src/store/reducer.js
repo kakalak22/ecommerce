@@ -36,7 +36,7 @@ const initState = {
     singleItem: undefined,
     sideName: "",
     location: { left: null, top: null },
-    priceRange: [0, 1000]
+    priceRange: [0, 90000000]
 
 }
 
@@ -259,7 +259,7 @@ const reducer = (state, action) => {
                 const { event, inputId } = action.payload;
                 const newRange = [...state.priceRange];
                 const min = 0;
-                const max = 1000;
+                const max = 90000000;
                 inputId === "to" ?
                     newRange[1] = parseInt(event.target.value)
                     : newRange[0] = parseInt(event.target.value);

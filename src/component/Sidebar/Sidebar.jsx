@@ -29,7 +29,7 @@ const SideBar = () => {
         searchParamKeys.push(key);
       });
       searchParamKeys.forEach((key) => search.delete(key));
-      dispatch(actions.handlePriceRange([0, 1000]));
+      dispatch(actions.handlePriceRange([0, 90000000]));
       document
         .querySelectorAll("input[type=checkbox]")
         .forEach((el) => (el.checked = false));

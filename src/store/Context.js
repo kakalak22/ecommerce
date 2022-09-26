@@ -25,7 +25,7 @@ export const AppProvider = ({ children }) => {
     const handleInputPriceRangeChange = (event, inputId) => {
         const newRange = [...priceRange];
         const min = 0;
-        const max = 1000;
+        const max = 90000000;
         setPriceRangeErrorMessage("");
         inputId === "to" ?
             newRange[1] = parseInt(event.target.value)

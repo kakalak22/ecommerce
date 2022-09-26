@@ -1,18 +1,15 @@
 import React from "react";
-import ky from "https://unpkg.com/ky/distribution/index.js";
+import ky from "ky";
 import { useEffect } from "react";
 import "./SubTotal.scss";
 import { useState } from "react";
+import { numberWithDot } from "../../../../utils/numberWithDot";
 
 const SubTotal = (props) => {
-  const { formData, total } = props;
+  const { formData, total, onDeliveryFeeChange } = props;
   const { district, province, ward, address } = formData;
   const [deliveryFee, setDeliveryFee] = useState();
   console.log(formData);
-
-  const numberWithDot = (x) => {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-  };
 
   const fetchShippingFee = async (province, district, ward, address) => {
     const body = {
@@ -31,7 +28,7 @@ const SubTotal = (props) => {
     const params = new URLSearchParams(body).toString();
     const rdata = await ky
       .get(
-        `https://powerful-brook-06222.herokuapp.com/https://services.giaohangtietkiem.vn/services/shipment/fee?${params}`,
+        `${process.env.REACT_APP_PROXY}${process.env.REACT_APP_GHTK_API_URL}?${params}`,
         {
           headers: {
             "content-type": "aplication/json",
@@ -42,6 +39,7 @@ const SubTotal = (props) => {
       .json();
     console.log(rdata);
     setDeliveryFee(rdata.fee.fee);
+    onDeliveryFeeChange(rdata.fee.fee);
   };
 
   useEffect(() => {

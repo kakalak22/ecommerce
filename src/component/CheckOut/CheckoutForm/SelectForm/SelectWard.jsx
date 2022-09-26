@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import { useField, ErrorMessage } from "formik";
-import ky from "https://unpkg.com/ky/distribution/index.js";
+import ky from "ky";
 import "../Form.scss";
 
 const url = "https://provinces.open-api.vn/api/";
@@ -13,7 +13,9 @@ const SelectWard = ({ name, districtId, provinceId }) => {
 
   const fetchWards = async () => {
     const rdata = await ky
-      .get(`${url}d/${districtId}`, { searchParams: { depth: 2 } })
+      .get(`${process.env.REACT_APP_PROVINCES_API_URL}d/${districtId}`, {
+        searchParams: { depth: 2 },
+      })
       .json();
     const wards = [];
     rdata &&
@@ -36,7 +38,7 @@ const SelectWard = ({ name, districtId, provinceId }) => {
   }, [provinceId]);
 
   return (
-    <div>
+    <>
       <label htmlFor={name}>Ward</label>
       <Select
         id={name}
@@ -47,10 +49,10 @@ const SelectWard = ({ name, districtId, provinceId }) => {
         onChange={(value) => helpers.setValue(value)}
         onBlur={() => helpers.setTouched(true)}
       />
-      <div className="error" style={{ marginTop: "1rem" }}>
+      <div className="error">
         <ErrorMessage name={name} />
       </div>
-    </div>
+    </>
   );
 };
 

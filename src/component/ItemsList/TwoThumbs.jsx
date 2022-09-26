@@ -1,17 +1,16 @@
 import * as React from "react";
-import { useEffect } from "react";
 import { Range, getTrackBackground } from "react-range";
 import { actions, useStore } from "../../store";
-import { useGlobalContext } from "../../store/Context";
 
 const STEP = 1;
 const MIN = 0;
-const MAX = 1000;
+const MAX = 90000000;
 
 const TwoThumbs = ({ rtl }) => {
   // const [values, setValues] = React.useState([25, 75]);
   const [state, dispatch] = useStore();
   const { priceRange } = state;
+  console.log(rtl);
 
   // useEffect(() => {
   //   handlePriceRange(values);

@@ -172,3 +172,15 @@
 .cart__container__active {
   z-index: 6;
 }
+
+@media screen and (max-width: 460px) {
+  .cart__container {
+    .cart__right {
+      .cart__items {
+        .cart__item {
+          width: 350px;
+        }
+      }
+    }
+  }
+}

@@ -10,12 +10,13 @@
 
     .checkout__inner__left {
       width: 50%;
-      height: 800px;
+      height: 700px;
     }
     .checkout__inner__right {
       width: 50%;
-      height: 800px;
-      background-color: aliceblue;
+      height: 700px;
+      -webkit-box-shadow: 0px 0px 11px 0px rgba(0, 0, 0, 0.58);
+      box-shadow: 0px 0px 11px 0px rgba(0, 0, 0, 0.58);
       display: flex;
       justify-content: flex-start;
       align-items: center;
@@ -91,6 +92,24 @@
         }
         border-bottom: none;
         font-size: 1.3em;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 982px) {
+  .checkout {
+    height: 1200px;
+    .checkout__inner {
+      flex-direction: column-reverse;
+      justify-content: space-around;
+      .checkout__inner__left {
+        width: 90%;
+        height: 700px;
+      }
+      .checkout__inner__right {
+        width: 90%;
+        height: 400px;
       }
     }
   }
