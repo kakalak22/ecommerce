@@ -11,6 +11,7 @@ import SubTotal from "./CartDetails/SubTotal/SubTotal";
 import CartItems from "./CartDetails/CartItems/CartItems.";
 import { useEffect } from "react";
 import { numberWithDot } from "../../utils/numberWithDot";
+import Breadcrumbs from "../../common/Breadcrumbs";
 
 const Checkout = () => {
   const [formData, setFormData] = useState([]);
@@ -37,67 +38,71 @@ const Checkout = () => {
   };
 
   return (
-    <div className="checkout">
-      <div className="checkout__inner">
-        <div className="checkout__inner__left">
-          <Formik
-            initialValues={{
-              name: "",
-              email: "",
-              province: null,
-              district: null,
-              ward: null,
-              address: "",
-            }}
-            validationSchema={Yup.object({
-              name: Yup.string()
-                .max(15, "Must be between 5 and 15 characters")
-                .min(5, "Must be between 5 and 15 characters")
-                .required("Required"),
-              email: Yup.string()
-                .required("Required")
-                .test(
-                  "is-valid",
-                  (message) => `${message.path} is invalid`,
-                  (value) =>
-                    value
-                      ? isEmailValidator(value)
-                      : new Yup.ValidationError("Invalid email")
-                ),
-              address: Yup.string().required("Required"),
-              province: Yup.object().nullable().required("Required"),
-              district: Yup.object().nullable().required("Required"),
-              ward: Yup.object().nullable().required("Required"),
-            })}
-            validateOnChange={true}
-          >
-            {({ handleReset }) => (
-              <CheckoutForm
-                onReset={handleReset}
-                onFormDataChange={handleFormData}
-              />
-            )}
-          </Formik>
-        </div>
-        <div className="checkout__inner__right">
-          <CartItems cart={cart} />
-          <SubTotal
-            formData={formData}
-            total={total}
-            onDeliveryFeeChange={handleDeliveryFee}
-          />
-          <div className="total-container">
-            <div>
-              <p>Total</p>
-              <p>
-                {totalPriceWithDeliFee && numberWithDot(totalPriceWithDeliFee)}{" "}
-                $
-              </p>
+    <React.Fragment>
+      <Breadcrumbs />
+      <div className="checkout">
+        <div className="checkout__inner">
+          <div className="checkout__inner__left">
+            <Formik
+              initialValues={{
+                name: "",
+                email: "",
+                province: null,
+                district: null,
+                ward: null,
+                address: "",
+              }}
+              validationSchema={Yup.object({
+                name: Yup.string()
+                  .max(15, "Must be between 5 and 15 characters")
+                  .min(5, "Must be between 5 and 15 characters")
+                  .required("Required"),
+                email: Yup.string()
+                  .required("Required")
+                  .test(
+                    "is-valid",
+                    (message) => `${message.path} is invalid`,
+                    (value) =>
+                      value
+                        ? isEmailValidator(value)
+                        : new Yup.ValidationError("Invalid email")
+                  ),
+                address: Yup.string().required("Required"),
+                province: Yup.object().nullable().required("Required"),
+                district: Yup.object().nullable().required("Required"),
+                ward: Yup.object().nullable().required("Required"),
+              })}
+              validateOnChange={true}
+            >
+              {({ handleReset }) => (
+                <CheckoutForm
+                  onReset={handleReset}
+                  onFormDataChange={handleFormData}
+                />
+              )}
+            </Formik>
+          </div>
+          <div className="checkout__inner__right">
+            <CartItems cart={cart} />
+            <SubTotal
+              formData={formData}
+              total={total}
+              onDeliveryFeeChange={handleDeliveryFee}
+            />
+            <div className="total-container">
+              <div>
+                <p>Total</p>
+                <p>
+                  {totalPriceWithDeliFee &&
+                    numberWithDot(totalPriceWithDeliFee)}
+                  đ
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </React.Fragment>
   );
 };
 

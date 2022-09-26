@@ -68,7 +68,7 @@ const Searchbar = () => {
   }, [scrollDir]);
 
   useEffect(() => {
-    if (scrollY < 50) {
+    if (scrollY < 350) {
       searchbar.current.classList.remove("sticky");
       return;
     }

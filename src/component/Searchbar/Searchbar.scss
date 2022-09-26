@@ -6,13 +6,12 @@
   z-index: 4;
   background-color: white;
   top: 0px;
-  transition: all ease 500ms;
 }
 
 .searchbar {
   @extend .layout;
   height: 70px;
-  transition: all ease-out 300ms;
+  transition: all ease 600ms;
   .searchbar__inner {
     @extend .layout__inner;
 

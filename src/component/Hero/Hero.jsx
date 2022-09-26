@@ -10,6 +10,7 @@ import HeroImg from "../../asset/images/hero.jpg";
 import Vga from "../../asset/images/vga.png";
 import Cpu from "../../asset/images/Cpu.png";
 import { useNavigate } from "react-router-dom";
+import * as services from "../../services/fakeItemsService";
 
 const NextArrow = (props) => {
   const { className, style, onClick } = props;
@@ -32,15 +33,15 @@ const PrevArrow = (props) => {
     />
   );
 };
+const getRandomInt = (max) => {
+  return Math.floor(Math.random() * max);
+};
 
 const Hero = () => {
   let navigate = useNavigate();
-
-  const parts = [
-    { name: "Geforce Galax 3070ti", image: Vga, id: "pc03" },
-    { name: "CPU Intel Core i9-10900K", image: Cpu, id: "pc06" },
-    { name: "PC", image: HeroImg, id: "pc08" },
-  ];
+  const startIndex = getRandomInt(10);
+  const parts = services.getItems().slice(startIndex, startIndex + 3);
+  console.log(parts);
 
   const settings = {
     dots: true,
@@ -62,7 +63,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <Slider {...settings} style={{ background: "rgb(0, 0, 0, 0.1)" }}>
+    <Slider {...settings} style={{ background: "white" }}>
       {parts.map((part, index) => (
         <div className="hero__inner" key={index}>
           <div className="hero__left">
@@ -77,7 +78,7 @@ const Hero = () => {
             </button>
           </div>
           <div className="hero__right">
-            <img src={part.image} alt="" />
+            <img src={part.image1} alt="" />
           </div>
         </div>
       ))}

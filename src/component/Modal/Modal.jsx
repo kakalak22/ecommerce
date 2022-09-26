@@ -12,6 +12,7 @@ import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import { Link } from "react-router-dom";
+import { numberWithDot } from "../../utils/numberWithDot";
 
 const SwiperButtonNext = () => {
   const swiper = useSwiper();
@@ -73,8 +74,8 @@ const Modal = ({ singleItem }) => {
             <h2>{name}</h2>
             <div className="price">
               <p>
-                {discountedPrice}$ {"  "}
-                <span>{price}$</span>
+                {numberWithDot(discountedPrice)}đ {"  "}
+                <span>{numberWithDot(price)}đ</span>
               </p>
             </div>
             <p>

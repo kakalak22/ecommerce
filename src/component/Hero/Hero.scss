@@ -4,7 +4,7 @@
 .hero {
   @extend .layout;
   height: 90vh;
-  background: rgba(208, 198, 198, 0.1) !important;
+  background: white !important;
 }
 .hero__inner {
   @extend .layout__inner;

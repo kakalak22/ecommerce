@@ -52,11 +52,11 @@ const SubTotal = (props) => {
     <div className="subtotal-container">
       <div>
         <p>Subtotal</p>
-        <p>$ {total}</p>
+        <p>{numberWithDot(total)}đ</p>
       </div>
       <div>
         <p>Shipping fee</p>
-        <p>{deliveryFee ? numberWithDot(deliveryFee) : "--"}</p>
+        <p>{deliveryFee ? `${numberWithDot(deliveryFee)}đ` : "--"}</p>
       </div>
     </div>
   );

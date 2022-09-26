@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 import { useParams } from "react-router-dom";
 import * as itemsService from "../../services/fakeItemsService";
 import { useStore, actions } from "../../store";
+import { numberWithDot } from "../../utils/numberWithDot";
 
 import { GrNext, GrPrevious } from "react-icons/gr";
 
@@ -104,10 +105,15 @@ const ItemDetail = () => {
             <div className="content-wrapper">
               <h2>{item.name}</h2>
               <div className="price">
-                <p>
-                  {item.discountedPrice}$ {"  "}
-                  <span>{item.price}$</span>
-                </p>
+                {item.price &&
+                  (item.price === item.discountedPrice ? (
+                    <p>{numberWithDot(item.discountedPrice)}đ</p>
+                  ) : (
+                    <p>
+                      {numberWithDot(item.discountedPrice)}đ {"  "}
+                      <span>{numberWithDot(item.price)}đ</span>
+                    </p>
+                  ))}
               </div>
               <div className="quantity__control">
                 <p>Quantity</p>

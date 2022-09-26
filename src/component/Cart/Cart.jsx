@@ -4,6 +4,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import "./Cart.scss";
 import { useStore, actions } from "../../store";
 import { useNavigate } from "react-router-dom";
+import { numberWithDot } from "../../utils/numberWithDot";
 
 const Cart = () => {
   const [state, dispatch] = useStore();
@@ -49,59 +50,63 @@ const Cart = () => {
         <AiOutlineClose onClick={handleCartClose} />
 
         <div className="cart__items">
-          {cart.map(({ item, quantity }) => (
-            <div className="cart__item" key={item.id}>
-              <div className="cart__item__left">
-                <img src={item.image1} alt="" />
-              </div>
-              <div className="cart__item__right">
-                <h3>{item.name}</h3>
-                <p>{item.discountedPrice}$</p>
-                <div className="quantity__control">
-                  <div className="quatity">
-                    <button
-                      onClick={() =>
-                        dispatch(actions.decreaseQuantity(item.id))
-                      }
+          {cart.length > 0 ? (
+            cart.map(({ item, quantity }) => (
+              <div className="cart__item" key={item.id}>
+                <div className="cart__item__left">
+                  <img src={item.image1} alt="" />
+                </div>
+                <div className="cart__item__right">
+                  <h3>{item.name}</h3>
+                  <p>{numberWithDot(item.discountedPrice)}đ</p>
+                  <div className="quantity__control">
+                    <div className="quatity">
+                      <button
+                        onClick={() =>
+                          dispatch(actions.decreaseQuantity(item.id))
+                        }
+                      >
+                        -
+                      </button>
+                      <input
+                        type="text"
+                        onChange={(event) =>
+                          dispatch(
+                            actions.inputQuantity({
+                              quantity: event.target.value,
+                              id: item.id,
+                            })
+                          )
+                        }
+                        value={quantity}
+                      />
+                      <button
+                        onClick={() =>
+                          dispatch(actions.increaseQuantity(item.id))
+                        }
+                      >
+                        +
+                      </button>
+                    </div>
+                    <div
+                      className="remove"
+                      onClick={() => dispatch(actions.removeCartItem(item.id))}
                     >
-                      -
-                    </button>
-                    <input
-                      type="text"
-                      onChange={(event) =>
-                        dispatch(
-                          actions.inputQuantity({
-                            quantity: event.target.value,
-                            id: item.id,
-                          })
-                        )
-                      }
-                      value={quantity}
-                    />
-                    <button
-                      onClick={() =>
-                        dispatch(actions.increaseQuantity(item.id))
-                      }
-                    >
-                      +
-                    </button>
-                  </div>
-                  <div
-                    className="remove"
-                    onClick={() => dispatch(actions.removeCartItem(item.id))}
-                  >
-                    <p>Remove</p>
+                      <p>Remove</p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            <h3>There is no items in cart</h3>
+          )}
         </div>
 
         <div className="cart__bottom">
           <div className="subtotal">
             <p>Subtotal:</p>
-            <span>{total}$</span>
+            <span>{numberWithDot(total)}đ</span>
           </div>
           <button
             onClick={() => {

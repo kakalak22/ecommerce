@@ -1,6 +1,7 @@
 import React from "react";
 import "../../Checkout.scss";
 import { useId } from "react";
+import { numberWithDot } from "../../../../utils/numberWithDot";
 
 const CartItems = ({ cart }) => {
   const id = useId();
@@ -18,7 +19,7 @@ const CartItems = ({ cart }) => {
                 <p>{item.name}</p>
               </div>
               <div className="item-container__right">
-                <p>${item.price}</p>
+                <p>{numberWithDot(item.discountedPrice * quantity)}đ</p>
               </div>
             </div>
           );

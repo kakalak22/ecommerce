@@ -1,13 +1,10 @@
-import Vga from "../asset/images/vga.png";
-import Cpu from "../asset/images/Cpu.png";
-import Pc from "../asset/images/hero.jpg";
-import Pc2 from "../asset/images/pc2.jpg";
+
 const items = [
     {
         id: "vga01",
         name: "PNY GeForce GTX 1650 4GB GDDR6 – Single Fan",
-        image1: "https://tandoanh.vn/wp-content/uploads/2022/09/PNY-GeForce-GTX-1650-4GB-GDDR6-Single-Fan-H2-600x600.jpg",
-        image2: "https://tandoanh.vn/wp-content/uploads/2022/09/PNY-GeForce-GTX-1650-4GB-GDDR6-Single-Fan-H7-600x600.jpg",
+        image2: "https://tandoanh.vn/wp-content/uploads/2022/09/PNY-GeForce-GTX-1650-4GB-GDDR6-Single-Fan-H2-600x600.jpg",
+        image1: "https://tandoanh.vn/wp-content/uploads/2022/09/PNY-GeForce-GTX-1650-4GB-GDDR6-Single-Fan-H7-600x600.jpg",
         price: 3390000,
         discountedPrice: 3390000,
         category: { id: "vga", name: "VGA" },
@@ -16,8 +13,8 @@ const items = [
     {
         id: "vga02",
         name: "ZOTAC GAMING GeForce GTX 1650 AMP Core GDDR6",
-        image1: "https://tandoanh.vn/wp-content/uploads/2022/09/PNY-GeForce-GTX-1650-4GB-GDDR6-Single-Fan-H2-600x600.jpg",
-        image2: "https://tandoanh.vn/wp-content/uploads/2022/09/PNY-GeForce-GTX-1650-4GB-GDDR6-Single-Fan-H7-600x600.jpg",
+        image1: "https://tandoanh.vn/wp-content/uploads/2022/09/ZOTAC-GAMING-GeForce-GTX-1650-AMP-Core-GDDR6-H1-600x600.jpg",
+        image2: "https://tandoanh.vn/wp-content/uploads/2022/09/ZOTAC-GAMING-GeForce-GTX-1650-AMP-Core-GDDR6-H2-600x600.jpg",
         price: 3800000,
         discountedPrice: 3650000,
         category: { id: "vga", name: "VGA" },
@@ -125,7 +122,7 @@ const items = [
     },
     {
         id: "pc01",
-        name: "Geforce Galax 3070ti",
+        name: "MSI Gaming MidEnd Level (i5-12600K, B660M, 16GB DDR4, RTX 3060Ti, SSD 250GB)",
         image1: "https://tandoanh.vn/wp-content/uploads/2021/10/ASUS-TD-01-600x600.jpg",
         image2: "https://tandoanh.vn/wp-content/uploads/2021/10/Infinity-Soko-M-ATX-Case.jpeg",
         price: 70,
