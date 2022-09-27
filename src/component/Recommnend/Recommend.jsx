@@ -54,13 +54,13 @@ const Recommend = (props) => {
             onSlideChange={() => console.log("slide change")}
             autoplay={true}
             breakpoints={{
-              320: {
-                slidesPerView: 1,
-                slidesPerGroup: 1,
+              360: {
+                slidesPerView: 2,
+                slidesPerGroup: 2,
               },
               480: {
-                slidesPerView: 1,
-                slidesPerGroup: 1,
+                slidesPerView: 2,
+                slidesPerGroup: 2,
               },
               766: {
                 slidesPerView: 3,

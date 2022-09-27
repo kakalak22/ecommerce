@@ -14,6 +14,7 @@
       justify-content: center;
       // border-left: 1px solid variables.$gray;
       border-right: 1px solid variables.$gray;
+      overflow: auto;
 
       .filter__inner {
         width: 90%;
@@ -387,6 +388,10 @@
 }
 
 @media screen and (max-width: 510px) {
+  .radio-container {
+    font-size: 13px;
+  }
+
   .itemslist {
     height: 1250px;
     .itemslist__inner {

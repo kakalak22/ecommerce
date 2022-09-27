@@ -1,10 +1,6 @@
 @use "../Topbar/Topbar.scss";
 @use "../../variables.scss";
 
-* {
-  font-family: variables.$font;
-}
-
 .week__highlight {
   @extend .layout;
   font-family: variables.$font;
@@ -40,6 +36,17 @@
       align-items: center;
       justify-items: center;
       justify-content: space-evenly;
+    }
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .week__highlight {
+    height: 1300px;
+    .week__highlight__inner {
+      gap: 0.5rem;
+      margin-left: 1rem;
+      margin-right: 1rem;
     }
   }
 }

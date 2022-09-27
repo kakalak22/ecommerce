@@ -83,7 +83,7 @@ const SingleItem = ({ item }) => {
       </div>
       <div className="item__content">
         <div className="title">
-          <h3>{name.substring(0, 48).concat("...")}</h3>
+          <h3>{name.substring(0, 40).concat("...")}</h3>
         </div>
         <div className="price">
           {price === discountedPrice ? (

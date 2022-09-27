@@ -179,6 +179,11 @@
       .cart__items {
         .cart__item {
           width: 350px;
+          .cart__item__right {
+            & > :nth-child(1) {
+              font-size: 13px;
+            }
+          }
         }
       }
     }

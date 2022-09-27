@@ -21,7 +21,7 @@
     flex-direction: column;
     justify-content: center;
     h1 {
-      font-size: 50px;
+      font-size: 30px;
       font-weight: 500;
     }
   }
@@ -118,6 +118,9 @@
       margin: 1rem;
       align-items: center;
       text-align: center;
+      h1 {
+        font-size: 27px;
+      }
     }
 
     .hero__right {
@@ -133,7 +136,7 @@
     height: 80vh;
     .hero__left {
       h1 {
-        font-size: 40px;
+        font-size: 25px !important;
       }
       .btn {
         transform: scale(0.9);
