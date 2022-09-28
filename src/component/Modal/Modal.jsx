@@ -82,7 +82,12 @@ const Modal = ({ singleItem }) => {
               Lorem Ipsum is simply dummy text of the printing and typesetting
               industry.{" "}
             </p>
-            <Link to={`/products/${id}`}>View Details</Link>
+            <Link
+              onClick={() => dispatch(actions.closeModal())}
+              to={`/products/${id}`}
+            >
+              View Details
+            </Link>
             <div className="quantity__control">
               <div className="quatity">
                 <button

@@ -6,6 +6,7 @@ import SelectWard from "./SelectForm/SelectWard";
 
 import "./Form.scss";
 import { useEffect } from "react";
+import { animateScroll } from "react-scroll";
 
 const MyTextInput = ({ label, ...props }) => {
   const [field, meta] = useField(props);
@@ -22,12 +23,19 @@ const MyTextInput = ({ label, ...props }) => {
 
 const CheckoutForm = ({ onReset, onFormDataChange }) => {
   const formData = useFormikContext();
+  const scrollOpt = {
+    duration: 300,
+  };
   const provinceId = formData.values.province?.id || null;
   const districtId = formData.values.district?.id || null;
 
   useEffect(() => {
     onFormDataChange(formData.values);
   }, [formData.values]);
+
+  useEffect(() => {
+    animateScroll.scrollToTop(scrollOpt);
+  }, []);
 
   return (
     <form className="form-container">

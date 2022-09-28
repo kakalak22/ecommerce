@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import "./ItemDetail.scss";
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import * as itemsService from "../../services/fakeItemsService";
 import { useStore, actions } from "../../store";
 import { numberWithDot } from "../../utils/numberWithDot";
@@ -22,6 +22,7 @@ const ItemDetail = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   let { productId } = useParams();
   const [item, setItem] = useState({});
+  const navigate = useNavigate();
 
   const SwiperButtonNext = () => {
     const swiper = useSwiper();
@@ -158,7 +159,22 @@ const ItemDetail = () => {
                 {" "}
                 Add to cart{" "}
               </button>
-              <button className="btn-buy">Buy It Now</button>
+              <button
+                onClick={() => {
+                  dispatch(
+                    actions.handleCartItems({
+                      id: productId,
+                      item: item,
+                      quantity: itemQuantity,
+                    })
+                  );
+                  dispatch(actions.resetQuantity());
+                  navigate("/checkout", { replace: true });
+                }}
+                className="btn-buy"
+              >
+                Buy It Now
+              </button>
               <div className="inner__right__footer">
                 <a href="#">Compare</a>
                 <a href="#">Ask a question</a>

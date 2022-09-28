@@ -4,14 +4,17 @@ import { useEffect } from "react";
 import "./SubTotal.scss";
 import { useState } from "react";
 import { numberWithDot } from "../../../../utils/numberWithDot";
+import { BarLoader } from "react-spinners";
 
 const SubTotal = (props) => {
   const { formData, total, onDeliveryFeeChange } = props;
   const { district, province, ward, address } = formData;
   const [deliveryFee, setDeliveryFee] = useState();
+  const [isLoading, setIsLoading] = useState(false);
   console.log(formData);
 
   const fetchShippingFee = async (province, district, ward, address) => {
+    setIsLoading(true);
     const body = {
       pick_province: "Ho Chi Minh",
       pick_district: "Quận 10",
@@ -37,9 +40,9 @@ const SubTotal = (props) => {
         }
       )
       .json();
-    console.log(rdata);
     setDeliveryFee(rdata.fee.fee);
     onDeliveryFeeChange(rdata.fee.fee);
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -56,7 +59,11 @@ const SubTotal = (props) => {
       </div>
       <div>
         <p>Shipping fee</p>
-        <p>{deliveryFee ? `${numberWithDot(deliveryFee)}đ` : "--"}</p>
+        {isLoading ? (
+          <BarLoader width={50} />
+        ) : (
+          <p>{deliveryFee ? `${numberWithDot(deliveryFee)}đ` : "--"}</p>
+        )}
       </div>
     </div>
   );

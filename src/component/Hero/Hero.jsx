@@ -11,6 +11,7 @@ import Vga from "../../asset/images/vga.png";
 import Cpu from "../../asset/images/Cpu.png";
 import { useNavigate } from "react-router-dom";
 import * as services from "../../services/fakeItemsService";
+import { useState } from "react";
 
 const NextArrow = (props) => {
   const { className, style, onClick } = props;
@@ -39,9 +40,7 @@ const getRandomInt = (max) => {
 
 const Hero = () => {
   let navigate = useNavigate();
-  const startIndex = getRandomInt(10);
-  const parts = services.getItems().slice(startIndex, startIndex + 3);
-  console.log(parts);
+  const [parts, setParts] = useState([]);
 
   const settings = {
     dots: true,
@@ -56,33 +55,34 @@ const Hero = () => {
   };
 
   useEffect(() => {
-    const nextArrow = document.getElementsByClassName("slick-next");
-    nextArrow[0].style.right = "20px";
-    const prevArrow = document.getElementsByClassName("slick-prev");
-    prevArrow[0].style.left = "20px";
+    const startIndex = getRandomInt(10);
+    const parts = services.getItems().slice(startIndex, startIndex + 3);
+    setParts(parts);
   }, []);
 
   return (
-    <Slider {...settings} style={{ background: "white" }}>
-      {parts.map((part, index) => (
-        <div className="hero__inner" key={index}>
-          <div className="hero__left">
-            <h1>{part.name}</h1>
-            <button
-              className="btn"
-              onClick={() =>
-                navigate(`/products/${part.id}`, { replace: true })
-              }
-            >
-              Explore
-            </button>
+    parts.length > 0 && (
+      <Slider {...settings} style={{ background: "white" }}>
+        {parts.map((part, index) => (
+          <div className="hero__inner" key={index}>
+            <div className="hero__left">
+              <h1>{part.name}</h1>
+              <button
+                className="btn"
+                onClick={() =>
+                  navigate(`/products/${part.id}`, { replace: true })
+                }
+              >
+                Explore
+              </button>
+            </div>
+            <div className="hero__right">
+              <img src={part.image1} alt="" />
+            </div>
           </div>
-          <div className="hero__right">
-            <img src={part.image1} alt="" />
-          </div>
-        </div>
-      ))}
-    </Slider>
+        ))}
+      </Slider>
+    )
   );
 };
 
