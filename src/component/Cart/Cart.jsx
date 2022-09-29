@@ -9,13 +9,27 @@ import { numberWithDot } from "../../utils/numberWithDot";
 const Cart = () => {
   const [state, dispatch] = useStore();
   const { isCartOpen, cart, total } = state;
+  const [isRemoveClicked, setIsRemoveClicked] = useState(false);
   const cartRef = useRef(null);
   const cart_right = useRef(null);
   const navigate = useNavigate();
 
+  const getLocalStorage = () => {
+    const cart = localStorage.getItem("cart");
+    return JSON.parse(cart);
+  };
+
   useEffect(() => {
     dispatch(actions.cartTotalSub());
+    if (cart.length > 0 || isRemoveClicked) {
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
   }, [cart]);
+
+  useEffect(() => {
+    const cart = getLocalStorage() || [];
+    dispatch(actions.setCart(cart));
+  }, []);
 
   const handleCartClose = () => {
     dispatch(actions.closeCart());
@@ -90,7 +104,10 @@ const Cart = () => {
                     </div>
                     <div
                       className="remove"
-                      onClick={() => dispatch(actions.removeCartItem(item.id))}
+                      onClick={() => {
+                        dispatch(actions.removeCartItem(item.id));
+                        setIsRemoveClicked(true);
+                      }}
                     >
                       <p>Remove</p>
                     </div>

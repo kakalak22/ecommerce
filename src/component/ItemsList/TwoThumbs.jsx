@@ -10,7 +10,6 @@ const TwoThumbs = ({ rtl }) => {
   // const [values, setValues] = React.useState([25, 75]);
   const [state, dispatch] = useStore();
   const { priceRange } = state;
-  console.log(rtl);
 
   // useEffect(() => {
   //   handlePriceRange(values);

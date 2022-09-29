@@ -7,9 +7,6 @@ import Discount from "../component/Discount/Discount";
 import Recommend from "../component/Recommnend/Recommend";
 import Section from "../component/Section/Section";
 import Policy from "../component/Policy/Policy";
-import Modal from "../component/Modal/Modal";
-import Cart from "../component/Cart/Cart";
-import { useGlobalContext } from "../store/Context";
 
 const Home = () => {
   return (

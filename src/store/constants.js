@@ -9,6 +9,7 @@ export const CLOSE_CART = "close_cart";
 export const HANDLE_CART_ITEMS = "handle_cart_items";
 export const REMOVE_CART_ITEM = "remove_cart_item";
 export const CART_TOTAL_SUB = "cart_total_sub"
+export const SET_CART = "set_cart";
 
 export const INCREASE_QUANTITY = "increase_quantity";
 export const DECREASE_QUANTITY = "decrease_quantity";

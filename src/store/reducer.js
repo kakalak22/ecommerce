@@ -7,6 +7,7 @@ import {
     CLOSE_CART,
     INCREASE_QUANTITY,
     DECREASE_QUANTITY,
+    SET_CART,
     HANDLE_CART_ITEMS,
     REMOVE_CART_ITEM,
     INPUT_QUANTITY,
@@ -77,6 +78,14 @@ const reducer = (state, action) => {
                 ...state,
                 isCartOpen: false
             };
+
+        case SET_CART: {
+            const cart = action.payload;
+            return {
+                ...state,
+                cart: cart
+            }
+        }
 
         case HANDLE_CART_ITEMS: {
             const { id, quantity, item } = action.payload;
