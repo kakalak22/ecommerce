@@ -14,6 +14,7 @@ import ItemsPage from './SitePart/ItemsPage';
 import { useStore } from "./store"
 import Dropdown from './component/Dropdown/Dropdown';
 import Checkout from './component/CheckOut';
+import Create from './component/User/Create/Create';
 
 
 function App() {
@@ -48,6 +49,9 @@ function App() {
           </Route>
           <Route path='/checkout'>
             <Route index element={<Checkout />} />
+          </Route>
+          <Route path='/register'>
+            <Route index element={<Create />} />
           </Route>
         </Routes>
         <Footer />
