@@ -15,6 +15,7 @@ import { useStore } from "./store"
 import Dropdown from './component/Dropdown/Dropdown';
 import Checkout from './component/CheckOut';
 import Create from './component/User/Create/Create';
+import Login from './component/User/Login/Login';
 
 
 function App() {
@@ -50,8 +51,9 @@ function App() {
           <Route path='/checkout'>
             <Route index element={<Checkout />} />
           </Route>
-          <Route path='/register'>
-            <Route index element={<Create />} />
+          <Route path='/user'>
+            <Route path='login' element={<Login />} />
+            <Route path='register' element={<Create />} />
           </Route>
         </Routes>
         <Footer />
