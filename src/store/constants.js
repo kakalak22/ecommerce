@@ -28,3 +28,5 @@ export const CLOSE_DROPDOWN = "close_dropdown";
 
 export const INPUT_PRICE_RANGE = "input_price_range";
 export const PRICE_RANGE = "price_range";
+
+export const GET_USER_ID = "get_user_id";

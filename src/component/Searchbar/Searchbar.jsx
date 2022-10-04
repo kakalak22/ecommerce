@@ -20,7 +20,7 @@ import Search from "./Search";
 const Searchbar = () => {
   const [state, dispatch] = useStore();
 
-  const { cart } = state;
+  const { cart, user } = state;
   const [location, setLocation] = useState({ left: null, top: null });
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isDropdownSearch, setIsDropdownSearch] = useState(false);
@@ -80,7 +80,7 @@ const Searchbar = () => {
       return current + next.quantity;
     }, 0);
     setCartTotal(newCartTotal);
-  });
+  }, []);
 
   const icons = [
     {
@@ -88,7 +88,11 @@ const Searchbar = () => {
       name: "Search",
       count: null,
     },
-    { icon: <AiOutlineUser />, name: "Account", count: null },
+    {
+      icon: <AiOutlineUser onClick={() => navigate("/user")} />,
+      name: user ? "View Account" : "Login",
+      count: null,
+    },
     { icon: <AiOutlineStar />, name: "Wishlist", count: wishListTotal },
     { icon: <BsArrowDownUp />, name: "Compare", count: null },
     {

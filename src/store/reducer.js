@@ -1,3 +1,5 @@
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../firebase-config";
 import {
     OPEN_SUBMENU,
     CLOSE_SUBMENU,
@@ -22,6 +24,7 @@ import {
     CLOSE_DROPDOWN,
     PRICE_RANGE,
     INPUT_PRICE_RANGE,
+    GET_USER_ID
 
 } from "./constants";
 
@@ -37,7 +40,8 @@ const initState = {
     singleItem: undefined,
     sideName: "",
     location: { left: null, top: null },
-    priceRange: [0, 90000000]
+    priceRange: [0, 90000000],
+    user: { email: "", displayName: "" }
 
 }
 
@@ -293,6 +297,16 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 priceRange: action.payload
+            }
+
+        case GET_USER_ID:
+            {
+
+                return {
+                    ...state,
+                    user: action.payload
+                }
+
             }
 
         default:

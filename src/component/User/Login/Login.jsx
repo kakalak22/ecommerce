@@ -1,11 +1,6 @@
 import React from "react";
 import { Formik, useField, useFormikContext } from "formik";
-import {
-  createUserWithEmailAndPassword,
-  getAuth,
-  onAuthStateChanged,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../firebase-config";
 import { useEffect } from "react";
 
@@ -23,36 +18,13 @@ const MyTextInput = ({ label, ...props }) => {
 };
 
 const Login = () => {
-  useEffect(() => {
-    onAuthStateChanged(
-      auth,
-      (user) => {
-        if (user) {
-          // User is signed in, see docs for a list of available properties
-          // https://firebase.google.com/docs/reference/js/firebase.User
-          const uid = user.uid;
-          console.log(user.uid);
-          // ...
-        } else {
-          // User is signed out
-          // ...
-        }
-      },
-      []
-    );
-  }, []);
   const handleRegister = (values, actions) => {
-    signInWithEmailAndPassword(auth, values.email, values.password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        console.log(user);
-        // ...
-      })
-      .catch((error) => {
+    signInWithEmailAndPassword(auth, values.email, values.password).catch(
+      (error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-      });
+      }
+    );
   };
 
   return (
