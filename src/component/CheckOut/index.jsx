@@ -21,7 +21,6 @@ const Checkout = () => {
   const [totalPriceWithDeliFee, setTotalPriceWithDeliFee] = useState();
 
   useEffect(() => {
-    console.log(deliveryFee);
     if (deliveryFee && total) {
       setTotalPriceWithDeliFee(deliveryFee + total);
       return;

@@ -11,7 +11,6 @@ const SubTotal = (props) => {
   const { district, province, ward, address } = formData;
   const [deliveryFee, setDeliveryFee] = useState();
   const [isLoading, setIsLoading] = useState(false);
-  console.log(formData);
 
   const fetchShippingFee = async (province, district, ward, address) => {
     setIsLoading(true);

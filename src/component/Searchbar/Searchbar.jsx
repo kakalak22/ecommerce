@@ -89,8 +89,15 @@ const Searchbar = () => {
       count: null,
     },
     {
-      icon: <AiOutlineUser onClick={() => navigate("/user")} />,
-      name: user ? "View Account" : "Login",
+      icon: (
+        <AiOutlineUser
+          onClick={() => {
+            if (user?.email !== "") navigate("/user");
+            else navigate("/user/login");
+          }}
+        />
+      ),
+      name: user?.email !== "" ? "View Account" : "Login",
       count: null,
     },
     { icon: <AiOutlineStar />, name: "Wishlist", count: wishListTotal },

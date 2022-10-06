@@ -1,11 +1,14 @@
 import React from "react";
 import "./Button.scss";
 
-const Button = ({ name, type }) => {
+const Button = ({ buttonStyle, name, type, onClick }) => {
   return (
     <button
-      className={type === "submit" ? "form-button-submit" : "form-button-reset"}
+      className={
+        buttonStyle === "primary" ? "form-button-submit" : "form-button-reset"
+      }
       type={type}
+      onClick={onClick}
     >
       {name}
     </button>

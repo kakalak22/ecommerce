@@ -20,6 +20,9 @@ import { useState } from 'react';
 import { auth } from './firebase-config';
 import { onAuthStateChanged } from 'firebase/auth';
 import User from './component/User';
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+import ProtectedRoute from './common/ProtectedRoute';
 
 
 function App() {
@@ -31,7 +34,6 @@ function App() {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setUserId({ email: user.email, displayName: user.displayName });
-        console.log(user);
       } else {
         setUserId({ email: "", displayName: "" });
       }
@@ -57,6 +59,18 @@ function App() {
         {isModalOpen && <Modal singleItem={singleItem} />}
         <Cart />
         <Header />
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+        />
         <Routes>
           <Route path='/'>
             <Route index element={<Home />} />
@@ -69,7 +83,7 @@ function App() {
             <Route index element={<Checkout />} />
           </Route>
           <Route path='/user'>
-            <Route index element={<User />} />
+            <Route index element={<ProtectedRoute><User /></ProtectedRoute>} />
             <Route path='login' element={<Login />} />
             <Route path='register' element={<Create />} />
           </Route>

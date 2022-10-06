@@ -23,7 +23,6 @@ const ItemDescription = () => {
     const sum = reviews.reduce((previousVal, nextVal) => {
       return previousVal + nextVal.rate;
     }, 0);
-    console.log(sum);
     const average = Math.round((sum / reviews.length) * 10) / 10;
     setAverageRating(average);
   }, []);

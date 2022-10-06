@@ -1,7 +1,7 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import "./Sidebar.scss";
 
-import { GrNext, GrPrevious } from "react-icons/gr";
+import { GrNext } from "react-icons/gr";
 import { AiOutlineArrowLeft, AiOutlineClose } from "react-icons/ai";
 import { useStore, actions } from "../../store";
 import {
@@ -12,11 +12,14 @@ import {
 } from "react-router-dom";
 import * as cateServices from "../../services/fakeCategoryService";
 import { useEffect } from "react";
+import { signOut } from "firebase/auth";
+import { auth } from "../../firebase-config";
+import { toast } from "react-toastify";
 
 const SideBar = () => {
   const [state, dispatch] = useStore();
   const [categories, setCategories] = useState([]);
-  const { isSidemenuOpen } = state;
+  const { isSidemenuOpen, user } = state;
   const [isSubmenuOfLinkOpen, setIsSubmenuOfLinkOpen] = useState(false);
   const navigate = useNavigate();
   const urlLocation = useLocation();
@@ -73,6 +76,47 @@ const SideBar = () => {
               Products
             </Link>
             <GrNext onClick={() => setIsSubmenuOfLinkOpen(true)} />
+          </div>
+          <div className="sidebar__link">
+            {user?.email === "" ? (
+              <Link
+                to={"/user/login"}
+                replace={true}
+                onClick={() => dispatch(actions.closeSidemenu())}
+              >
+                Login
+              </Link>
+            ) : (
+              <Link
+                to={"/user"}
+                replace={true}
+                onClick={() => dispatch(actions.closeSidemenu())}
+              >
+                User
+              </Link>
+            )}
+          </div>
+          <div className="sidebar__link">
+            {user?.email === "" ? (
+              <Link
+                to={"/user/register"}
+                replace={true}
+                onClick={() => dispatch(actions.closeSidemenu())}
+              >
+                Register
+              </Link>
+            ) : (
+              <Link
+                to={"/"}
+                onClick={() => {
+                  signOut(auth);
+                  dispatch(actions.closeSidemenu());
+                  toast.success("Log out successful");
+                }}
+              >
+                Log out
+              </Link>
+            )}
           </div>
         </div>
         <div

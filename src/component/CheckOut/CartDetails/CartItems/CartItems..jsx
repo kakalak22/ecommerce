@@ -5,7 +5,6 @@ import { numberWithDot } from "../../../../utils/numberWithDot";
 
 const CartItems = ({ cart }) => {
   const id = useId();
-  console.log(cart);
   return (
     <div className="items-container">
       {cart.length > 0 ? (

@@ -1,50 +1,69 @@
-import React from "react";
-import { Formik, useField, useFormikContext } from "formik";
-import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+import React, { useState } from "react";
+import { Formik } from "formik";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../firebase-config";
-import { useEffect } from "react";
-
-const MyTextInput = ({ label, ...props }) => {
-  const [field, meta] = useField(props);
-  return (
-    <React.Fragment>
-      <label htmlFor={props.id || props.name}>{label}</label>
-      <input className="text-input" {...field} {...props} />
-      {meta.touched && meta.error ? (
-        <div className="error">{meta.error}</div>
-      ) : null}
-    </React.Fragment>
-  );
-};
+import FormInput from "../../../common/Form/FormInput";
+import Button from "../../../common/Form/Button/Button";
+import { useNavigate } from "react-router";
+import "../User.scss";
+import { toast } from "react-toastify";
 
 const Login = () => {
+  const [errorMessage, setErrorMessage] = useState();
+  const [clicked, setClicked] = useState(0);
+  const navigate = useNavigate();
   const handleRegister = (values, actions) => {
-    signInWithEmailAndPassword(auth, values.email, values.password).catch(
-      (error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-      }
-    );
+    signInWithEmailAndPassword(auth, values.email, values.password)
+      .then((userCredential) => {
+        if (userCredential) {
+          toast.success("Login successful");
+          setTimeout(() => {
+            navigate("/");
+          }, 2000);
+        }
+      })
+      .catch((error) => {
+        setErrorMessage(error.message);
+        setClicked(clicked + 1);
+      });
   };
 
   return (
-    <div>
-      <Formik
-        initialValues={{
-          email: "",
-          password: "",
-        }}
-        onSubmit={(values, actions) => handleRegister(values, actions)}
-      >
-        {(props) => (
-          <form onSubmit={props.handleSubmit}>
-            <MyTextInput label="email" name="email" type="email" />
-            <MyTextInput label="password" name="password" type="password" />
-            <button type="submit"> Register </button>
-          </form>
-        )}
-      </Formik>
-    </div>
+    <React.Fragment>
+      <div className="user-wrapper">
+        <div className="user-wrapper__inner">
+          <h1>Login</h1>
+          <Formik
+            initialValues={{
+              email: "",
+              password: "",
+            }}
+            onSubmit={(values, actions) => handleRegister(values, actions)}
+          >
+            {(props) => (
+              <form className="user-form" onSubmit={props.handleSubmit}>
+                <FormInput label="Email" name="email" type="email" />
+                <FormInput
+                  label="Password"
+                  name="password"
+                  type="password"
+                  errorMessage={errorMessage}
+                  clicked={clicked}
+                />
+                <div className="button-container">
+                  <Button buttonStyle="primary" type="submit" name="Login" />
+                  <Button
+                    buttonStyle="secondary"
+                    name="Register"
+                    onClick={() => navigate("/user/register")}
+                  />
+                </div>
+              </form>
+            )}
+          </Formik>
+        </div>
+      </div>
+    </React.Fragment>
   );
 };
 
