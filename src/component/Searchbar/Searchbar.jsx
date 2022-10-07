@@ -80,7 +80,7 @@ const Searchbar = () => {
       return current + next.quantity;
     }, 0);
     setCartTotal(newCartTotal);
-  }, []);
+  }, [cart]);
 
   const icons = [
     {

@@ -20,7 +20,7 @@ const User = () => {
       .then(toast.success("Log out successful"))
       .then(
         setTimeout(() => {
-          navigate("/login");
+          navigate("/user/login");
         }, 2000)
       );
   };

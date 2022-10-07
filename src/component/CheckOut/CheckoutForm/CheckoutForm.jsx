@@ -7,13 +7,20 @@ import SelectWard from "./SelectForm/SelectWard";
 import "./Form.scss";
 import { useEffect } from "react";
 import { animateScroll } from "react-scroll";
+import { useStore } from "../../../store";
 
-const MyTextInput = ({ label, ...props }) => {
+const MyTextInput = ({ defaultValue, label, ...props }) => {
   const [field, meta] = useField(props);
+
   return (
     <React.Fragment>
       <label htmlFor={props.id || props.name}>{label}</label>
-      <input className="text-input" {...field} {...props} />
+      <input
+        className="text-input"
+        {...field}
+        {...props}
+        value={defaultValue}
+      />
       {meta.touched && meta.error ? (
         <div className="error">{meta.error}</div>
       ) : null}
@@ -23,9 +30,14 @@ const MyTextInput = ({ label, ...props }) => {
 
 const CheckoutForm = ({ onReset, onFormDataChange }) => {
   const formData = useFormikContext();
+
+  const [state, dispatch] = useStore();
+  const { user } = state;
+
   const scrollOpt = {
     duration: 300,
   };
+
   const provinceId = formData.values.province?.id || null;
   const districtId = formData.values.district?.id || null;
 
@@ -44,12 +56,14 @@ const CheckoutForm = ({ onReset, onFormDataChange }) => {
         name="name"
         type="text"
         placeholder="Input your name..."
+        defaultValue={user?.displayName}
       />
       <MyTextInput
         label="Email"
         name="email"
         type="email"
         placeholder="Input your email..."
+        defaultValue={user?.email}
       />
       <SelectProvince name="province" />
       <SelectDistrict name="district" provinceId={provinceId} />

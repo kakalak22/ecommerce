@@ -80,7 +80,7 @@ function App() {
             <Route path=":productId" element={<ItemDetailPage />} />
           </Route>
           <Route path='/checkout'>
-            <Route index element={<Checkout />} />
+            <Route index element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
           </Route>
           <Route path='/user'>
             <Route index element={<ProtectedRoute><User /></ProtectedRoute>} />

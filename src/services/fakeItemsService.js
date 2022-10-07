@@ -162,3 +162,7 @@ export function getItems() {
 export function getItem(id) {
     return items.find((m) => m.id === id);
 }
+
+export function getItemsByCateId(cateId) {
+    return items.filter(item => item.category.id === cateId)
+}

@@ -7,6 +7,7 @@ import Button from "../../../common/Form/Button/Button";
 import { useNavigate } from "react-router";
 import "../User.scss";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [errorMessage, setErrorMessage] = useState();
@@ -50,6 +51,10 @@ const Login = () => {
                   errorMessage={errorMessage}
                   clicked={clicked}
                 />
+                <p>
+                  Doesn't have account yet?{" "}
+                  <Link to="/user/register">Register</Link>
+                </p>
                 <div className="button-container">
                   <Button buttonStyle="primary" type="submit" name="Login" />
                   <Button
